@@ -1,5 +1,8 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
+import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,27 +12,52 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  TextEditingController countycode = TextEditingController();
+  bool isEnable = false;
+
+  @override
+  void initState() {
+    countycode.text = '+91';
+    // TODO: implement initState
+    super.initState();
+  }
+
+  // void _validatePhone(String value) {
+  //   setState(() {
+  //     isPhoneValid = value.length == 10; // 10-digit validation
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Positioned.fill(
+          // Background Image (Top Full Width)
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
             child: Image.asset(
-              'assets/images/image-biryani.png',
-              fit: BoxFit.cover,
-              width: 50,
-              height: 60,
-              
+              'assets/images/image-biryani.png', // Ensure this exists
+              fit: BoxFit.contain, // Full width cover
+              width: double.infinity,
+              // height: screenHeight * 0.4, // 40% of screen height
             ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
+
+          // White Container (Overlapping Image)
+          Positioned(
+            top: screenHeight * 0.35, // Adjust for better overlap
+            left: 0,
+            right: 0,
             child: Container(
-              height: MediaQuery.of(context).size.height * 0.6,
-              width: double.infinity,
+              height: screenHeight * 0.68, // Remaining space
+              padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(
@@ -44,100 +72,146 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ],
               ),
-              padding: const EdgeInsets.all(20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
                 children: [
+                  // Title
                   const Text(
                     "Konkan #1 Food Delivery App",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(height: 10),
+                  const SizedBox(height: 20),
+
+                  // Subtitle
                   const Text(
                     "Login or Signup",
                     style: TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold,
-                      color: Colors.black,
-                    ),
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
                   ),
                   const SizedBox(height: 20),
-                  const Text("Enter Mobile Number", style: TextStyle(fontSize: 12, color: Colors.black87),),
+
+                  // Mobile Number Label
+                  const Text(
+                    "Enter Mobile Number",
+                    style: TextStyle(fontSize: 12, color: Colors.black87),
+                  ),
                   const SizedBox(height: 8),
-                  TextField(
-                    controller: _phoneController,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      prefixText: '+91 ',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Theme.of(context).primaryColor), // Uses primary color
-                      ),
-                      suffixIcon: _phoneController.text.length == 10
-                          ? const Icon(Icons.check_circle, color: Colors.green)
-                          : null,
+
+                  Container(
+                    // backgroundColor: Colors.grey,
+                    height: 45,
+                    decoration: BoxDecoration(
+                        border: Border.all(width: 1, color: Colors.grey),
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        SizedBox(
+                          width: 40,
+                          child: TextField(
+                            controller: countycode,
+                            decoration: const InputDecoration(
+                                border: InputBorder.none, hintText: ' +91'),
+                          ),
+                        ),
+                        const Text(
+                          '| ',
+                          style: TextStyle(fontSize: 20, color: Colors.grey),
+                        ),
+                        Expanded(
+                          child: TextField(
+                            controller: phoneController,
+                            decoration:
+                                const InputDecoration(border: InputBorder.none),
+                          ),
+                        ),
+                      ],
                     ),
-                    onChanged: (value) {
-                      setState(() {});
-                    },
                   ),
                   const SizedBox(height: 20),
+
                   SizedBox(
+                    height: 45,
                     width: double.infinity,
-                    height: 50,
                     child: ElevatedButton(
-                      onPressed: _phoneController.text.length == 10 ? () {} : null,
-                      child: const Text(
-                        "CONTINUE",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: [
-                      Expanded(child: Divider()),
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: Text("or connect with"),
-                      ),
-                      Expanded(child: Divider()),
-                    ],
-                  ),
-                  const SizedBox(height: 20),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 50,
-                    child: OutlinedButton(
                       onPressed: () {},
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          
-                          SvgPicture.asset('assets/svgicons/google.svg', height: 24),
-                          const SizedBox(width: 10),
-                          const Text("GOOGLE", style: TextStyle(fontWeight: FontWeight.bold),),
-                        ],
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.deepOrange,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          )),
+                      child: const Text(
+                        'CONTINUE',
+                        style: TextStyle(color: Colors.white, fontSize: 18),
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   const Center(
+                      child: Text(
+                    'or connect with',
+                    style: TextStyle(fontSize: 14),
+                  )),
+                  const SizedBox(height: 20),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 241, 239, 238),
+                      shape: RoundedRectangleBorder(
+                        side: const BorderSide(color: Colors.deepOrange),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // SvgPicture.asset('assets/svgicons/google.svg'),
+                        const Text(
+                          'GOOGLE',
+                          style:
+                              TextStyle(color: Colors.deepOrange, fontSize: 18),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: 20),
+                  Center(
                     child: Text.rich(
                       TextSpan(
                         text: "By continuing you agree to the ",
+                        style: const TextStyle(color: Colors.black87),
                         children: [
                           TextSpan(
                             text: "Terms of Service",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const TermsOfServiceScreen()),
+                                );
+                              },
                           ),
-                          TextSpan(text: " and "),
+                          const TextSpan(text: " and "),
                           TextSpan(
                             text: "Privacy Policy",
-                            style: TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const PrivacyPolicyScreen()),
+                                );
+                              },
                           ),
                         ],
                       ),
