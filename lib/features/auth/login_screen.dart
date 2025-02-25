@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter/services.dart';
+import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
 import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
 
@@ -13,21 +14,20 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController phoneController = TextEditingController();
-  TextEditingController countycode = TextEditingController();
+  final TextEditingController countryCodeController = TextEditingController();
   bool isEnable = false;
 
   @override
   void initState() {
-    countycode.text = '+91';
-    // TODO: implement initState
+    countryCodeController.text = '+91';
     super.initState();
   }
 
-  // void _validatePhone(String value) {
-  //   setState(() {
-  //     isPhoneValid = value.length == 10; // 10-digit validation
-  //   });
-  // }
+  void _validatePhone(String value) {
+    setState(() {
+      isEnable = value.length == 10;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,26 +37,22 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          // Background Image (Top Full Width)
           Positioned(
             top: 0,
             left: 0,
             right: 0,
             child: Image.asset(
-              'assets/images/image-biryani.png', // Ensure this exists
-              fit: BoxFit.contain, // Full width cover
+              'assets/images/image-biryani.png',
+              fit: BoxFit.contain,
               width: double.infinity,
-              // height: screenHeight * 0.4, // 40% of screen height
             ),
           ),
-
-          // White Container (Overlapping Image)
           Positioned(
-            top: screenHeight * 0.35, // Adjust for better overlap
+            top: screenHeight * 0.35,
             left: 0,
             right: 0,
             child: Container(
-              height: screenHeight * 0.68, // Remaining space
+              height: screenHeight * 0.68,
               padding: const EdgeInsets.all(20),
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -75,47 +71,41 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // Title
                   const Text(
                     "Konkan #1 Food Delivery App",
                     style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 20),
-
-                  // Subtitle
                   const Text(
                     "Login or Signup",
                     style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                         color: Colors.black),
                   ),
                   const SizedBox(height: 20),
-
-                  // Mobile Number Label
                   const Text(
                     "Enter Mobile Number",
-                    style: TextStyle(fontSize: 12, color: Colors.black87),
+                    style: TextStyle(fontSize: 13, color: Colors.black87),
                   ),
                   const SizedBox(height: 8),
-
                   Container(
-                    // backgroundColor: Colors.grey,
                     height: 45,
                     decoration: BoxDecoration(
-                        border: Border.all(width: 1, color: Colors.grey),
-                        borderRadius: BorderRadius.circular(10)),
+                      border: Border.all(width: 1, color: Colors.grey),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                     child: Row(
                       children: [
-                        const SizedBox(
-                          width: 10,
-                        ),
+                        const SizedBox(width: 10),
                         SizedBox(
                           width: 40,
                           child: TextField(
-                            controller: countycode,
+                            controller: countryCodeController,
                             decoration: const InputDecoration(
-                                border: InputBorder.none, hintText: ' +91'),
+                                border: InputBorder.none,
+                                hintText: ' +91',
+                                hintStyle: TextStyle(color: Colors.black)),
                           ),
                         ),
                         const Text(
@@ -125,25 +115,42 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                           child: TextField(
                             controller: phoneController,
-                            decoration:
-                                const InputDecoration(border: InputBorder.none),
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
+                            onChanged: _validatePhone,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
                           ),
                         ),
                       ],
                     ),
                   ),
                   const SizedBox(height: 20),
-
                   SizedBox(
                     height: 45,
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: isEnable
+                          ? () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const OtpScreen()),
+                              );
+                            }
+                          : null,
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.deepOrange,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          )),
+                        backgroundColor: Colors.deepOrange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        disabledBackgroundColor:
+                            const Color.fromARGB(255, 244, 167, 144),
+                      ),
                       child: const Text(
                         'CONTINUE',
                         style: TextStyle(color: Colors.white, fontSize: 18),
@@ -157,7 +164,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 14),
                   )),
                   const SizedBox(height: 20),
-
                   ElevatedButton(
                     onPressed: () {},
                     style: ElevatedButton.styleFrom(
@@ -167,11 +173,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // SvgPicture.asset('assets/svgicons/google.svg'),
-                        const Text(
+                         Text(
                           'GOOGLE',
                           style:
                               TextStyle(color: Colors.deepOrange, fontSize: 18),
