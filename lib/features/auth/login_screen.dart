@@ -1,6 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
 import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
@@ -173,11 +174,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // SvgPicture.asset('assets/svgicons/google.svg'),
-                         Text(
+                        SvgPicture.asset('assets/svgicons/google.svg'),
+                        const SizedBox(width: 10),
+                        const Text(
                           'GOOGLE',
                           style:
                               TextStyle(color: Colors.deepOrange, fontSize: 18),
