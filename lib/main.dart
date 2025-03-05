@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
-import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
+import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
 import 'package:konkan_bite_food/features/auth/login_screen.dart';
 import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 
@@ -21,7 +21,8 @@ class MyApp extends StatelessWidget {
       routes: {'login': (context) => const LoginScreen(),
        'otp': (context) => const OtpScreen(),
         'location access':  (context) => const LocationAccessScreen(),
-        'location selection': (context) => const LocationSelectionScreen()
+        'location selection1': (context) => const LocationSelectionScreen1(userLocation: ""),
+
        },
       // home: const LoginScreen(),
     );

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
+import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
+import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
 
 class LocationAccessScreen extends StatefulWidget {
   const LocationAccessScreen({super.key});
@@ -57,30 +58,29 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
             Column(
               children: [
                 // Use Current Location Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const LocationSelectionScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      "USE CURRENT LOCATION",
-                      style: TextStyle(color: Colors.white, fontSize: 14),
-                    ),
+                 SizedBox(
+              width: double.infinity,
+              height: 45,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LocationSelectionScreen1(userLocation: '',)),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.deepOrange,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
                   ),
                 ),
+                child: const Text(
+                  "USE CURRENT LOCATION",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
+                ),
+              ),
+            ),
                 const SizedBox(height: 15),
 
                 // Enter Manually Button
@@ -89,6 +89,8 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   height: 45,
                   child: ElevatedButton(
                     onPressed: () {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddressDetailsScreen(),
+                      ));
                       // Add navigation logic here
                     },
                     style: ElevatedButton.styleFrom(
