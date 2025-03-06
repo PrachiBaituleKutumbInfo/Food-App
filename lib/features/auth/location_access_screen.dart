@@ -58,29 +58,30 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
             Column(
               children: [
                 // Use Current Location Button
-                 SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LocationSelectionScreen1(userLocation: '',)),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                SizedBox(
+                  width: double.infinity,
+                  height: 45,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const LocationSelectionScreen(userLocation: '',)),
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.deepOrange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: const Text(
+                      "USE CURRENT LOCATION",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
                   ),
                 ),
-                child: const Text(
-                  "USE CURRENT LOCATION",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
                 const SizedBox(height: 15),
 
                 // Enter Manually Button
@@ -89,8 +90,11 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   height: 45,
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => AddressDetailsScreen(),
-                      ));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AddressDetailsScreen(),
+                          ));
                       // Add navigation logic here
                     },
                     style: ElevatedButton.styleFrom(

@@ -2,19 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 
-class LocationSelectionScreen1 extends StatefulWidget {
+class LocationSelectionScreen extends StatefulWidget {
   final String userLocation;
 
-  const LocationSelectionScreen1({super.key, required this.userLocation});
+  const LocationSelectionScreen({super.key, required this.userLocation});
 
   @override
-  State<LocationSelectionScreen1> createState() => _LocationSelectionScreen1State();
+  State<LocationSelectionScreen> createState() =>
+      _LocationSelectionScreenState();
 }
 
-class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
+class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
   late GoogleMapController _mapController;
   LatLng _currentPosition = const LatLng(19.0760, 72.8777); // Default to Mumbai
-  String _address = "Fetching location...";
 
   @override
   void initState() {
@@ -30,7 +30,6 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       setState(() {
-        _address = "Location services are disabled.";
       });
       return;
     }
@@ -41,7 +40,6 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
         setState(() {
-          _address = "Location permissions denied";
         });
         return;
       }
@@ -49,7 +47,6 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
 
     if (permission == LocationPermission.deniedForever) {
       setState(() {
-        _address = "Location permissions are permanently denied.";
       });
       return;
     }
@@ -58,7 +55,7 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
     Position position = await Geolocator.getCurrentPosition();
     setState(() {
       _currentPosition = LatLng(position.latitude, position.longitude);
-      _address = "Current Location Selected"; // Update UI
+// Update UI
     });
 
     // Move map to current position
@@ -72,7 +69,7 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
   void _onMarkerDragged(LatLng newPosition) {
     setState(() {
       _currentPosition = newPosition;
-      _address = "Updated Location Selected"; // Show updated text
+// Show updated text
     });
   }
 
@@ -83,7 +80,8 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
         children: [
           GoogleMap(
             onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(target: _currentPosition, zoom: 15),
+            initialCameraPosition:
+                CameraPosition(target: _currentPosition, zoom: 15),
             markers: {
               Marker(
                 markerId: const MarkerId("selected_location"),
@@ -99,7 +97,7 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
             alignment: Alignment.bottomCenter,
             child: Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
@@ -117,12 +115,13 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
                     height: 45,
                     width: double.infinity,
                     child: TextField(
-                      
                       decoration: InputDecoration(
                         fillColor: const Color.fromARGB(255, 211, 210, 210),
-                        hintText: "Search for a building, street name or area",hintStyle: TextStyle(color: Colors.grey),
-                        suffix: Icon(Icons.search),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                        hintText: "Search for a building, street name or area",
+                        hintStyle: const TextStyle(color: Colors.grey),
+                        suffix: const Icon(Icons.search),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                     ),
                   ),
@@ -130,28 +129,31 @@ class _LocationSelectionScreen1State extends State<LocationSelectionScreen1> {
 
                   // Use Current Location Button
                   SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LocationSelectionScreen1(userLocation: '',)),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                    width: double.infinity,
+                    height: 45,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const LocationSelectionScreen(
+                                    userLocation: '',
+                                  )),
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.deepOrange,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                      ),
+                      child: const Text(
+                        "USE THIS ADDRESS",
+                        style: TextStyle(color: Colors.white, fontSize: 18),
+                      ),
+                    ),
                   ),
-                ),
-                child: const Text(
-                  "USE THIS ADDRESS",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
                 ],
               ),
             ),

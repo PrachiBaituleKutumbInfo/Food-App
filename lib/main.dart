@@ -11,20 +11,24 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  // Define route names as constants to avoid typos
+  static const String loginRoute = '/login';
+  static const String otpRoute = '/otp';
+  static const String locationAccessRoute = '/location_access';
+  static const String locationSelectionRoute = '/location_selection';
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      
       debugShowCheckedModeBanner: false,
-      initialRoute: 'login',
-      routes: {'login': (context) => const LoginScreen(),
-       'otp': (context) => const OtpScreen(),
-        'location access':  (context) => const LocationAccessScreen(),
-        'location selection1': (context) => const LocationSelectionScreen1(userLocation: ""),
-
-       },
-      // home: const LoginScreen(),
+      initialRoute: loginRoute,
+      routes: {
+        loginRoute: (context) => const LoginScreen(),
+        otpRoute: (context) => const OtpScreen(),
+        locationAccessRoute: (context) => const LocationAccessScreen(),
+        locationSelectionRoute: (context) =>
+            const LocationSelectionScreen(userLocation: '',),
+      },
     );
   }
 }
