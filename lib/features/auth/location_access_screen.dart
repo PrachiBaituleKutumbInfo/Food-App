@@ -93,7 +93,7 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => AddressDetailsScreen(),
+                            builder: (context) => const AddressDetailsScreen(),
                           ));
                       // Add navigation logic here
                     },

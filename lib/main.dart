@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
 import 'package:konkan_bite_food/features/auth/login_screen.dart';
@@ -16,6 +17,8 @@ class MyApp extends StatelessWidget {
   static const String otpRoute = '/otp';
   static const String locationAccessRoute = '/location_access';
   static const String locationSelectionRoute = '/location_selection';
+  static const String addressDetailsRoute = '/address_selection';
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class MyApp extends StatelessWidget {
         locationAccessRoute: (context) => const LocationAccessScreen(),
         locationSelectionRoute: (context) =>
             const LocationSelectionScreen(userLocation: '',),
+        addressDetailsRoute: (context) => const AddressDetailsScreen(),
       },
     );
   }

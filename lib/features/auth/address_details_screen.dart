@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/dashborad_screen.dart';
 
 class AddressDetailsScreen extends StatefulWidget {
   const AddressDetailsScreen({super.key});
@@ -52,7 +53,8 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                       children: [
                         const Text(
                           "Add more address details",
-                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          style: TextStyle(
+                              fontSize: 18, fontWeight: FontWeight.bold),
                         ),
                         IconButton(
                           icon: const Icon(Icons.close),
@@ -74,11 +76,14 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                       decoration: BoxDecoration(
                         color: Colors.orange.shade100,
                         borderRadius: BorderRadius.circular(10),
-                        border: Border.all(color: const Color.fromARGB(255, 169, 60, 27), width: 2),
+                        border: Border.all(
+                            color: const Color.fromARGB(255, 169, 60, 27),
+                            width: 2),
                       ),
                       child: const Text(
                         "A detailed address will help our delivery person reach your address easily",
-                        style: TextStyle(color: Color.fromARGB(255, 169, 60, 27)),
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 169, 60, 27)),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -87,14 +92,16 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                       children: [
                         _buildAddressTypeButton("Home", Icons.home_outlined),
                         _buildAddressTypeButton("Work", Icons.work_outline),
-                        _buildAddressTypeButton("Other", Icons.location_on_outlined),
+                        _buildAddressTypeButton(
+                            "Other", Icons.location_on_outlined),
                       ],
                     ),
                     const SizedBox(height: 10),
                     _buildTextField(houseNumberController, "House Number"),
                     _buildTextField(buildingNameController, "Building Name"),
                     _buildTextField(addressLineController, "Address Line 1"),
-                    _buildTextField(landmarkController, "Nearby Landmark (optional)"),
+                    _buildTextField(
+                        landmarkController, "Nearby Landmark (optional)"),
                     _buildTextField(nameController, "Your Name"),
                     _buildTextField(mobileController, "Mobile Number"),
                     const SizedBox(height: 20),
@@ -102,14 +109,24 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                       width: double.infinity,
                       height: 45,
                       child: ElevatedButton(
-                        onPressed: _saveAddress,
+                        onPressed: () {
+                          _saveAddress(); // Call your save function
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const DashboradScreen(), // Replace with your next screen
+                            ),
+                          );
+                        },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.deepOrange,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10)),
                         ),
                         child: const Text("SAVE ADDRESS",
-                            style: TextStyle(color: Colors.white, fontSize: 18)),
+                            style:
+                                TextStyle(color: Colors.white, fontSize: 18)),
                       ),
                     ),
                   ],
@@ -140,71 +157,72 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
     );
   }
 
- Widget _buildAddressTypeButton(String type, IconData icon) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 5),
-    child: ElevatedButton.icon(
-      onPressed: () {
-        setState(() {
-          selectedAddressType = type;
-        });
-      },
-      icon: Icon(
-        icon,
-        color: selectedAddressType == type
-            ? Colors.deepOrange
-            : const Color.fromARGB(255, 111, 111, 111),
-      ),
-      label: Text(
-        type,
-        style: TextStyle(
+  Widget _buildAddressTypeButton(String type, IconData icon) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5),
+      child: ElevatedButton.icon(
+        onPressed: () {
+          setState(() {
+            selectedAddressType = type;
+          });
+        },
+        icon: Icon(
+          icon,
           color: selectedAddressType == type
               ? Colors.deepOrange
               : const Color.fromARGB(255, 111, 111, 111),
         ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor:
-            selectedAddressType == type ? Colors.grey[200] : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(
+        label: Text(
+          type,
+          style: TextStyle(
             color: selectedAddressType == type
                 ? Colors.deepOrange
-                : const Color.fromARGB(255, 175, 173, 173), // Change border color dynamically
-            width: 2, // Make border more visible
+                : const Color.fromARGB(255, 111, 111, 111),
+          ),
+        ),
+        style: ElevatedButton.styleFrom(
+          backgroundColor:
+              selectedAddressType == type ? Colors.grey[200] : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(
+              color: selectedAddressType == type
+                  ? Colors.deepOrange
+                  : const Color.fromARGB(
+                      255, 175, 173, 173), // Change border color dynamically
+              width: 2, // Make border more visible
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 
   Widget _buildTextField(TextEditingController controller, String hintText) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(vertical: 5),
-    child: TextField(
-      controller: controller,
-      decoration: InputDecoration(
-        filled: true, // Enable background fill
-        fillColor: Colors.grey[100], // Light grey background
-        hintText: hintText, hintStyle: TextStyle(color: const Color.fromARGB(255, 111, 111, 111)),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.grey), // Grey border
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.grey), // Grey border
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: const BorderSide(color: Colors.grey, width: 2), // Darker grey on focus
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: TextField(
+        controller: controller,
+        decoration: InputDecoration(
+          filled: true, // Enable background fill
+          fillColor: Colors.grey[100], // Light grey background
+          hintText: hintText,
+          hintStyle: const TextStyle(color: Color.fromARGB(255, 111, 111, 111)),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey), // Grey border
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(color: Colors.grey), // Grey border
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: const BorderSide(
+                color: Colors.grey, width: 2), // Darker grey on focus
+          ),
         ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }
