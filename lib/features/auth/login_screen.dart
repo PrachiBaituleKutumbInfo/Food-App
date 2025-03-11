@@ -91,7 +91,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 8),
                   Container(
-                    height: 45,
+                    height: 50,
                     decoration: BoxDecoration(
                       border: Border.all(width: 1, color: Colors.grey),
                       borderRadius: BorderRadius.circular(10),
@@ -103,6 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           width: 40,
                           child: TextField(
                             controller: countryCodeController,
+                            readOnly: true,
                             decoration: const InputDecoration(
                                 border: InputBorder.none,
                                 hintText: ' +91',
@@ -122,8 +123,12 @@ class _LoginScreenState extends State<LoginScreen> {
                               LengthLimitingTextInputFormatter(10),
                             ],
                             onChanged: _validatePhone,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               border: InputBorder.none,
+                              suffixIcon: isEnable
+                                  ? const Icon(Icons.check,
+                                      color: Colors.deepOrange)
+                                  : null,
                             ),
                           ),
                         ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
 
@@ -19,15 +19,19 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
         padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Location Image
-                  SvgPicture.asset('assets/svgicons/location.svg', height: 150),
+                  // Location Image with Error Handling
+                  SvgPicture.asset(
+                    'assets/svgicons/location.svg',
+                    height: 150,
+                    placeholderBuilder: (context) => const CircularProgressIndicator(),
+                  ),
                   const SizedBox(height: 30),
 
                   // Heading
@@ -39,17 +43,10 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   const SizedBox(height: 20),
 
                   // Benefits List
-                  const Text('• Real-time tracking of your order',
-                      textAlign: TextAlign.center),
-                  const SizedBox(height: 10),
-                  const Text('• Faster and more accurate delivery',
-                      textAlign: TextAlign.center),
-                  const SizedBox(height: 10),
-                  const Text('• Easy communication with the delivery person',
-                      textAlign: TextAlign.center),
-                  const SizedBox(height: 10),
-                  const Text('• Increase safety and security during delivery',
-                      textAlign: TextAlign.center),
+                  buildBulletPoint("Real-time tracking of your order"),
+                  buildBulletPoint("Faster and more accurate delivery"),
+                  buildBulletPoint("Easy communication with the delivery person"),
+                  buildBulletPoint("Increase safety and security during delivery"),
                 ],
               ),
             ),
@@ -57,63 +54,78 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
             // Buttons at the Bottom
             Column(
               children: [
-                // Use Current Location Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                const LocationSelectionScreen(userLocation: '',)),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                buildActionButton(
+                  text: "USE CURRENT LOCATION",
+                  backgroundColor: Colors.deepOrange,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const LocationSelectionScreen(userLocation: ''),
                       ),
-                    ),
-                    child: const Text(
-                      "USE CURRENT LOCATION",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 15),
-
-                // Enter Manually Button
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AddressDetailsScreen(),
-                          ));
-                      // Add navigation logic here
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 241, 239, 238),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.deepOrange),
-                        borderRadius: BorderRadius.circular(10),
+                buildActionButton(
+                  text: "ENTER MANUALLY",
+                  backgroundColor: const Color.fromARGB(255, 241, 239, 238),
+                  textColor: Colors.deepOrange,
+                  borderColor: Colors.deepOrange,
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AddressDetailsScreen(),
                       ),
-                    ),
-                    child: const Text(
-                      'ENTER MANUALLY',
-                      style: TextStyle(color: Colors.deepOrange, fontSize: 14),
-                    ),
-                  ),
+                    );
+                  },
                 ),
               ],
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // Function to create bullet points
+  Widget buildBulletPoint(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text("• ", style: TextStyle(fontSize: 16)),
+          Expanded(child: Text(text, style: const TextStyle(fontSize: 16))),
+        ],
+      ),
+    );
+  }
+
+  // Function to create buttons
+  Widget buildActionButton({
+    required String text,
+    required Color backgroundColor,
+    required Color textColor,
+    Color? borderColor,
+    required VoidCallback onPressed,
+  }) {
+    return SizedBox(
+      width: double.infinity,
+      height: 45,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: borderColor != null ? BorderSide(color: borderColor) : BorderSide.none,
+          ),
+        ),
+        child: Text(text, style: TextStyle(color: textColor, fontSize: 16)),
       ),
     );
   }

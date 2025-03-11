@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -11,11 +12,11 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   List<TextEditingController> otpControllers =
-      List.generate(6, (index) => TextEditingController());
-  List<FocusNode> otpFocusNodes = List.generate(6, (index) => FocusNode());
+      List.generate(4, (index) => TextEditingController());
+  List<FocusNode> otpFocusNodes = List.generate(4, (index) => FocusNode());
 
   int countdown = 50;
-  late Timer timer;
+  Timer? timer;
 
   @override
   void initState() {
@@ -24,6 +25,7 @@ class _OtpScreenState extends State<OtpScreen> {
   }
 
   void startCountdown() {
+    timer?.cancel(); // Cancel existing timer before starting a new one
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (countdown > 0) {
         setState(() {
@@ -43,8 +45,27 @@ class _OtpScreenState extends State<OtpScreen> {
     for (var node in otpFocusNodes) {
       node.dispose();
     }
-    timer.cancel();
+    timer?.cancel();
     super.dispose();
+  }
+
+  void verifyOtp() {
+    bool isOtpComplete =
+        otpControllers.every((controller) => controller.text.trim().isNotEmpty);
+
+    if (isOtpComplete) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const LocationAccessScreen()),
+      );
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Please enter the complete OTP"),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -108,9 +129,14 @@ class _OtpScreenState extends State<OtpScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: TextField(
                       controller: otpControllers[index],
+                      focusNode: otpFocusNodes[index],
                       keyboardType: TextInputType.number,
                       textAlign: TextAlign.center,
                       maxLength: 1,
+                      inputFormatters: [
+                        FilteringTextInputFormatter
+                            .digitsOnly, // Allows only numbers
+                      ],
                       decoration: InputDecoration(
                         counterText: "",
                         filled: true,
@@ -130,6 +156,12 @@ class _OtpScreenState extends State<OtpScreen> {
                         } else if (value.isEmpty && index > 0) {
                           FocusScope.of(context).previousFocus();
                         }
+
+                        // Auto-submit OTP when all fields are filled
+                        if (otpControllers.every(
+                            (controller) => controller.text.isNotEmpty)) {
+                          verifyOtp();
+                        }
                       },
                     ),
                   ),
@@ -141,13 +173,7 @@ class _OtpScreenState extends State<OtpScreen> {
               width: double.infinity,
               height: 45,
               child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LocationAccessScreen()),
-                  );
-                },
+                onPressed: verifyOtp,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepOrange,
                   shape: RoundedRectangleBorder(
@@ -191,10 +217,6 @@ class _OtpScreenState extends State<OtpScreen> {
                             ),
                           ),
                         ),
-                  const Text(
-                    " in .50sec",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                  ),
                 ],
               ),
             ),
