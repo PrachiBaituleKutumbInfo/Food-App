@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/dashborad_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
 
 
 class AddressDetailsScreen extends StatefulWidget {
@@ -116,7 +116,7 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                             context,
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const DashboardScreen(), // Replace with your next screen
+                                  const HomeScreen(), // Replace with your next screen
                             ),
                           );
                         },

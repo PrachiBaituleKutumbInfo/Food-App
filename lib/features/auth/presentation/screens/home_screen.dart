@@ -1,38 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
 
-class DashboardScreen extends StatefulWidget {
-  const DashboardScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<DashboardScreen> createState() => _DashboardScreenState();
+  State<HomeScreen> createState() => HomeScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
+  setState(() {
+    _selectedIndex = index;
+  });
 
-      // Navigate to other screens (if required)
-      switch (index) {
-        case 0:
-          // Navigate to Home
-          break;
-        case 1:
-          // Navigate to Menu
-          break;
-        case 2:
-          // Navigate to Orders
-          break;
-        case 3:
-          // Navigate to Cart
-          break;
-      }
-    });
+  // Navigate to different screens
+  switch (index) {
+    case 0:
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const HomeScreen()));
+      break;
+    case 1:
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const MenuScreen()));
+      break;
+    case 2:
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const OrdersScreen()));
+      break;
+    case 3:
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => const CartScreen()));
+      break;
   }
+}
+
 
   final List<Map<String, String>> foodItems = [
     {
@@ -192,7 +200,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        /// **Food Image & Category Icon**
                         Stack(
                           children: [
                             ClipRRect(
@@ -208,13 +215,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               top: 10,
                               left: 10,
                               child: SvgPicture.asset(
-                                'assets/svgicons/food-category.svg',
-                                width: 15,
-                                height: 15,
+                                foodItems[index]["category"] == "veg"
+                                    ? 'assets/svgicons/veg-category.svg'
+                                    : 'assets/svgicons/non-veg-category.svg',
+                                width: 25,
+                                height: 25,
                               ),
                             ),
                           ],
                         ),
+
                         const SizedBox(height: 8),
 
                         /// **Food Details**
