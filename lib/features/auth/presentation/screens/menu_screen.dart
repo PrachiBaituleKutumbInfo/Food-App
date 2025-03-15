@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -182,48 +183,55 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildMenuItem(Map<String, String> item) {
-    return Stack(clipBehavior: Clip.none, 
-    children: [
-      Row(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 20), // Space between items
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// **Food Image with "Add +" Button**
-          Column(
-            
+          /// *Food Image with "Add +" Button inside a Stack*
+          Stack(
+            clipBehavior: Clip.none,
             children: [
               ClipRRect(
-                borderRadius: BorderRadius.circular(8),
+                borderRadius: BorderRadius.circular(15),
                 child: Image.asset(
                   item["image"]!,
-                  width: 120,
-                  height: 80,
+                  width: 160,
+                  height: 120,
                   fit: BoxFit.cover,
                 ),
               ),
-              const SizedBox(height: 10), // Space between image and button
 
-              /// **"Add +" Button**
+              /// *"Add +" Button Positioned 10px from Bottom*
               Positioned(
-                bottom: -30,
+                bottom: -40, // ✅ Moves the button slightly over the image
+                left: 25, // Adjust left spacing
+                right: 25, // Adjust right spacing
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                     MenuDetailsBottomSheet.show(context, item); // Call bottom sheet
+                  },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(15),
                       side: const BorderSide(
-                        color: Color.fromARGB(255, 229, 228, 228), // Grey border
+                        color:
+                            Color.fromARGB(255, 229, 228, 228), // Grey border
                         width: 1.5,
                       ),
                     ),
                     elevation: 4, // Button shadow
                   ),
-                  child: const Text(
-                    "Add +",
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.green,
-                      fontWeight: FontWeight.bold,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text(
+                      "Add +",
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.green,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -233,7 +241,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
           const SizedBox(width: 12),
 
-          /// **Food Details**
+          /// *Food Details*
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +262,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ),
                 const SizedBox(height: 4),
 
-                /// **Rating & Reviews**
+                /// *Rating & Reviews*
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -285,14 +293,16 @@ class _MenuScreenState extends State<MenuScreen> {
                 Text(
                   "${item["description"]} ",
                   style: const TextStyle(
-                      fontSize: 16, fontWeight: FontWeight.bold),
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.grey),
                 ),
               ],
             ),
           ),
         ],
       ),
-    ]);
+    );
   }
 
   Widget _buildCategoryChip(String categoryKey, String categoryLabel) {
@@ -319,11 +329,107 @@ class _MenuScreenState extends State<MenuScreen> {
         child: Text(
           categoryLabel,
           style: TextStyle(
-            color: isSelected ? Colors.deepOrange : Colors.grey,
+            color: isSelected ? Colors.deepOrange : const Color.fromARGB(255, 104, 103, 103),
             fontWeight: FontWeight.bold,
           ),
         ),
       ),
     );
   }
+
+// void _showMenuDetailsBottomSheet(BuildContext context, Map<String, String> item) {
+//   showModalBottomSheet(
+//     context: context,
+//     shape: const RoundedRectangleBorder(
+//       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+//     ),
+//     builder: (context) {
+//       return Padding(
+//         padding: const EdgeInsets.all(20),
+//         child: Column(
+//           mainAxisSize: MainAxisSize.min,
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Center(
+//               child: Container(
+//                 width: 50,
+//                 height: 5,
+//                 decoration: BoxDecoration(
+//                   color: Colors.grey[300],
+//                   borderRadius: BorderRadius.circular(10),
+//                 ),
+//               ),
+//             ),
+//             const SizedBox(height: 15),
+//             Center(
+//               child: ClipRRect(
+//                 borderRadius: BorderRadius.circular(15),
+//                 child: Image.asset(
+//                   item["image"]!,
+//                   width: 200,
+//                   height: 120,
+//                   fit: BoxFit.cover,
+//                 ),
+//               ),
+//             ),
+//             const SizedBox(height: 15),
+//             Text(
+//               item["title"]!,
+//               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+//             ),
+//             const SizedBox(height: 8),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Text(
+//                   item["price"]!,
+//                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
+//                 ),
+//                 Row(
+//                   children: [
+//                     const Icon(Icons.star, color: Colors.orange, size: 20),
+//                     const SizedBox(width: 4),
+//                     Text(
+//                       "${item["rating"]} ",
+//                       style: const TextStyle(fontWeight: FontWeight.bold),
+//                     ),
+//                     Text(
+//                       "(${item["reviews"]})",
+//                       style: const TextStyle(color: Colors.grey, fontSize: 12),
+//                     ),
+//                   ],
+//                 ),
+//               ],
+//             ),
+//             const SizedBox(height: 10),
+//             Text(
+//               item["description"]!,
+//               style: const TextStyle(fontSize: 16, color: Colors.grey),
+//             ),
+//             const SizedBox(height: 20),
+//             Center(
+//               child: ElevatedButton(
+//                 onPressed: () {
+//                   Navigator.pop(context); // Close the bottom sheet
+//                 },
+//                 style: ElevatedButton.styleFrom(
+//                   backgroundColor: Colors.green,
+//                   shape: RoundedRectangleBorder(
+//                     borderRadius: BorderRadius.circular(20),
+//                   ),
+//                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
+//                 ),
+//                 child: const Text(
+//                   "Add to Cart",
+//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       );
+//     },
+//   );
+// }
+
 }
