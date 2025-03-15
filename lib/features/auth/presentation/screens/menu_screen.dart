@@ -19,7 +19,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "4.5",
       "reviews": "25",
-      "description": ""
+      "description":
+          "Aromatic basmati rice cooked with succulent chicken pieces, infused with traditional spices and slow-cooked to perfection."
     },
     {
       "image": "assets/images/image-Chicken-Popcorn.png",
@@ -28,7 +29,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "4.2",
       "reviews": "18",
-      "description": ""
+      "description":
+          "Crispy, bite-sized chicken pieces, coated with flavorful seasoning and deep-fried to golden perfection."
     },
     {
       "image": "assets/images/image-Chicken-supreme-pizza.png",
@@ -37,7 +39,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "4.8",
       "reviews": "30",
-      "description": ""
+      "description":
+          "A delicious pizza loaded with spicy chicken chunks, fresh vegetables, and a generous layer of mozzarella cheese."
     },
     {
       "image": "assets/images/image-chicken-tikka-burger.png",
@@ -46,7 +49,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "4.6",
       "reviews": "22",
-      "description": ""
+      "description":
+          "Grilled chicken tikka patty topped with fresh lettuce, onions, and special sauces, served in a soft bun."
     },
     {
       "image": "assets/images/image-Crispy-French-Fries.png",
@@ -55,7 +59,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "veg",
       "rating": "4.7",
       "reviews": "28",
-      "description": ""
+      "description":
+          "Golden, crispy, and perfectly seasoned French fries, served hot and fresh."
     },
     {
       "image": "assets/images/Image-veg-dum-biryani.png",
@@ -64,7 +69,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "veg",
       "rating": "4.3",
       "reviews": "19",
-      "description": ""
+      "description":
+          "A flavorful mix of basmati rice, fresh vegetables, and aromatic spices, slow-cooked for a rich taste."
     },
     {
       "image": "assets/images/image-Paneer-tikka-Burger.png",
@@ -73,7 +79,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "veg",
       "rating": "2.9",
       "reviews": "11",
-      "description": ""
+      "description":
+          "Grilled paneer tikka patty with tangy sauces, fresh lettuce, and onions, served in a soft bun."
     },
     {
       "image": "assets/images/Image-Peri-Peri-Chicken-Pizza.png",
@@ -82,7 +89,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "3.4",
       "reviews": "3",
-      "description": ""
+      "description":
+          "A spicy and flavorful pizza topped with juicy peri-peri chicken, cheese, and zesty peri-peri sauce."
     },
     {
       "image": "assets/images/image-Chicken-Pepperoni-Pizza.png",
@@ -91,7 +99,8 @@ class _MenuScreenState extends State<MenuScreen> {
       "category": "non-veg",
       "rating": "4",
       "reviews": "6",
-      "description": ""
+      "description":
+          "A delicious pizza loaded with spicy chicken pepperoni slices, cheese, and a rich tomato sauce."
     },
   ];
 
@@ -156,7 +165,13 @@ class _MenuScreenState extends State<MenuScreen> {
             child: ListView(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               children: menuItems
-                  .where((item) => item["category"] == selectedCategory)
+                  .where((item) {
+                    if (selectedCategory == "bestseller") {
+                      return double.parse(item["rating"]!) >=
+                          4.5; // Bestseller if rating ≥ 4.5
+                    }
+                    return item["category"] == selectedCategory;
+                  })
                   .map((item) => _buildMenuItem(item))
                   .toList(),
             ),
@@ -167,109 +182,117 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildMenuItem(Map<String, String> item) {
-    return Stack(
-      clipBehavior: Clip.none, // Allows overflow
-      children: [
-        Row(
-          children: [
-            /// **Food Image with Stack**
-            ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                item["image"]!,
-                width: 120,
-                height: 80,
-                fit: BoxFit.cover,
+    return Stack(clipBehavior: Clip.none, 
+    children: [
+      Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// **Food Image with "Add +" Button**
+          Column(
+            
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Image.asset(
+                  item["image"]!,
+                  width: 120,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
               ),
-            ),
-            const SizedBox(width: 12),
+              const SizedBox(height: 10), // Space between image and button
 
-            /// **Food Details**
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SvgPicture.asset(
-                    item["category"] == "veg"
-                        ? 'assets/svgicons/veg-category.svg'
-                        : 'assets/svgicons/non-veg-category.svg',
-                    width: 25,
-                    height: 25,
+              /// **"Add +" Button**
+              Positioned(
+                bottom: -30,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(
+                        color: Color.fromARGB(255, 229, 228, 228), // Grey border
+                        width: 1.5,
+                      ),
+                    ),
+                    elevation: 4, // Button shadow
                   ),
-
-                  Text(
-                    item["title"]!,
-                    style: const TextStyle(
-                      fontSize: 18,
+                  child: const Text(
+                    "Add +",
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.green,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
-
-                  /// **Rating & Reviews**
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        item["price"]!,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          const Icon(Icons.star,
-                              color: Colors.orange, size: 18),
-                          const SizedBox(width: 4),
-                          Text(
-                            "${item["rating"]} ",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            "(${item["reviews"]})",
-                            style: const TextStyle(
-                                color: Colors.grey, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-
-        /// **"Add +" Button (Positioned Below Image)**
-        Positioned(
-          bottom: -30, // Moves button slightly below image
-          // Adjust left padding
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.white,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: const BorderSide(
-                  color: Color.fromARGB(255, 229, 228, 228), // Grey border
-                  width: 1.5,
                 ),
               ),
-              elevation: 4, // Add button shadow
-            ),
-            child: const Text(
-              "Add +",
-              style: TextStyle(
-                fontSize: 16,
-                color: Colors.green,
-                fontWeight: FontWeight.bold,
-              ),
+            ],
+          ),
+
+          const SizedBox(width: 12),
+
+          /// **Food Details**
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SvgPicture.asset(
+                  item["category"] == "veg"
+                      ? 'assets/svgicons/veg-category.svg'
+                      : 'assets/svgicons/non-veg-category.svg',
+                  width: 25,
+                  height: 25,
+                ),
+                Text(
+                  item["title"]!,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 4),
+
+                /// **Rating & Reviews**
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      item["price"]!,
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const Icon(Icons.star, color: Colors.orange, size: 18),
+                        const SizedBox(width: 4),
+                        Text(
+                          "${item["rating"]} ",
+                          style: const TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          "(${item["reviews"]})",
+                          style:
+                              const TextStyle(color: Colors.grey, fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                Text(
+                  "${item["description"]} ",
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
           ),
-        ),
-      ],
-    );
+        ],
+      ),
+    ]);
   }
 
   Widget _buildCategoryChip(String categoryKey, String categoryLabel) {
