@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -10,6 +14,50 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
+
+   bool showBottomBar = false;
+
+  void _onItemAdded() {
+    setState(() {
+      showBottomBar = true; // Show bottom bar when item is added
+    });
+
+    // Hide after 5 seconds (optional)
+    Future.delayed(const Duration(seconds: 5), () {
+      setState(() {
+        showBottomBar = false;
+      });
+    });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+
+    // Navigate to different screens
+    switch (index) {
+      case 0:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const HomeScreen()));
+        break;
+      case 1:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const MenuScreen()));
+        break;
+      case 2:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const OrdersScreen()));
+        break;
+      case 3:
+        Navigator.pushReplacement(context,
+            MaterialPageRoute(builder: (context) => const CartScreen()));
+        break;
+    }
+  }
+
+  int _selectedIndex = 0;
+
   String selectedCategory = "veg"; // ✅ Matching category names exactly
 
   final List<Map<String, String>> menuItems = [
@@ -179,6 +227,10 @@ class _MenuScreenState extends State<MenuScreen> {
           ),
         ],
       ),
+      bottomNavigationBar: CustomBottomNavBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 
@@ -209,7 +261,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 right: 25, // Adjust right spacing
                 child: ElevatedButton(
                   onPressed: () {
-                     MenuDetailsBottomSheet.show(context, item); // Call bottom sheet
+                  //  menuItems.map((item) => _buildMenuItem(item)).toList();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
@@ -243,61 +295,67 @@ class _MenuScreenState extends State<MenuScreen> {
 
           /// *Food Details*
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SvgPicture.asset(
-                  item["category"] == "veg"
-                      ? 'assets/svgicons/veg-category.svg'
-                      : 'assets/svgicons/non-veg-category.svg',
-                  width: 25,
-                  height: 25,
-                ),
-                Text(
-                  item["title"]!,
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () {
+                MenuDetailsBottomSheet.show(context, item); // Call bottom sheet
+              },
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SvgPicture.asset(
+                    item["category"] == "veg"
+                        ? 'assets/svgicons/veg-category.svg'
+                        : 'assets/svgicons/non-veg-category.svg',
+                    width: 25,
+                    height: 25,
                   ),
-                ),
-                const SizedBox(height: 4),
+                  Text(
+                    item["title"]!,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
 
-                /// *Rating & Reviews*
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      item["price"]!,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                  /// *Rating & Reviews*
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        item["price"]!,
+                        style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
-                    Row(
-                      children: [
-                        const Icon(Icons.star, color: Colors.orange, size: 18),
-                        const SizedBox(width: 4),
-                        Text(
-                          "${item["rating"]} ",
-                          style: const TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          "(${item["reviews"]})",
-                          style:
-                              const TextStyle(color: Colors.grey, fontSize: 12),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Text(
-                  "${item["description"]} ",
-                  style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.grey),
-                ),
-              ],
+                      Row(
+                        children: [
+                          const Icon(Icons.star,
+                              color: Colors.orange, size: 18),
+                          const SizedBox(width: 4),
+                          Text(
+                            "${item["rating"]} ",
+                            style: const TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            "(${item["reviews"]})",
+                            style: const TextStyle(
+                                color: Colors.grey, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  Text(
+                    "${item["description"]} ",
+                    style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -307,6 +365,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   Widget _buildCategoryChip(String categoryKey, String categoryLabel) {
     bool isSelected = selectedCategory == categoryKey;
+
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -314,122 +373,46 @@ class _MenuScreenState extends State<MenuScreen> {
         });
       },
       child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 20),
+        padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
         decoration: BoxDecoration(
           color: isSelected
               ? const Color.fromARGB(255, 253, 228, 217)
               : Colors.white,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-              color: isSelected
-                  ? Colors.deepOrange
-                  : const Color.fromARGB(255, 212, 223, 223),
-              width: 3),
-        ),
-        child: Text(
-          categoryLabel,
-          style: TextStyle(
-            color: isSelected ? Colors.deepOrange : const Color.fromARGB(255, 104, 103, 103),
-            fontWeight: FontWeight.bold,
+            color: isSelected
+                ? Colors.deepOrange
+                : const Color.fromARGB(255, 212, 223, 223),
+            width: 2,
           ),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              categoryLabel,
+              style: TextStyle(
+                color: isSelected
+                    ? Colors.deepOrange
+                    : const Color.fromARGB(255, 104, 103, 103),
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            if (isSelected) ...[
+              const SizedBox(width: 8),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    selectedCategory = ''; // Deselect when 'X' is clicked
+                  });
+                },
+                child:
+                    const Icon(Icons.close, size: 18, color: Colors.deepOrange),
+              ),
+            ],
+          ],
         ),
       ),
     );
   }
-
-// void _showMenuDetailsBottomSheet(BuildContext context, Map<String, String> item) {
-//   showModalBottomSheet(
-//     context: context,
-//     shape: const RoundedRectangleBorder(
-//       borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-//     ),
-//     builder: (context) {
-//       return Padding(
-//         padding: const EdgeInsets.all(20),
-//         child: Column(
-//           mainAxisSize: MainAxisSize.min,
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             Center(
-//               child: Container(
-//                 width: 50,
-//                 height: 5,
-//                 decoration: BoxDecoration(
-//                   color: Colors.grey[300],
-//                   borderRadius: BorderRadius.circular(10),
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(height: 15),
-//             Center(
-//               child: ClipRRect(
-//                 borderRadius: BorderRadius.circular(15),
-//                 child: Image.asset(
-//                   item["image"]!,
-//                   width: 200,
-//                   height: 120,
-//                   fit: BoxFit.cover,
-//                 ),
-//               ),
-//             ),
-//             const SizedBox(height: 15),
-//             Text(
-//               item["title"]!,
-//               style: const TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 8),
-//             Row(
-//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-//               children: [
-//                 Text(
-//                   item["price"]!,
-//                   style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.green),
-//                 ),
-//                 Row(
-//                   children: [
-//                     const Icon(Icons.star, color: Colors.orange, size: 20),
-//                     const SizedBox(width: 4),
-//                     Text(
-//                       "${item["rating"]} ",
-//                       style: const TextStyle(fontWeight: FontWeight.bold),
-//                     ),
-//                     Text(
-//                       "(${item["reviews"]})",
-//                       style: const TextStyle(color: Colors.grey, fontSize: 12),
-//                     ),
-//                   ],
-//                 ),
-//               ],
-//             ),
-//             const SizedBox(height: 10),
-//             Text(
-//               item["description"]!,
-//               style: const TextStyle(fontSize: 16, color: Colors.grey),
-//             ),
-//             const SizedBox(height: 20),
-//             Center(
-//               child: ElevatedButton(
-//                 onPressed: () {
-//                   Navigator.pop(context); // Close the bottom sheet
-//                 },
-//                 style: ElevatedButton.styleFrom(
-//                   backgroundColor: Colors.green,
-//                   shape: RoundedRectangleBorder(
-//                     borderRadius: BorderRadius.circular(20),
-//                   ),
-//                   padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 12),
-//                 ),
-//                 child: const Text(
-//                   "Add to Cart",
-//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.white),
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       );
-//     },
-//   );
-// }
-
 }
