@@ -1,68 +1,96 @@
 import 'package:flutter/material.dart';
 
-class ItemAddedBottomBar extends StatelessWidget {
-  final VoidCallback onViewCart;
+class ItemAddedBottomBar {
 
-  const ItemAddedBottomBar({Key? key, required this.onViewCart, required int cartItemCount}) : super(key: key);
+  
+  static void show(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      isDismissible: true,
+      barrierColor: Colors.transparent,
+      builder: (context) {
+        return LayoutBuilder(
+          builder: (context, constraints) {
+            double width = constraints.maxWidth; // Get screen width
+            double padding =
+                width > 600 ? 50.0 : 20.0; // Adjust padding for tablets
 
-  @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      bottom: 0,
-      left: 0,
-      right: 0,
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              spreadRadius: 2,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            const Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  "1 item added",
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
+            return Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(vertical: 6, horizontal: padding),
+              decoration: BoxDecoration(
+                color: Colors.white,
+               
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 10,
+                    spreadRadius: 2,
                   ),
-                ),
-                Text(
-                  "Add items worth Rs. 299 more to get free delivery",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
-                ),
-              ],
-            ),
-            ElevatedButton(
-              onPressed: onViewCart,
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                ],
               ),
-              child: const Text(
-                "VIEW CART",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // Left Section (Text Info)
+                    const Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "1 item added",
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(height: 4), // Small spacing
+                          Text(
+                            "Add items worth Rs. 299 more to get free delivery",
+                            style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 92, 91, 91)),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    // Right Section (Button)
+                    Flexible(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close bottom sheet
+                          Navigator.pushNamed(context, "/cart");
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.green,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: width > 600 ? 24 : 16,
+                              vertical: width > 600 ? 12 : 10),
+                        ),
+                        child: const Text(
+                          "VIEW CART",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ),
-          ],
-        ),
-      ),
+            );
+          },
+        );
+      },
     );
   }
 }

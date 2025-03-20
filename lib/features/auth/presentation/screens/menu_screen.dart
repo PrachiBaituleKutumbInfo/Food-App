@@ -5,6 +5,7 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/item_added_bottom_bar.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -14,22 +15,6 @@ class MenuScreen extends StatefulWidget {
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-
-   bool showBottomBar = false;
-
-  void _onItemAdded() {
-    setState(() {
-      showBottomBar = true; // Show bottom bar when item is added
-    });
-
-    // Hide after 5 seconds (optional)
-    Future.delayed(const Duration(seconds: 5), () {
-      setState(() {
-        showBottomBar = false;
-      });
-    });
-  }
-
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -56,7 +41,7 @@ class _MenuScreenState extends State<MenuScreen> {
     }
   }
 
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
 
   String selectedCategory = "veg"; // ✅ Matching category names exactly
 
@@ -225,6 +210,12 @@ class _MenuScreenState extends State<MenuScreen> {
                   .toList(),
             ),
           ),
+           Container(
+            height: 1,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
+            ),
+           )
         ],
       ),
       bottomNavigationBar: CustomBottomNavBar(
@@ -261,8 +252,9 @@ class _MenuScreenState extends State<MenuScreen> {
                 right: 25, // Adjust right spacing
                 child: ElevatedButton(
                   onPressed: () {
-                  //  menuItems.map((item) => _buildMenuItem(item)).toList();
+                    ItemAddedBottomBar.show(context);
                   },
+                  //
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
