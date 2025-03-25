@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code_cart.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order.dart';
 import 'home_screen.dart';
 import 'menu_screen.dart';
 import 'orders_screen.dart';
@@ -365,10 +366,11 @@ class _CartScreenState extends State<CartScreen> {
       ),
 
       /// **Bottom Navigation Bar**
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-      ),
+      bottomNavigationBar: const SizedBox(
+  height: 80, // Set a fixed height
+  child: PlaceOrder(),
+),
+
     );
   }
 }

@@ -1,96 +1,72 @@
 import 'package:flutter/material.dart';
 
-class PlaceOrder {
+class PlaceOrder extends StatelessWidget {
+  const PlaceOrder({super.key});
 
-  
-  static void show(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      isDismissible: true,
-      barrierColor: Colors.transparent,
-      builder: (context) {
-        return LayoutBuilder(
-          builder: (context, constraints) {
-            double width = constraints.maxWidth; // Get screen width
-            double padding =
-                width > 600 ? 50.0 : 20.0; // Adjust padding for tablets
-
-            return Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(vertical: 6, horizontal: padding),
-              decoration: BoxDecoration(
-                color: Colors.white,
-               
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    blurRadius: 10,
-                    spreadRadius: 2,
-                  ),
-                ],
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+      decoration: const BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 8,
+            spreadRadius: 2,
+            offset: Offset(0, -2),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          /// **Total Price Section**
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text(
+                'To Pay',
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // Left Section (Text Info)
-                    const Expanded(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "1 item added",
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          SizedBox(height: 4), // Small spacing
-                          Text(
-                            "Add items worth Rs. 299 more to get free delivery",
-                            style: TextStyle(fontSize: 14, color: Color.fromARGB(255, 92, 91, 91)),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    // Right Section (Button)
-                    Flexible(
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pop(context); // Close bottom sheet
-                          Navigator.pushNamed(context, "/cart");
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.green,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              horizontal: width > 600 ? 24 : 16,
-                              vertical: width > 600 ? 12 : 10),
-                        ),
-                        child: const Text(
-                          "PLACE ORDER",
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 5),
+              const Text(
+                '₹420',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
-            );
-          },
-        );
-      },
+            ],
+          ),
+
+          /// **Place Order Button**
+          SizedBox(
+            height: 50,
+            child: ElevatedButton(
+              onPressed: () {
+                print("Place Order Clicked!");
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.green,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                padding: const EdgeInsets.symmetric(horizontal: 30),
+              ),
+              child: const Text(
+                'PLACE ORDER',
+                style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

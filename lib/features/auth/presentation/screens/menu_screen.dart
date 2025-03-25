@@ -5,7 +5,7 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/item_added_bottom_bar.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/item_added_bottom_bar_menu.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});

@@ -32,10 +32,12 @@ class ApplyCodeWidget extends StatelessWidget {
           SizedBox(
             height: 50, // Ensure TextField & Button are equal in height
             child: TextField(
-              textAlignVertical: TextAlignVertical.center, // Align text properly
+              textAlignVertical:
+                  TextAlignVertical.center, // Align text properly
               decoration: InputDecoration(
                 hintText: "Type Coupon Code",
-                hintStyle: const TextStyle(color: Colors.grey), // Hint text color
+                hintStyle:
+                    const TextStyle(color: Colors.grey), // Hint text color
                 filled: true,
                 fillColor: Colors.blueGrey.shade50, // Light background color
 
@@ -62,7 +64,8 @@ class ApplyCodeWidget extends StatelessWidget {
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      padding: const EdgeInsets.symmetric(horizontal: 15), // Adjust button padding
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15), // Adjust button padding
                     ),
                     child: const Text(
                       'APPLY',
@@ -77,8 +80,63 @@ class ApplyCodeWidget extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 30),
+
+          Row(
+            children: [
+              SvgPicture.asset(
+                'assets/svgicons/Bill.svg',
+                width: 24,
+                height: 24,
+              ),
+              const SizedBox(width: 8), // Space between icon and text
+              const Text(
+                'Bill Discounts',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              ),
+            ],
+          ),
+          SizedBox(height: 15),
+           /// **Bill Summary**
+          Column(
+            children: [
+              billRow("Subtotal", "₹210"),
+              billRow("Discount", "-₹50", isNegative: true),
+              billRow("Delivery Fee", "₹25"),
+              billRow("Tax & Other Fees", "₹10"),
+              billRow("Platform Fees", "₹5"),
+              const SizedBox(height: 10),
+              // const Divider(thickness: 1),
+              billRow("To Pay", "₹420", isBold: true),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  /// **Reusable Method for Bill Row Items**
+  Widget billRow(String title, String value, {bool isNegative = false, bool isBold = false}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 5),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            title,
+            style: TextStyle(fontSize: 16, fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
+          ),
+          Text(
+            value,
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
+              color: isNegative ? Colors.green : Colors.black,
+            ),
+          ),
         ],
       ),
     );
   }
 }
+      
