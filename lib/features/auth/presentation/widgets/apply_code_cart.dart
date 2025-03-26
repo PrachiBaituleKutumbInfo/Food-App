@@ -54,7 +54,7 @@ class ApplyCodeWidget extends StatelessWidget {
                 // Right-side APPLY button inside TextField
                 suffixIcon: Container(
                   height: 50, // Match height with TextField
-                  margin: const EdgeInsets.only(right: 5), // Adjust spacing
+                  margin: const EdgeInsets.only(right: 0), // Adjust spacing
                   child: ElevatedButton(
                     onPressed: () {
                       print("Apply Code Pressed!");
@@ -67,12 +67,15 @@ class ApplyCodeWidget extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 15), // Adjust button padding
                     ),
-                    child: const Text(
-                      'APPLY',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20, // Adjust font size for better fit
-                        fontWeight: FontWeight.bold,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: const Text(
+                        'APPLY',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 16, // Adjust font size for better fit
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
                   ),

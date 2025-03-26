@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/payment_screen.dart';
 
 class PlaceOrder extends StatelessWidget {
   const PlaceOrder({super.key});
@@ -46,6 +47,11 @@ class PlaceOrder extends StatelessWidget {
             height: 50,
             child: ElevatedButton(
               onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const PaymentScreen()),
+                );
                 print("Place Order Clicked!");
               },
               style: ElevatedButton.styleFrom(
