@@ -197,9 +197,22 @@ class _OtpScreenState extends State<OtpScreen> {
                   ),
                   const SizedBox(width: 5),
                   countdown > 0
-                      ? Text(
-                          "Resend in $countdown sec",
-                          style: const TextStyle(fontSize: 16),
+                      ? Row(
+                          children: [
+                            const Text(
+                              "Resend",
+                              style: TextStyle(
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                  decorationThickness: 2.0,
+                              ),
+                            ),
+                            Text(
+                              " in $countdown sec",
+                              style: const TextStyle(fontSize: 16),
+                            ),
+                          ],
                         )
                       : GestureDetector(
                           onTap: () {
@@ -212,8 +225,9 @@ class _OtpScreenState extends State<OtpScreen> {
                             "Resend",
                             style: TextStyle(
                               fontSize: 16,
-                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
+                                decorationThickness: 2.0,
                             ),
                           ),
                         ),

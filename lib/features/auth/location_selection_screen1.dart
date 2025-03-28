@@ -13,8 +13,8 @@ class LocationSelectionScreen extends StatefulWidget {
 }
 
 class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
-  late GoogleMapController _mapController;
-  LatLng _currentPosition = const LatLng(19.0760, 72.8777); // Default to Mumbai
+  GoogleMapController? _mapController;
+  LatLng _currentPosition = const LatLng(19.0760, 72.8777); // Default Mumbai
 
   @override
   void initState() {
@@ -23,43 +23,44 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
   }
 
   Future<void> _getCurrentLocation() async {
-    bool serviceEnabled;
-    LocationPermission permission;
-
-    // Check if location service is enabled
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    bool serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      setState(() {
-      });
+      _showLocationError("Location services are disabled.");
       return;
     }
 
-    // Request permission
-    permission = await Geolocator.checkPermission();
+    LocationPermission permission = await Geolocator.checkPermission();
     if (permission == LocationPermission.denied) {
       permission = await Geolocator.requestPermission();
       if (permission == LocationPermission.denied) {
-        setState(() {
-        });
+        _showLocationError("Location permission denied.");
         return;
       }
     }
 
     if (permission == LocationPermission.deniedForever) {
-      setState(() {
-      });
+      _showLocationError("Location permission is permanently denied.");
       return;
     }
 
-    // Get current position
-    Position position = await Geolocator.getCurrentPosition();
-    setState(() {
-      _currentPosition = LatLng(position.latitude, position.longitude);
-// Update UI
-    });
+    try {
+      Position position = await Geolocator.getCurrentPosition();
+      setState(() {
+        _currentPosition = LatLng(position.latitude, position.longitude);
+      });
 
-    // Move map to current position
-    _mapController.animateCamera(CameraUpdate.newLatLng(_currentPosition));
+      if (_mapController != null) {
+        _mapController!.animateCamera(CameraUpdate.newLatLng(_currentPosition));
+      }
+    } catch (e) {
+      _showLocationError("Failed to get location.");
+    }
+  }
+
+  void _showLocationError(String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(message)),
+    );
   }
 
   void _onMapCreated(GoogleMapController controller) {
@@ -69,7 +70,6 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
   void _onMarkerDragged(LatLng newPosition) {
     setState(() {
       _currentPosition = newPosition;
-// Show updated text
     });
   }
 
@@ -132,16 +132,7 @@ class _LocationSelectionScreenState extends State<LocationSelectionScreen> {
                     width: double.infinity,
                     height: 45,
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const LocationSelectionScreen(
-                                    userLocation: '',
-                                  )),
-                        );
-                      },
+                      onPressed: _getCurrentLocation,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.deepOrange,
                         shape: RoundedRectangleBorder(

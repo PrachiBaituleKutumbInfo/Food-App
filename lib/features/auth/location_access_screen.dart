@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
+import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 
 class LocationAccessScreen extends StatefulWidget {
   const LocationAccessScreen({super.key});
@@ -30,23 +31,30 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   SvgPicture.asset(
                     'assets/svgicons/location.svg',
                     height: 150,
-                    placeholderBuilder: (context) => const CircularProgressIndicator(),
+                    placeholderBuilder: (context) =>
+                        const CircularProgressIndicator(),
                   ),
                   const SizedBox(height: 30),
 
                   // Heading
-                  const Text(
-                    'Allow location access',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    textAlign: TextAlign.center,
-                  ),
-                  const SizedBox(height: 20),
-
-                  // Benefits List
-                  buildBulletPoint("Real-time tracking of your order"),
-                  buildBulletPoint("Faster and more accurate delivery"),
-                  buildBulletPoint("Easy communication with the delivery person"),
-                  buildBulletPoint("Increase safety and security during delivery"),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'Allow location access',
+                        style: TextStyle(
+                            fontSize: 22, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 20), // ✅ Now inside the Column
+                      buildBulletPoint("Real-time tracking of your order"),
+                      buildBulletPoint("Faster and more accurate delivery"),
+                      buildBulletPoint(
+                          "Easy communication with the delivery person"),
+                      buildBulletPoint(
+                          "Increase safety and security during delivery"),
+                    ],
+                  )
                 ],
               ),
             ),
@@ -62,8 +70,8 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) =>
-                            const LocationSelectionScreen(userLocation: ''),
+                        builder: (context) => const LocationSelectionScreen(userLocation: '')
+                            // const LocationEditManuallyScreen()
                       ),
                     );
                   },
@@ -78,7 +86,8 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const AddressDetailsScreen(),
+                        builder: (context) => const 
+                       AddressDetailsScreen(),
                       ),
                     );
                   },
@@ -94,11 +103,12 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
   // Function to create bullet points
   Widget buildBulletPoint(String text) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5),
+      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text("• ", style: TextStyle(fontSize: 16)),
+          const Text("• ", style: TextStyle(fontSize: 20)),
           Expanded(child: Text(text, style: const TextStyle(fontSize: 16))),
         ],
       ),
@@ -122,7 +132,9 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
           backgroundColor: backgroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
-            side: borderColor != null ? BorderSide(color: borderColor) : BorderSide.none,
+            side: borderColor != null
+                ? BorderSide(color: borderColor)
+                : BorderSide.none,
           ),
         ),
         child: Text(text, style: TextStyle(color: textColor, fontSize: 16)),

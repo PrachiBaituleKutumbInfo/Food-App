@@ -201,7 +201,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           TextSpan(
                             text: "Terms of Service",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                              decoration: TextDecoration.underline,
+                              decorationThickness: 2.0,
+                            ),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
@@ -215,7 +219,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           const TextSpan(text: " and "),
                           TextSpan(
                             text: "Privacy Policy",
-                            style: const TextStyle(fontWeight: FontWeight.bold),
+                            style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                decorationThickness: 2.0,
+                                color: Colors.black),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(

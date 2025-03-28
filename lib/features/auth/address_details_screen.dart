@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
-
 
 class AddressDetailsScreen extends StatefulWidget {
   const AddressDetailsScreen({super.key});
@@ -30,10 +30,13 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
-          Positioned.fill(
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
             child: Image.asset(
-              'assets/map.png', // Ensure you add this image to your assets
-              fit: BoxFit.cover,
+              'assets/map.png',
+              fit: BoxFit.contain,
             ),
           ),
           Align(
@@ -91,12 +94,33 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     const Text("Save address as"),
                     Row(
                       children: [
-                        _buildAddressTypeButton("Home", Icons.home_outlined),
-                        _buildAddressTypeButton("Work", Icons.work_outline),
                         _buildAddressTypeButton(
-                            "Other", Icons.location_on_outlined),
+                          "Home",
+                          SvgPicture.asset(
+                            'assets/svgicons/home.svg',
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                        _buildAddressTypeButton(
+                          "Work",
+                          SvgPicture.asset(
+                            'assets/svgicons/briefcase.svg',
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
+                        _buildAddressTypeButton(
+                          "Other",
+                          SvgPicture.asset(
+                            'assets/svgicons/location_pin.svg',
+                            width: 24,
+                            height: 24,
+                          ),
+                        ),
                       ],
                     ),
+
                     const SizedBox(height: 10),
                     _buildTextField(houseNumberController, "House Number"),
                     _buildTextField(buildingNameController, "Building Name"),
@@ -158,46 +182,53 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
     );
   }
 
-  Widget _buildAddressTypeButton(String type, IconData icon) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
-      child: ElevatedButton.icon(
-        onPressed: () {
-          setState(() {
-            selectedAddressType = type;
-          });
-        },
-        icon: Icon(
-          icon,
+  Widget _buildAddressTypeButton(String type, Widget iconWidget, {bool isSvg = false}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 5),
+    child: ElevatedButton.icon(
+      onPressed: () {
+        setState(() {
+          selectedAddressType = type;
+        });
+      },
+      icon: isSvg
+          ? ColorFiltered(
+              colorFilter: ColorFilter.mode(
+                selectedAddressType == type ? Colors.deepOrange : Colors.grey,
+                BlendMode.srcIn,
+              ),
+              child: iconWidget,
+            )
+          : IconTheme(
+              data: IconThemeData(
+                color: selectedAddressType == type ? Colors.deepOrange : Colors.grey,
+              ),
+              child: iconWidget,
+            ),
+      label: Text(
+        type,
+        style: TextStyle(
           color: selectedAddressType == type
               ? Colors.deepOrange
               : const Color.fromARGB(255, 111, 111, 111),
         ),
-        label: Text(
-          type,
-          style: TextStyle(
+      ),
+      style: ElevatedButton.styleFrom(
+        backgroundColor:
+            selectedAddressType == type ? Colors.grey[200] : Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
             color: selectedAddressType == type
                 ? Colors.deepOrange
-                : const Color.fromARGB(255, 111, 111, 111),
-          ),
-        ),
-        style: ElevatedButton.styleFrom(
-          backgroundColor:
-              selectedAddressType == type ? Colors.grey[200] : Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: BorderSide(
-              color: selectedAddressType == type
-                  ? Colors.deepOrange
-                  : const Color.fromARGB(
-                      255, 175, 173, 173), // Change border color dynamically
-              width: 2, // Make border more visible
-            ),
+                : const Color.fromARGB(255, 175, 173, 173),
+            width: 2,
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 
   Widget _buildTextField(TextEditingController controller, String hintText) {
     return Padding(
