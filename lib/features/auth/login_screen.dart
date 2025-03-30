@@ -118,6 +118,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: TextField(
                             controller: phoneController,
                             keyboardType: TextInputType.number,
+                             cursorColor: Colors.deepOrange,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
                               LengthLimitingTextInputFormatter(10),

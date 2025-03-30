@@ -68,9 +68,11 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     ),
                     const SizedBox(height: 10),
                     const Text("Who are you ordering for?"),
+                    const SizedBox(height: 10),
                     Row(
                       children: [
                         _buildRadioButton("Myself"),
+                      const  SizedBox(width: 20),
                         _buildRadioButton("For someone else"),
                       ],
                     ),
@@ -95,32 +97,16 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     Row(
                       children: [
                         _buildAddressTypeButton(
-                          "Home",
-                          SvgPicture.asset(
-                            'assets/svgicons/home.svg',
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
+                            "Home", "assets/svgicons/home.svg",
+                            isSvg: true),
                         _buildAddressTypeButton(
-                          "Work",
-                          SvgPicture.asset(
-                            'assets/svgicons/briefcase.svg',
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
+                            "Work", "assets/svgicons/briefcase.svg",
+                            isSvg: true),
                         _buildAddressTypeButton(
-                          "Other",
-                          SvgPicture.asset(
-                            'assets/svgicons/location_pin.svg',
-                            width: 24,
-                            height: 24,
-                          ),
-                        ),
+                            "Other", "assets/svgicons/location-pin.svg",
+                            isSvg: true),
                       ],
                     ),
-
                     const SizedBox(height: 10),
                     _buildTextField(houseNumberController, "House Number"),
                     _buildTextField(buildingNameController, "Building Name"),
@@ -165,70 +151,91 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
   }
 
   Widget _buildRadioButton(String title) {
-    return Row(
-      children: [
-        Radio(
-          value: title,
-          groupValue: selectedPerson,
-          onChanged: (value) {
-            setState(() {
-              selectedPerson = value.toString();
-            });
-          },
-          activeColor: Colors.deepOrange.withOpacity(0.7),
-        ),
-        Text(title),
-      ],
+    bool isSelected = selectedPerson == title;
+
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedPerson = title;
+        });
+      },
+      child: Row(
+        children: [
+          Container(
+            width: 20,
+            height: 20,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              border: Border.all(
+                color: Colors.deepOrange,
+                width: isSelected
+                    ? 6.5
+                    : 2, // ✅ Selected -> Bold Border, Unselected -> Normal Border
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+          Text(
+            title,
+            style: TextStyle(
+              fontSize: 17,
+            ),
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _buildAddressTypeButton(String type, Widget iconWidget, {bool isSvg = false}) {
-  return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 5),
-    child: ElevatedButton.icon(
-      onPressed: () {
-        setState(() {
-          selectedAddressType = type;
-        });
-      },
-      icon: isSvg
-          ? ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                selectedAddressType == type ? Colors.deepOrange : Colors.grey,
-                BlendMode.srcIn,
+  Widget _buildAddressTypeButton(String type, String assetPath,
+      {bool isSvg = false}) {
+    bool isSelected = selectedAddressType == type;
+
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      child: ElevatedButton.icon(
+        onPressed: () {
+          setState(() {
+            selectedAddressType = type;
+          });
+        },
+        icon: isSvg
+            ? SvgPicture.asset(
+                assetPath,
+                width: 24,
+                height: 24,
+                color: isSelected
+                    ? Colors.deepOrange
+                    : Colors.black, // ✅ Color applied here
+              )
+            : Icon(
+                Icons.location_on,
+                color: isSelected ? Colors.deepOrange : Colors.grey,
               ),
-              child: iconWidget,
-            )
-          : IconTheme(
-              data: IconThemeData(
-                color: selectedAddressType == type ? Colors.deepOrange : Colors.grey,
-              ),
-              child: iconWidget,
-            ),
-      label: Text(
-        type,
-        style: TextStyle(
-          color: selectedAddressType == type
-              ? Colors.deepOrange
-              : const Color.fromARGB(255, 111, 111, 111),
+        label: Text(
+          type,
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+            color: isSelected ? Colors.deepOrange : Colors.black,
+          ),
         ),
-      ),
-      style: ElevatedButton.styleFrom(
-        backgroundColor:
-            selectedAddressType == type ? Colors.grey[200] : Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-          side: BorderSide(
-            color: selectedAddressType == type
-                ? Colors.deepOrange
-                : const Color.fromARGB(255, 175, 173, 173),
-            width: 2,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: isSelected
+              ? const Color.fromARGB(255, 254, 232, 232)
+              : Colors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: BorderSide(
+              color: isSelected
+                  ? Colors.deepOrange
+                  : const Color.fromARGB(255, 182, 181, 181),
+              width: 2,
+            ),
           ),
         ),
       ),
-    ),
-  );
-}
+    );
+  }
 
   Widget _buildTextField(TextEditingController controller, String hintText) {
     return Padding(

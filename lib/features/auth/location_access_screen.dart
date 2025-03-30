@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
-import 'package:konkan_bite_food/features/auth/location_selection_screen1.dart';
 import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 
 class LocationAccessScreen extends StatefulWidget {
@@ -28,33 +27,32 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   // Location Image with Error Handling
-                  SvgPicture.asset(
-                    'assets/svgicons/location.svg',
+                  SizedBox(
                     height: 150,
-                    placeholderBuilder: (context) =>
-                        const CircularProgressIndicator(),
+                    width: 150,
+                    child: _buildSvgImage(),
                   ),
                   const SizedBox(height: 30),
 
-                  // Heading
+                  // Heading & Bullet Points
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         'Allow location access',
                         style: TextStyle(
-                            fontSize: 22, fontWeight: FontWeight.bold),
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
                         textAlign: TextAlign.center,
                       ),
-                      const SizedBox(height: 20), // ✅ Now inside the Column
+                      const SizedBox(height: 20),
                       buildBulletPoint("Real-time tracking of your order"),
                       buildBulletPoint("Faster and more accurate delivery"),
-                      buildBulletPoint(
-                          "Easy communication with the delivery person"),
-                      buildBulletPoint(
-                          "Increase safety and security during delivery"),
+                      buildBulletPoint("Easy communication with the delivery person"),
+                      buildBulletPoint("Increase safety and security during delivery"),
                     ],
-                  )
+                  ),
                 ],
               ),
             ),
@@ -67,13 +65,14 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   backgroundColor: Colors.deepOrange,
                   textColor: Colors.white,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const LocationSelectionScreen(userLocation: '')
-                            // const LocationEditManuallyScreen()
-                      ),
-                    );
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LocationEditManuallyScreen(),
+                        ),
+                      );
+                    });
                   },
                 ),
                 const SizedBox(height: 15),
@@ -83,13 +82,14 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   textColor: Colors.deepOrange,
                   borderColor: Colors.deepOrange,
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const 
-                       AddressDetailsScreen(),
-                      ),
-                    );
+                    WidgetsBinding.instance.addPostFrameCallback((_) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const AddressDetailsScreen(),
+                        ),
+                      );
+                    });
                   },
                 ),
               ],
@@ -97,6 +97,27 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
           ],
         ),
       ),
+    );
+  }
+
+  // Function to display SVG with error handling
+  Widget _buildSvgImage() {
+    return FutureBuilder(
+      future: DefaultAssetBundle.of(context).loadString('assets/svgicons/location.svg'),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+          return SvgPicture.asset(
+            'assets/svgicons/location.svg',
+            height: 150,
+            width: 150,
+            fit: BoxFit.contain,
+          );
+        } else if (snapshot.hasError) {
+          return const Icon(Icons.error, color: Colors.red, size: 50);
+        } else {
+          return const CircularProgressIndicator();
+        }
+      },
     );
   }
 
