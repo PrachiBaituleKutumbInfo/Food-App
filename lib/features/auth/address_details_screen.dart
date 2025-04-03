@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
 
 class AddressDetailsScreen extends StatefulWidget {
@@ -80,16 +81,16 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: Colors.orange.shade100,
+                        color: const Color.fromARGB(255, 254, 225, 183),
                         borderRadius: BorderRadius.circular(10),
                         border: Border.all(
-                            color: const Color.fromARGB(255, 169, 60, 27),
+                            color: const Color.fromARGB(255, 246, 179, 131),
                             width: 2),
                       ),
                       child: const Text(
                         "A detailed address will help our delivery person reach your address easily",
                         style:
-                            TextStyle(color: Color.fromARGB(255, 169, 60, 27)),
+                            TextStyle(color: Color.fromARGB(255, 171, 107, 56)),
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -107,7 +108,7 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
                             isSvg: true),
                       ],
                     ),
-                    const SizedBox(height: 10),
+                    // const SizedBox(height: 10),
                     _buildTextField(houseNumberController, "House Number"),
                     _buildTextField(buildingNameController, "Building Name"),
                     _buildTextField(addressLineController, "Address Line 1"),
@@ -191,7 +192,7 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
     bool isSelected = selectedAddressType == type;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
       child: ElevatedButton.icon(
         onPressed: () {
           setState(() {
@@ -228,7 +229,7 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
             side: BorderSide(
               color: isSelected
                   ? Colors.deepOrange
-                  : const Color.fromARGB(255, 182, 181, 181),
+                  : const Color.fromARGB(255, 198, 211, 213),
               width: 2,
             ),
           ),
@@ -244,9 +245,9 @@ class _AddressDetailsScreenState extends State<AddressDetailsScreen> {
         controller: controller,
         decoration: InputDecoration(
           filled: true, // Enable background fill
-          fillColor: Colors.grey[100], // Light grey background
+          fillColor: const Color.fromARGB(255, 234, 242, 242), // Light grey background
           hintText: hintText,
-          hintStyle: const TextStyle(color: Color.fromARGB(255, 111, 111, 111)),
+          hintStyle: const TextStyle(color: Color.fromARGB(255, 142, 149, 149),),
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
             borderSide: const BorderSide(color: Colors.grey), // Grey border

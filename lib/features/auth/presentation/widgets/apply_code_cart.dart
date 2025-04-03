@@ -37,9 +37,9 @@ class ApplyCodeWidget extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: "Type Coupon Code",
                 hintStyle:
-                    const TextStyle(color: Colors.grey), // Hint text color
+                    const TextStyle(color: Color.fromARGB(255, 167, 179, 183)), // Hint text color
                 filled: true,
-                fillColor: Colors.blueGrey.shade50, // Light background color
+                fillColor:  const Color.fromARGB(255, 230, 236, 239),  // Light background color
 
                 // Border styling
                 enabledBorder: OutlineInputBorder(
@@ -94,7 +94,7 @@ class ApplyCodeWidget extends StatelessWidget {
               ),
               const SizedBox(width: 8), // Space between icon and text
               const Text(
-                'Bill Discounts',
+                'Bill Details',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
             ],
@@ -127,12 +127,12 @@ class ApplyCodeWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: TextStyle(fontSize: 16, fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
+            style: TextStyle(fontSize: isBold ? 18 : 16,  fontWeight: isBold ? FontWeight.bold : FontWeight.normal),
           ),
           Text(
             value,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: isBold ? 18 : 16,
               fontWeight: isBold ? FontWeight.bold : FontWeight.normal,
               color: isNegative ? Colors.green : Colors.black,
             ),
