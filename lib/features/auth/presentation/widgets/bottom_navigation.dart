@@ -58,9 +58,9 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
 
     return BottomNavigationBarItem(
       icon: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 10),
         child: Container(
-          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 8), // Space around icon & text
+          padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 8), // Space around icon & text
           decoration: BoxDecoration(
             color: isSelected
                 ? const Color.fromARGB(255, 255, 238, 228) // Light orange background for selected item
@@ -74,8 +74,8 @@ class CustomBottomNavBarState extends State<CustomBottomNavBar> {
             children: [
               SvgPicture.asset(
                 iconPath,
-                width: 28, 
-                height: 28,
+                width: 25, 
+                height: 25,
                 colorFilter: ColorFilter.mode(
                   isSelected ? Colors.deepOrange : Colors.black,
                   BlendMode.srcIn,

@@ -210,12 +210,7 @@ class _MenuScreenState extends State<MenuScreen> {
                   .toList(),
             ),
           ),
-           Container(
-            height: 1,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-            ),
-           )
+          //
         ],
       ),
       bottomNavigationBar: CustomBottomNavBar(
