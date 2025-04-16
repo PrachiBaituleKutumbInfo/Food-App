@@ -224,6 +224,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
                                 decorationThickness: 2.0,
+                                height: 2,
                                 color: Colors.black),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {

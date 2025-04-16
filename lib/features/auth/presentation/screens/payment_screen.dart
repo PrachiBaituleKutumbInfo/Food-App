@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_BSheet.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -99,11 +100,11 @@ class PaymentScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () {showOrderProgressBottomSheet(context);
                 print("Make Payment Clicked!");
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 111, 224, 5),
+                backgroundColor: const Color.fromARGB(255, 75, 200, 77),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),
@@ -125,4 +126,15 @@ class PaymentScreen extends StatelessWidget {
       ),
     );
   }
+  
+   void showOrderProgressBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+  context: context,
+  isScrollControlled: true,
+  backgroundColor: Colors.transparent,
+  builder: (_) => const OrderProgressWidget(),
+);
+
+}
+
 }

@@ -205,7 +205,9 @@ class _OtpScreenState extends State<OtpScreen> {
                                 fontSize: 16,
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
-                                  decorationThickness: 2.0,
+                                decorationThickness: 2.0,
+                                height:
+                                    2, // This increases the line height (space between text and underline)
                               ),
                             ),
                             Text(
@@ -227,7 +229,7 @@ class _OtpScreenState extends State<OtpScreen> {
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                               decoration: TextDecoration.underline,
-                                decorationThickness: 2.0,
+                              decorationThickness: 2.0,
                             ),
                           ),
                         ),

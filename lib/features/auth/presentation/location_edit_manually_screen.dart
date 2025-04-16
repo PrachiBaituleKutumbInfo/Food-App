@@ -1,77 +1,84 @@
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
 
 class LocationEditManuallyScreen extends StatefulWidget {
   const LocationEditManuallyScreen({super.key});
 
   @override
-  State<LocationEditManuallyScreen> createState() => _LocationEditManuallyScreenState();
+  State<LocationEditManuallyScreen> createState() =>
+      _LocationEditManuallyScreenState();
 }
 
-class _LocationEditManuallyScreenState extends State<LocationEditManuallyScreen> {
-  late GoogleMapController mapController;
-  LatLng selectedLocation = const LatLng(16.038, 73.467); // Default location
+class _LocationEditManuallyScreenState
+    extends State<LocationEditManuallyScreen> {
+  void showAddressDetailsBottomSheet(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent, // Makes the background fully transparent
+    // barrierColor: Colors.black.withOpacity(0.3), // Semi-transparent black background behind sheet
+    builder: (context) => const AddressDetailsBottomSheet(),
+  );
+}
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
-  }
-
-  void _onCameraMove(CameraPosition position) {
-    setState(() {
-      selectedLocation = position.target;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: [
-          /// Google Map
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: selectedLocation,
-              zoom: 14.0,
+          // 🗺️ Full-screen Map Image
+          Positioned.fill(
+            child: Image.asset(
+              'assets/map.png',
+              fit: BoxFit.cover,
             ),
-            onCameraMove: _onCameraMove,
           ),
 
-          /// Moving Pin Indicator
-          Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+          // 📍 Center Pin with Label
+          Positioned.fill(
+            child: Stack(
+              alignment: Alignment.center,
               children: [
                 const Icon(
                   Icons.location_on,
                   size: 40,
                   color: Colors.deepOrange,
                 ),
-                Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: Colors.black87,
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: const Text(
-                    "Move to edit location",
-                    style: TextStyle(color: Colors.white, fontSize: 12),
+                Positioned(
+                  top: 40,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    decoration: BoxDecoration(
+                      color: Colors.black87,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: const Text(
+                      "Move to edit location",
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
 
-          /// Address Selection Card
-          Align(
-            alignment: Alignment.bottomCenter,
+          // 📦 Bottom Address Card
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
             child: Container(
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(16),
+                  topRight: Radius.circular(16),
+                ),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black12,
@@ -80,80 +87,94 @@ class _LocationEditManuallyScreenState extends State<LocationEditManuallyScreen>
                   ),
                 ],
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  /// Address Heading
-                  const Text(
-                    "What's your address?",
-                    style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-
-                  /// Address Text
-                  Row(
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Expanded(
-                        child: Text(
-                          "A-205, Nakshatra Apartment, Police Line,\nOros, Sindhudurg, Maharashtra 416534",
-                          style: TextStyle(fontSize: 14),
+                      const Text(
+                        "What's your address?",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      IconButton(
-                        onPressed: () {
-                          // Edit address functionality
-                        },
-                        icon: const Icon(Icons.edit, color: Colors.orange),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: Text(
+                              "A-205, Nakshatra Apartment, Police Line,\nOros, Sindhudurg, Maharashtra 416534",
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ),
+                          IconButton(
+                            onPressed: () {
+                              showAddressDetailsBottomSheet(context);
+                              // TODO: Handle edit
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/svgicons/edit.svg',
+                              width: 24,
+                              height: 24,
+                              color: Colors.deepOrange,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: Colors.amber[100],
+                          borderRadius: BorderRadius.circular(8),
+                          border: Border.all(color: Colors.orange),
+                        ),
+                        child: const Row(
+                          children: [
+                            Icon(Icons.error_outline,
+                                color: Color.fromARGB(255, 171, 107, 56)),
+                            SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                "We are sorry! We don't serve this area yet.",
+                                style: TextStyle(
+                                    color: Color.fromARGB(255, 171, 107, 56)),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => const HomeScreen()),
+                      );
+                           
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.deepOrange,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                          ),
+                          child: const Text(
+                            "USE THIS ADDRESS",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
                       ),
                     ],
                   ),
-
-                  const SizedBox(height: 10),
-
-                  /// Error Message
-                  Container(
-                    padding: const EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: Colors.amber[100],
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: const Row(
-                      children: [
-                        Icon(Icons.error_outline, color: Colors.orange),
-                        SizedBox(width: 8),
-                        Text(
-                          "We are sorry! We don't serve this area yet.",
-                          style: TextStyle(fontSize: 14),
-                        ),
-                      ],
-                    ),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  /// "USE THIS ADDRESS" Button
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Confirm address functionality
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrange,
-                        padding: const EdgeInsets.symmetric(vertical: 12),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                      ),
-                      child: const Text(
-                        "USE THIS ADDRESS",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code_cart.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order.dart';
+import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order_snackbar.dart';
 import 'home_screen.dart';
 import 'menu_screen.dart';
 import 'orders_screen.dart';
@@ -74,19 +74,37 @@ class _CartScreenState extends State<CartScreen> {
         child: Column(
           children: [
             /// **Header**
-            SizedBox(
-              height: 110,
-              width: double.infinity,
-              child: Container(
-                margin: const EdgeInsets.only(top: 50),
-                child: const Center(
-                  child: Text(
-                    'Cart',
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 164, 104, 13)),
-                  ),
+            Padding(
+              padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
+              child: SizedBox(
+                height: 50,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const Center(
+                      child: Text(
+                        'Cart',
+                        style: TextStyle(
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                          color: Color.fromARGB(255, 164, 104, 13),
+                        ),
+                      ),
+                    ),
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen()),
+                          );
+                        },
+                        icon: const Icon(Icons.arrow_back),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -240,45 +258,61 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
 
-                              /// **Quantity Selector**
-                              Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                child: Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.remove,
-                                          color: Colors.green),
-                                      onPressed: () {
-                                        setState(() {
-                                          if (cartItems[index]["quantity"] >
-                                              1) {
-                                            cartItems[index]["quantity"]--;
-                                          }
-                                        });
-                                      },
-                                    ),
-                                    Text(
-                                      "${cartItems[index]["quantity"]}",
-                                      style: const TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.green),
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.add,
-                                          color: Colors.green),
-                                      onPressed: () {
-                                        setState(() {
-                                          cartItems[index]["quantity"]++;
-                                        });
-                                      },
-                                    ),
-                                  ],
-                                ),
+                              buildQuantityCounter(
+                                quantity: cartItems[index]["quantity"],
+                                onAdd: () {
+                                  setState(() {
+                                    cartItems[index]["quantity"]++;
+                                  });
+                                },
+                                onRemove: () {
+                                  setState(() {
+                                    if (cartItems[index]["quantity"] > 1) {
+                                      cartItems[index]["quantity"]--;
+                                    }
+                                  });
+                                },
                               ),
+
+                              /// **Quantity Selector**
+                              // Container(
+                              //   decoration: BoxDecoration(
+                              //     border: Border.all(color: Colors.grey),
+                              //     borderRadius: BorderRadius.circular(10),
+                              //   ),
+                              //   child: Row(
+                              //     children: [
+                              //       IconButton(
+                              //         icon: const Icon(Icons.remove,
+                              //             color: Colors.green),
+                              //         onPressed: () {
+                              //           setState(() {
+                              //             if (cartItems[index]["quantity"] >
+                              //                 1) {
+                              //               cartItems[index]["quantity"]--;
+                              //             }
+                              //           });
+                              //         },
+                              //       ),
+                              //       Text(
+                              //         "${cartItems[index]["quantity"]}",
+                              //         style: const TextStyle(
+                              //             fontSize: 14,
+                              //             fontWeight: FontWeight.bold,
+                              //             color: Colors.green),
+                              //       ),
+                              //       IconButton(
+                              //         icon: const Icon(Icons.add,
+                              //             color: Colors.green),
+                              //         onPressed: () {
+                              //           setState(() {
+                              //             cartItems[index]["quantity"]++;
+                              //           });
+                              //         },
+                              //       ),
+                              //     ],
+                              //   ),
+                              // ),
                             ],
                           ),
                         ),
@@ -381,4 +415,64 @@ class _CartScreenState extends State<CartScreen> {
       ),
     );
   }
+
+ Widget buildQuantityCounter({
+  required int quantity,
+  required VoidCallback onAdd,
+  required VoidCallback onRemove,
+}) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      border: Border.all(color: Colors.grey),
+      borderRadius: BorderRadius.circular(10),
+      boxShadow: const [
+        BoxShadow(
+          color: Colors.black12,
+          blurRadius: 4,
+          offset: Offset(2, 2),
+        ),
+      ],
+    ),
+    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+    child: Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        GestureDetector(
+          onTap: onRemove,
+          child: const Text(
+            "-",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
+          ),
+        ),
+        const SizedBox(width: 15),
+        Text(
+          "$quantity",
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.green,
+          ),
+        ),
+        const SizedBox(width: 15),
+        GestureDetector(
+          onTap: onAdd,
+          child: const Text(
+            "+",
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Colors.green,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 }

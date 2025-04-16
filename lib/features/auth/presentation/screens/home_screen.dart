@@ -136,7 +136,7 @@ class HomeScreenState extends State<HomeScreen> {
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                           SizedBox(width: 5),
-                          Text('- A-205, Akshatra Apart...',
+                          Text('- A-205, Nakshatra Apart...',
                               style: TextStyle(fontSize: 14)),
                           Icon(Icons.arrow_drop_down_sharp),
                         ],
@@ -177,16 +177,18 @@ class HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 30),
 
               /// *Popular Items Title*
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  'Popular items',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 164, 104, 13),
+              const Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Popular items',
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: Color.fromARGB(255, 164, 104, 13),
+                    ),
                   ),
-                ),
+                ],
               ),
 
               GridView.builder(
@@ -234,8 +236,8 @@ class HomeScreenState extends State<HomeScreen> {
                                 foodItems[index]["category"] == "veg"
                                     ? 'assets/svgicons/veg-category.svg'
                                     : 'assets/svgicons/non-veg-category.svg',
-                                width: 25,
-                                height: 25,
+                                width: 20,
+                                height: 20,
                               ),
                             ),
                           ],
@@ -259,7 +261,7 @@ class HomeScreenState extends State<HomeScreen> {
                               Text(
                                 foodItems[index]["subtitle"]!,
                                 style: const TextStyle(
-                                  fontSize: 14,
+                                  fontSize: 11,
                                   color: Color.fromARGB(255, 116, 142, 164),
                                 ),
                                 maxLines: 1,
@@ -272,78 +274,15 @@ class HomeScreenState extends State<HomeScreen> {
                                   Text(
                                     foodItems[index]["price"]!,
                                     style: const TextStyle(
-                                      fontSize: 20,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
-                                  foodItems[index]["quantity"] == 0
-                                      ? SizedBox(
-                                           width: 110,
-                                          height: 40,
-                                          child: ElevatedButton(
-                                            onPressed: () =>
-                                                _updateQuantity(index, 1),
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: Colors.white,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(10),
-                                                side: const BorderSide(
-                                                  color: Colors.grey,
-                                                  width: 1.5,
-                                                ),
-                                              ),
-                                              elevation: 4,
-                                            ),
-                                            child: const Text(
-                                              " Add + ",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                color: Colors.green,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : Container(
-                                          decoration: BoxDecoration(
-                                            border:
-                                                Border.all(color: Colors.grey),
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                          ),
-                                          child: SizedBox(
-                                            height: 40,
-                                            
-                                            child: Row(
-                                              children: [
-                                                IconButton(
-                                                  icon: const Icon(Icons.remove,
-                                                      color: Colors.green,
-                                                      size: 16),
-                                                  onPressed: () =>
-                                                      _updateQuantity(
-                                                          index, -1),
-                                                ),
-                                                Text(
-                                                  "${foodItems[index]["quantity"]}",
-                                                  style: const TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.green,
-                                                  ),
-                                                ),
-                                                IconButton(
-                                                  icon: const Icon(Icons.add,
-                                                      color: Colors.green,
-                                                      size: 16),
-                                                  onPressed: () =>
-                                                      _updateQuantity(index, 1),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
+                                  buildQuantityControl(
+                                    quantity: foodItems[index]["quantity"],
+                                    onAdd: () => _updateQuantity(index, 1),
+                                    onRemove: () => _updateQuantity(index, -1),
+                                  ),
                                 ],
                               ),
                             ],
@@ -364,6 +303,79 @@ class HomeScreenState extends State<HomeScreen> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
+    );
+  }
+
+  Widget buildQuantityControl({
+    required int quantity,
+    required VoidCallback onAdd,
+    required VoidCallback onRemove,
+  }) {
+    return Container(
+      width: 110, // Fixed width
+      height: 40, // Fixed height
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(color: Colors.grey),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black12,
+            blurRadius: 4,
+            offset: Offset(2, 2),
+          ),
+        ],
+      ),
+      padding: const EdgeInsets.symmetric(horizontal: 8),
+      child: quantity < 1
+          ? Center(
+              child: GestureDetector(
+                onTap: onAdd,
+                child: const Text(
+                  "Add +",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+              ),
+            )
+          : Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: onRemove,
+                  child: const Text(
+                    "-",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+                Text(
+                  "$quantity",
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.green,
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onAdd,
+                  child: const Text(
+                    "+",
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.green,
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

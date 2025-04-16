@@ -5,7 +5,6 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/item_added_bottom_bar_menu.dart';
 
 class MenuScreen extends StatefulWidget {
   const MenuScreen({super.key});
@@ -43,7 +42,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
   int _selectedIndex = 1;
 
-  String selectedCategory = "veg"; // ✅ Matching category names exactly
+  Set<String> selectedCategories = {"veg"}; // 💡 Use Set for easy add/remove
 
   final List<Map<String, String>> menuItems = [
     {
@@ -200,11 +199,15 @@ class _MenuScreenState extends State<MenuScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 15),
               children: menuItems
                   .where((item) {
-                    if (selectedCategory == "bestseller") {
-                      return double.parse(item["rating"]!) >=
-                          4.5; // Bestseller if rating ≥ 4.5
-                    }
-                    return item["category"] == selectedCategory;
+                    // Show item if its category is selected OR if it's a bestseller
+                    bool isBestseller =
+                        selectedCategories.contains("bestseller") &&
+                            double.parse(item["rating"]!) >= 4.5;
+
+                    bool isCategorySelected =
+                        selectedCategories.contains(item["category"]);
+
+                    return isBestseller || isCategorySelected;
                   })
                   .map((item) => _buildMenuItem(item))
                   .toList(),
@@ -247,7 +250,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 right: 25, // Adjust right spacing
                 child: ElevatedButton(
                   onPressed: () {
-                    ItemAddedBottomBar.show(context);
+                    // ItemAddedBottomBar.show(context);
                   },
                   //
                   style: ElevatedButton.styleFrom(
@@ -336,8 +339,9 @@ class _MenuScreenState extends State<MenuScreen> {
                   ),
                   Text(
                     "${item["description"]} ",
+                    maxLines: 4,
                     style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w600,
                         color: Colors.grey),
                   ),
@@ -351,12 +355,19 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildCategoryChip(String categoryKey, String categoryLabel) {
-    bool isSelected = selectedCategory == categoryKey;
+    bool isSelected = selectedCategories.contains(categoryKey);
 
     return GestureDetector(
       onTap: () {
         setState(() {
-          selectedCategory = categoryKey;
+          if (isSelected) {
+            // ✅ Prevent removing if it's the last one
+            if (selectedCategories.length > 1) {
+              selectedCategories.remove(categoryKey);
+            }
+          } else {
+            selectedCategories.add(categoryKey);
+          }
         });
       },
       child: Container(
@@ -390,7 +401,9 @@ class _MenuScreenState extends State<MenuScreen> {
               GestureDetector(
                 onTap: () {
                   setState(() {
-                    selectedCategory = ''; // Deselect when 'X' is clicked
+                    if (selectedCategories.length > 1) {
+                      selectedCategories.remove(categoryKey);
+                    }
                   });
                 },
                 child:

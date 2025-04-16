@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 
 class LocationAccessScreen extends StatefulWidget {
@@ -86,7 +87,8 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const AddressDetailsScreen(),
+                          builder: (context) => const LocationSelectionScreen(),
+                          // AddressDetailsScreen(),
                         ),
                       );
                     });
