@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -143,7 +144,17 @@ class HomeScreenState extends State<HomeScreen> {
                       ),
                     ],
                   ),
-                  SvgPicture.asset('assets/svgicons/profile-icon.svg'),
+                  // SvgPicture.asset('assets/svgicons/profile-icon.svg'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProfileDetailScreen()),
+                      );
+                    },
+                    child: SvgPicture.asset('assets/svgicons/profile-icon.svg'),
+                  ),
                 ],
               ),
 

@@ -11,20 +11,37 @@ class PaymentScreen extends StatelessWidget {
       body: Column(
         children: [
           /// **Header**
-          SizedBox(
-            height: 110,
-            width: double.infinity,
-            child: Container(
-              margin: const EdgeInsets.only(top: 50),
-              child: const Center(
-                child: Text(
-                  'Payment',
-                  style: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 164, 104, 13),
+          Padding(
+            padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
+            child: SizedBox(
+              height: 50,
+              child: Stack(
+                alignment: Alignment.center,
+                children: [
+                  const Center(
+                    child: Text(
+                      'Payment',
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                        color: Color.fromARGB(255, 164, 104, 13),
+                      ),
+                    ),
                   ),
-                ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Color(0xFFE0E0E0), // light grey background
+                      ),
+                      child: IconButton(
+                        icon: const Icon(Icons.arrow_back, color: Colors.black),
+                        onPressed: () => Navigator.pop(context),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -32,14 +49,18 @@ class PaymentScreen extends StatelessWidget {
           /// **Divider**
           Container(
             height: 1.5,
-            decoration:
-                BoxDecoration(color: Colors.grey.withOpacity(0.5), boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                blurRadius: 2,
-                offset: const Offset(0, 3),
-              ),
-            ]),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
+              boxShadow: [
+                BoxShadow(
+                  color:
+                      const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
+                  blurRadius: 2,
+                  spreadRadius: 0,
+                  offset: const Offset(0, 3),
+                ),
+              ],
+            ),
           ),
 
           const SizedBox(height: 16),
@@ -91,7 +112,7 @@ class PaymentScreen extends StatelessWidget {
               BoxShadow(
                 color: Colors.grey.withOpacity(0.5),
                 blurRadius: 5,
-                offset: const Offset(3,0),
+                offset: const Offset(3, 0),
               ),
             ]),
           ),
@@ -100,7 +121,8 @@ class PaymentScreen extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(20),
             child: ElevatedButton(
-              onPressed: () {showOrderProgressBottomSheet(context);
+              onPressed: () {
+                showOrderProgressBottomSheet(context);
                 print("Make Payment Clicked!");
               },
               style: ElevatedButton.styleFrom(
@@ -126,15 +148,13 @@ class PaymentScreen extends StatelessWidget {
       ),
     );
   }
-  
-   void showOrderProgressBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-  context: context,
-  isScrollControlled: true,
-  backgroundColor: Colors.transparent,
-  builder: (_) => const OrderProgressWidget(),
-);
 
-}
-
+  void showOrderProgressBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (_) => const OrderProgressWidget(),
+    );
+  }
 }
