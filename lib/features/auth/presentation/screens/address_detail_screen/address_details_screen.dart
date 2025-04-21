@@ -12,7 +12,7 @@ class AddressDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 12),
+          padding: const EdgeInsets.only(left: 12,),
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -116,8 +116,8 @@ class AddressDetailsScreen extends StatelessWidget {
               _addressCard(
                 iconWidget: SvgPicture.asset(
                   'assets/svgicons/home-green.svg',
-                  width: 24,
-                  height: 24,
+                  width: 30,
+                  height: 30,
                 ),
                 label: 'Home',
                 address:
@@ -166,7 +166,7 @@ class AddressDetailsScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 228, 231, 236),
+          color: const Color.fromARGB(255, 229, 241, 248),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(

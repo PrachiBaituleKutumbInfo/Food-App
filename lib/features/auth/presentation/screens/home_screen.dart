@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
 
@@ -119,28 +120,39 @@ class HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Column(
+                  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'DELIVER TO',
                         style: TextStyle(
                             color: Colors.deepOrange,
                             fontSize: 12,
                             fontWeight: FontWeight.bold),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            'Home',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 16),
-                          ),
-                          SizedBox(width: 5),
-                          Text('- A-205, Nakshatra Apart...',
-                              style: TextStyle(fontSize: 14)),
-                          Icon(Icons.arrow_drop_down_sharp),
-                        ],
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const AddressDetailsScreen(),
+                            ),
+                          );
+                        },
+                        child: const Row(
+                          children: [
+                            Text(
+                              'Home',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 16),
+                            ),
+                            SizedBox(width: 5),
+                            Text('- A-205, Nakshatra Apart...',
+                                style: TextStyle(fontSize: 14)),
+                            Icon(Icons.arrow_drop_down_sharp),
+                          ],
+                        ),
                       ),
                     ],
                   ),

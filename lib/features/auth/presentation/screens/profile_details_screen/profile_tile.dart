@@ -43,7 +43,7 @@ class SectionContainer extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 228, 231, 236),
+          color: const Color.fromARGB(255, 229, 241, 248),
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(

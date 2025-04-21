@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_tile.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
@@ -15,17 +16,19 @@ class ProfileDetailScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 12),
+          padding: const EdgeInsets.only(
+            left: 12,
+          ),
           child: Container(
-                decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-          color: Color(0xFFE0E0E0), // light grey background
-                ),
-                child: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
-                ),
-              ),
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.fromARGB(255, 244, 243, 243),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
         ),
         title: const Text(
           'Profile',
@@ -62,7 +65,6 @@ class ProfileDetailScreen extends StatelessWidget {
                     Text('devenparab@gmail.com'),
                     Text(
                       '+91 9876543210',
-                
                     ),
                   ],
                 ),
@@ -89,7 +91,7 @@ class ProfileDetailScreen extends StatelessWidget {
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/address.svg'),
                   title: "Addresses",
-                   onTap: () {
+                  onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -105,6 +107,12 @@ class ProfileDetailScreen extends StatelessWidget {
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/order.svg'),
                   title: "Orders",
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const OrderHistoryScreen()));
+                  },
                 ),
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/payment.svg'),
@@ -145,6 +153,3 @@ class ProfileDetailScreen extends StatelessWidget {
     );
   }
 }
-
-
-

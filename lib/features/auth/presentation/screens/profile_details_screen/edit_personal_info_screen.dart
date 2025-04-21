@@ -11,9 +11,18 @@ class PersonalInfoScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 12,),
+          child: Container(
+            decoration: const BoxDecoration(
+              shape: BoxShape.circle,
+              color: Color.fromARGB(255, 244, 243, 243),
+            ),
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back, color: Colors.black),
+              onPressed: () => Navigator.pop(context),
+            ),
+          ),
         ),
         title: const Text(
           'Personal Info',
@@ -76,7 +85,7 @@ class PersonalInfoScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 228, 231, 236),
+          color: const Color.fromARGB(255, 229, 241, 248),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(

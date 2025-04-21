@@ -97,7 +97,7 @@ class _CartScreenState extends State<CartScreen> {
                       child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          color: Color(0xFFE0E0E0), // light grey background
+                          color: Color.fromARGB(255, 244, 243, 243),
                         ),
                         child: IconButton(
                           icon:
