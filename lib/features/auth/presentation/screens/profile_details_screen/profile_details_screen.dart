@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/customer_supports_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/payment_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_tile.dart';
@@ -117,6 +119,12 @@ class ProfileDetailScreen extends StatelessWidget {
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/payment.svg'),
                   title: "Payment Method",
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const PaymentScreen()));
+                  },
                 ),
               ],
             ),
@@ -125,6 +133,12 @@ class ProfileDetailScreen extends StatelessWidget {
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/faq.svg'),
                   title: "FAQ",
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const CustomerSupportsScreen()));
+                  },
                 ),
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/setting.svg'),
@@ -147,6 +161,7 @@ class ProfileDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
+
           ],
         ),
       ),

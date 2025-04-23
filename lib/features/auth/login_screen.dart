@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
 import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
 import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
@@ -14,9 +15,26 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController countryCodeController = TextEditingController();
   bool isEnable = false;
+
+  void login(String phoneNumber) async {
+    try {
+      final uri = Uri.parse('http://localhost:8087/auth/send-otp')
+          .replace(queryParameters: {'mobileNumber': phoneNumber});
+
+      final response = await http.post(uri);
+
+      if (response.statusCode == 200) {
+        print('OTP Sent Successfully');
+      } else {
+        print('Failed to send OTP. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error: ${e.toString()}');
+    }
+  }
 
   @override
   void initState() {
@@ -116,9 +134,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         Expanded(
                           child: TextField(
-                            controller: phoneController,
+                            controller: phoneNumberController,
                             keyboardType: TextInputType.number,
-                             cursorColor: Colors.deepOrange,
+                            cursorColor: Colors.deepOrange,
                             inputFormatters: [
                               FilteringTextInputFormatter.digitsOnly,
                               LengthLimitingTextInputFormatter(10),
@@ -141,6 +159,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 45,
                     width: double.infinity,
                     child: ElevatedButton(
+                      // onPressed: isEnable
+                      //     ? () {
+                      //         final phone = phoneNumberController.text.trim();
+                      //         debugPrint(
+                      //             "🧪 CONTINUE button pressed with number: $phone");
+                      //         login(phone);
+                      //       }
+                      //     : null,
                       onPressed: isEnable
                           ? () {
                               Navigator.push(
