@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationAccessScreen extends StatefulWidget {
   const LocationAccessScreen({super.key});
@@ -49,8 +49,10 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                       const SizedBox(height: 20),
                       buildBulletPoint("Real-time tracking of your order"),
                       buildBulletPoint("Faster and more accurate delivery"),
-                      buildBulletPoint("Easy communication with the delivery person"),
-                      buildBulletPoint("Increase safety and security during delivery"),
+                      buildBulletPoint(
+                          "Easy communication with the delivery person"),
+                      buildBulletPoint(
+                          "Increase safety and security during delivery"),
                     ],
                   ),
                 ],
@@ -60,37 +62,27 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
             // Buttons at the Bottom
             Column(
               children: [
-                buildActionButton(
-                  text: "USE CURRENT LOCATION",
+                CustomActionButton(
+                  isEnable: true,
+                  text: 'USE CURRENT LOCATION',
                   backgroundColor: Colors.deepOrange,
                   textColor: Colors.white,
                   onPressed: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LocationEditManuallyScreen(),
-                        ),
-                      );
-                    });
+                    Navigator.pushNamed(
+                        context, Routes.locationEditManuallyRoute);
+                    print('USE CURRENT LOCATION');
                   },
                 ),
                 const SizedBox(height: 15),
-                buildActionButton(
-                  text: "ENTER MANUALLY",
-                  backgroundColor: const Color.fromARGB(255, 241, 239, 238),
+                CustomActionButton(
+                  isEnable: true,
+                  text: 'ENTER MANUALLY',
+                  backgroundColor: const Color.fromARGB(255, 252, 243, 243),
                   textColor: Colors.deepOrange,
                   borderColor: Colors.deepOrange,
                   onPressed: () {
-                    WidgetsBinding.instance.addPostFrameCallback((_) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LocationSelectionScreen(),
-                          // AddressDetailsScreen(),
-                        ),
-                      );
-                    });
+                    Navigator.pushNamed(context, Routes.locationSelectionRoute);
+                    print('ENTER MANUALLY');
                   },
                 ),
               ],
@@ -104,9 +96,11 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
   // Function to display SVG with error handling
   Widget _buildSvgImage() {
     return FutureBuilder(
-      future: DefaultAssetBundle.of(context).loadString('assets/svgicons/location.svg'),
+      future: DefaultAssetBundle.of(context)
+          .loadString('assets/svgicons/location.svg'),
       builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.done && snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.done &&
+            snapshot.hasData) {
           return SvgPicture.asset(
             'assets/svgicons/location.svg',
             height: 150,
@@ -133,33 +127,6 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
           const Text("• ", style: TextStyle(fontSize: 20)),
           Expanded(child: Text(text, style: const TextStyle(fontSize: 16))),
         ],
-      ),
-    );
-  }
-
-  // Function to create buttons
-  Widget buildActionButton({
-    required String text,
-    required Color backgroundColor,
-    required Color textColor,
-    Color? borderColor,
-    required VoidCallback onPressed,
-  }) {
-    return SizedBox(
-      width: double.infinity,
-      height: 45,
-      child: ElevatedButton(
-        onPressed: onPressed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: backgroundColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-            side: borderColor != null
-                ? BorderSide(color: borderColor)
-                : BorderSide.none,
-          ),
-        ),
-        child: Text(text, style: TextStyle(color: textColor, fontSize: 16)),
       ),
     );
   }

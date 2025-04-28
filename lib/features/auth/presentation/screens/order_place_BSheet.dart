@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/order_tracking_Map_Screen.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OrderProgressWidget extends StatefulWidget {
   const OrderProgressWidget({super.key});
@@ -136,33 +137,18 @@ class _OrderProgressWidgetState extends State<OrderProgressWidget> {
               // TRACK ORDER BUTTON at bottom
               if (step == 3) ...[
                 const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const OrderTrackingScreen(),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.deepOrange,
-                      side: const BorderSide(color: Colors.deepOrange),
-                      minimumSize: const Size.fromHeight(45),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      "TRACK ORDER",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                    ),
-                  ),
+                CustomActionButton(
+                  isEnable: true,
+                  text: 'TRACK ORDER',
+                  backgroundColor: const Color.fromARGB(255, 252, 243, 243),
+                  textColor: Colors.deepOrange,
+                  borderColor: Colors.deepOrange,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.orderTrackingRoute);
+                    print('TRACK ORDER');
+                  },
                 ),
+               
               ],
             ],
           ),

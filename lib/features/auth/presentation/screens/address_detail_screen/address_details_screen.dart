@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class AddressDetailsScreen extends StatelessWidget {
   const AddressDetailsScreen({super.key});
@@ -12,7 +13,9 @@ class AddressDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(left: 12,),
+          padding: const EdgeInsets.only(
+            left: 12,
+          ),
           child: Container(
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
@@ -73,34 +76,23 @@ class AddressDetailsScreen extends StatelessWidget {
                   )
                 ],
               ),
-        
+
               const SizedBox(height: 30),
-        
-              // Add New Address Button
-              SizedBox(
-                height: 45,
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-                    // Handle add address
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.deepOrange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text(
-                    'ADD NEW ADDRESS',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                ),
+              CustomActionButton(
+                isEnable: true,
+                text: 'ADD NEW ADDRESS',
+                backgroundColor: Colors.deepOrange,
+                textColor: Colors.white,
+                onPressed: () {
+                  // Navigator.pushNamed(context, Routes.otpRoute);
+                  print('ADD NEW ADDRESS');
+                },
               ),
-        
+
               const SizedBox(height: 20),
               const Divider(),
               const SizedBox(height: 20),
-        
+
               const Text(
                 'Saved Locations',
                 style: TextStyle(
@@ -109,9 +101,9 @@ class AddressDetailsScreen extends StatelessWidget {
                   color: Color.fromARGB(255, 159, 47, 13),
                 ),
               ),
-        
+
               const SizedBox(height: 20),
-        
+
               // Address Card - Home
               _addressCard(
                 iconWidget: SvgPicture.asset(
@@ -129,9 +121,9 @@ class AddressDetailsScreen extends StatelessWidget {
                   debugPrint("Delete Home tapped");
                 },
               ),
-        
+
               const SizedBox(height: 10),
-        
+
               // Address Card - Work
               _addressCard(
                 iconWidget: SvgPicture.asset(
@@ -166,7 +158,7 @@ class AddressDetailsScreen extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 229, 241, 248),
+        color: const Color.fromARGB(255, 229, 241, 248),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -203,14 +195,14 @@ class AddressDetailsScreen extends StatelessWidget {
                         'assets/svgicons/trash-orange.svg',
                         width: 20,
                         height: 20,
-                      
                       ),
                     ),
                   ],
                 ),
                 Text(
                   address,
-                  style: const TextStyle(fontSize: 14, color: Color.fromARGB(255, 119, 127, 137)),
+                  style: const TextStyle(
+                      fontSize: 14, color: Color.fromARGB(255, 119, 127, 137)),
                 ),
               ],
             ),

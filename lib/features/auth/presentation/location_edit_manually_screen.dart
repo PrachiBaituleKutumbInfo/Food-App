@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationEditManuallyScreen extends StatefulWidget {
   const LocationEditManuallyScreen({super.key});
@@ -13,16 +15,18 @@ class LocationEditManuallyScreen extends StatefulWidget {
 
 class _LocationEditManuallyScreenState
     extends State<LocationEditManuallyScreen> {
-  void showAddressDetailsBottomSheet(BuildContext context) {
-  showModalBottomSheet(
-    context: context,
-    isScrollControlled: true,
-    backgroundColor: Colors.transparent, // Makes the background fully transparent
-    // barrierColor: Colors.black.withOpacity(0.3), // Semi-transparent black background behind sheet
-    builder: (context) => const AddressDetailsBottomSheet(),
-  );
-}
+  bool isEnable = true;
 
+  void showAddressDetailsBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor:
+          Colors.transparent, // Makes the background fully transparent
+      // barrierColor: Colors.black.withOpacity(0.3), // Semi-transparent black background behind sheet
+      builder: (context) => const AddressDetailsBottomSheet(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -114,7 +118,6 @@ class _LocationEditManuallyScreenState
                           IconButton(
                             onPressed: () {
                               showAddressDetailsBottomSheet(context);
-                              // TODO: Handle edit
                             },
                             icon: SvgPicture.asset(
                               'assets/svgicons/edit.svg',
@@ -149,28 +152,15 @@ class _LocationEditManuallyScreenState
                         ),
                       ),
                       const SizedBox(height: 16),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const HomeScreen()),
-                      );
-                           
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.deepOrange,
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                          ),
-                          child: const Text(
-                            "USE THIS ADDRESS",
-                            style: TextStyle(color: Colors.white, fontSize: 16),
-                          ),
-                        ),
+                      CustomActionButton(
+                        isEnable: isEnable,
+                        text: 'USE THIS ADDRESS',
+                        backgroundColor: Colors.deepOrange,
+                        textColor: Colors.white,
+                        onPressed: () {
+                          Navigator.pushNamed(context, Routes.homeRoute);
+                          print('USE THIS ADDRESS');
+                        },
                       ),
                     ],
                   ),

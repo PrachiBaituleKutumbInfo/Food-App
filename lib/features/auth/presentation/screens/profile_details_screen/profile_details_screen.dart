@@ -6,6 +6,8 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/payment_scre
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_tile.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/settings_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/terms_and_service_screen.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
   const ProfileDetailScreen({super.key});
@@ -143,11 +145,18 @@ class ProfileDetailScreen extends StatelessWidget {
                 ProfileTile(
                   iconWidget: SvgPicture.asset('assets/svgicons/setting.svg'),
                   title: "Settings",
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
+                  },
+                  
                 ),
                 ProfileTile(
                   iconWidget:
                       SvgPicture.asset('assets/svgicons/terms-of-service.svg'),
                   title: "Terms of Service",
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsAndServiceScreen()));
+                  },
                 ),
               ],
             ),

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code_cart.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order_snackbar.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 import 'home_screen.dart';
 import 'menu_screen.dart';
 import 'orders_screen.dart';
@@ -287,38 +289,18 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   }).toList(),
                 ),
-
-                /// **Add More Items Button**
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        print("Add More Items Pressed!");
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 241, 239, 238),
-                        shape: RoundedRectangleBorder(
-                          side: const BorderSide(color: Colors.deepOrange),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(vertical: 12),
-                        child: Text(
-                          'ADD MORE ITEMS',
-                          style: TextStyle(
-                              color: Colors.deepOrange,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
+CustomActionButton(
+                  isEnable: true,
+                  text: 'ADD MORE ITEMS',
+                  backgroundColor: const Color.fromARGB(255, 252, 243, 243),
+                  textColor: Colors.deepOrange,
+                  borderColor: Colors.deepOrange,
+                  onPressed: () {
+                    Navigator.pushNamed(context, Routes.locationSelectionRoute);
+                    print('ADD MORE ITEMS');
+                  },
                 ),
+               
 
                 /// **Delivery Instructions**
                 Padding(

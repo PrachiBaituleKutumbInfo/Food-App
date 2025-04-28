@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class AddressDetailsBottomSheet extends StatefulWidget {
   const AddressDetailsBottomSheet({super.key});
 
   @override
-  State<AddressDetailsBottomSheet> createState() => _AddressDetailsBottomSheetState();
+  State<AddressDetailsBottomSheet> createState() =>
+      _AddressDetailsBottomSheetState();
 }
 
 class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
@@ -28,7 +30,6 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
   Widget build(BuildContext context) {
     return DraggableScrollableSheet(
       expand: false,
-    
       initialChildSize: 0.9,
       minChildSize: 0.6,
       maxChildSize: 0.95,
@@ -51,7 +52,8 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
                   children: [
                     const Text(
                       "Add more address details",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     IconButton(
                       icon: const Icon(Icons.close),
@@ -90,39 +92,30 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
                 Row(
                   children: [
                     _buildAddressTypeButton("Home", "assets/svgicons/home.svg"),
-                    _buildAddressTypeButton("Work", "assets/svgicons/briefcase.svg"),
-                    _buildAddressTypeButton("Other", "assets/svgicons/location-pin.svg"),
+                    _buildAddressTypeButton(
+                        "Work", "assets/svgicons/briefcase.svg"),
+                    _buildAddressTypeButton(
+                        "Other", "assets/svgicons/location-pin.svg"),
                   ],
                 ),
                 _buildTextField(houseNumberController, "House Number"),
                 _buildTextField(buildingNameController, "Building Name"),
                 _buildTextField(addressLineController, "Address Line 1"),
-                _buildTextField(landmarkController, "Nearby Landmark (optional)"),
+                _buildTextField(
+                    landmarkController, "Nearby Landmark (optional)"),
                 _buildTextField(nameController, "Your Name"),
                 _buildTextField(mobileController, "Mobile Number"),
                 const SizedBox(height: 20),
-                SizedBox(
-                  width: double.infinity,
-                  height: 45,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      _saveAddress();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) => const LocationEditManuallyScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.deepOrange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                    ),
-                    child: const Text(
-                      "SAVE ADDRESS",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
+                CustomActionButton(
+                  isEnable: true,
+                  text: 'SAVE ADDRESS',
+                  backgroundColor: Colors.deepOrange,
+                  textColor: Colors.white,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, Routes.locationEditManuallyRoute);
+                    print('SAVE ADDRESS');
+                  },
                 ),
               ],
             ),
@@ -160,7 +153,8 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
     );
   }
 
-  Widget _buildAddressTypeButton(String type, String assetPath, {bool isSvg = true}) {
+  Widget _buildAddressTypeButton(String type, String assetPath,
+      {bool isSvg = true}) {
     bool isSelected = selectedAddressType == type;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 8),
@@ -177,7 +171,8 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
                 height: 24,
                 color: isSelected ? Colors.deepOrange : Colors.black,
               )
-            : Icon(Icons.location_on, color: isSelected ? Colors.deepOrange : Colors.grey),
+            : Icon(Icons.location_on,
+                color: isSelected ? Colors.deepOrange : Colors.grey),
         label: Text(
           type,
           style: TextStyle(
@@ -187,11 +182,15 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
           ),
         ),
         style: ElevatedButton.styleFrom(
-          backgroundColor: isSelected ? const Color.fromARGB(255, 254, 232, 232) : Colors.white,
+          backgroundColor: isSelected
+              ? const Color.fromARGB(255, 254, 232, 232)
+              : Colors.white,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
             side: BorderSide(
-              color: isSelected ? Colors.deepOrange : const Color.fromARGB(255, 198, 211, 213),
+              color: isSelected
+                  ? Colors.deepOrange
+                  : const Color.fromARGB(255, 198, 211, 213),
               width: 2,
             ),
           ),

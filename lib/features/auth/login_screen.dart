@@ -1,11 +1,12 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
-import 'package:konkan_bite_food/features/auth/otp_screen.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
 import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
+import 'package:konkan_bite_food/widgets/custom_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -108,88 +109,26 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(fontSize: 13, color: Colors.black87),
                   ),
                   const SizedBox(height: 8),
-                  Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      border: Border.all(width: 1, color: Colors.grey),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      children: [
-                        const SizedBox(width: 10),
-                        SizedBox(
-                          width: 40,
-                          child: TextField(
-                            controller: countryCodeController,
-                            readOnly: true,
-                            decoration: const InputDecoration(
-                                border: InputBorder.none,
-                                hintText: ' +91',
-                                hintStyle: TextStyle(color: Colors.black)),
-                          ),
-                        ),
-                        const Text(
-                          '| ',
-                          style: TextStyle(fontSize: 20, color: Colors.grey),
-                        ),
-                        Expanded(
-                          child: TextField(
-                            controller: phoneNumberController,
-                            keyboardType: TextInputType.number,
-                            cursorColor: Colors.deepOrange,
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(10),
-                            ],
-                            onChanged: _validatePhone,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              suffixIcon: isEnable
-                                  ? const Icon(Icons.check,
-                                      color: Colors.deepOrange)
-                                  : null,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                  //
+                  CustomPhoneTextField(
+                    countryCodeController: countryCodeController,
+                    phoneNumberController: phoneNumberController,
+                    onChanged: _validatePhone,
+                    isEnable: isEnable,
                   ),
+
                   const SizedBox(height: 20),
-                  SizedBox(
-                    height: 45,
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      // onPressed: isEnable
-                      //     ? () {
-                      //         final phone = phoneNumberController.text.trim();
-                      //         debugPrint(
-                      //             "🧪 CONTINUE button pressed with number: $phone");
-                      //         login(phone);
-                      //       }
-                      //     : null,
-                      onPressed: isEnable
-                          ? () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const OtpScreen()),
-                              );
-                            }
-                          : null,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        disabledBackgroundColor:
-                            const Color.fromARGB(255, 244, 167, 144),
-                      ),
-                      child: const Text(
-                        'CONTINUE',
-                        style: TextStyle(color: Colors.white, fontSize: 18),
-                      ),
-                    ),
+                  CustomActionButton(
+                    isEnable: isEnable,
+                    text: 'Login',
+                    backgroundColor: Colors.deepOrange,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.otpRoute);
+                      print('hit continue');
+                    },
                   ),
+
                   const SizedBox(height: 20),
                   const Center(
                       child: Text(

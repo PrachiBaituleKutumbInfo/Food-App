@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
+// ignore: must_be_immutable
 class LocationSelectionScreen extends StatelessWidget {
-  const LocationSelectionScreen({super.key});
+  LocationSelectionScreen({super.key});
+
+  bool isEnable = true;
 
   @override
   Widget build(BuildContext context) {
@@ -78,26 +82,18 @@ class LocationSelectionScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  SizedBox(
-                    width: double.infinity,
-                    height: 45,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Handle use this address
-                        // Navigator.pop(context);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.deepOrange,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                      ),
-                      child: const Text(
-                        "USE THIS ADDRESS",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
+                  CustomActionButton(
+                    isEnable: true,
+                    text: 'USE THIS ADDRESS',
+                    backgroundColor: Colors.deepOrange,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      // Navigator.pushNamed(
+                      //     context, Routes.locationEditManuallyRoute);
+                      print('USE THIS ADDRESS');
+                    },
                   ),
+                 
                 ],
               ),
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_BSheet.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -33,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
                     child: Container(
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 244, 243, 243),
+                        color: Color.fromARGB(255, 244, 243, 243),
                       ),
                       child: IconButton(
                         icon: const Icon(Icons.arrow_back, color: Colors.black),
@@ -117,33 +118,18 @@ class PaymentScreen extends StatelessWidget {
             ]),
           ),
 
-          /// **Bottom Button**
-          Padding(
-            padding: const EdgeInsets.all(20),
-            child: ElevatedButton(
-              onPressed: () {
-                showOrderProgressBottomSheet(context);
-                print("Make Payment Clicked!");
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: const Color.fromARGB(255, 75, 200, 77),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
-              child: const Center(
-                child: Text(
-                  "MAKE PAYMENT",
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
+          CustomActionButton(
+            isEnable: true,
+            text: 'MAKE PAYMENT',
+            backgroundColor: Colors.green[400]!,
+            textColor: Colors.white,
+            onPressed: () {
+              // Navigator.pushNamed(context, Routes.otpRoute);
+              print('MAKE PAYMENT');
+            },
           ),
+
+          
         ],
       ),
     );

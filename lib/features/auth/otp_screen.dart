@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OtpScreen extends StatefulWidget {
   const OtpScreen({super.key});
@@ -11,6 +13,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
+   bool isEnable = true;
   List<TextEditingController> otpControllers =
       List.generate(4, (index) => TextEditingController());
   List<FocusNode> otpFocusNodes = List.generate(4, (index) => FocusNode());
@@ -169,23 +172,20 @@ class _OtpScreenState extends State<OtpScreen> {
               }),
             ),
             const SizedBox(height: 30),
-            SizedBox(
-              width: double.infinity,
-              height: 45,
-              child: ElevatedButton(
-                onPressed: verifyOtp,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepOrange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+            CustomActionButton(
+                    isEnable: isEnable,
+                    text: 'VERIFY',
+                    backgroundColor: Colors.deepOrange,
+                    textColor: Colors.white,
+                    onPressed: () {
+                     Navigator.pushNamed(context, Routes.locationAccessRoute);
+                      print('Verify');
+                    },
                   ),
-                ),
-                child: const Text(
-                  "VERIFY",
-                  style: TextStyle(color: Colors.white, fontSize: 18),
-                ),
-              ),
-            ),
+          // CustomOrangeButton(isEnable: isEnable, onPressed: () {
+          //             Navigator.pushNamed(context, Routes.locationAccessRoute);
+          //           print('hit continue');
+          //           }, buttonText: 'VERIFY'),
             const SizedBox(height: 20),
             Center(
               child: Row(
