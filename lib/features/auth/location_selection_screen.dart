@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 // ignore: must_be_immutable
@@ -27,7 +30,7 @@ class LocationSelectionScreen extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
               decoration: const BoxDecoration(
-                color: Colors.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
                 boxShadow: [BoxShadow(color: Colors.black26, blurRadius: 10)],
               ),
@@ -35,9 +38,10 @@ class LocationSelectionScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                 Text(
                     "What's your address?",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: AppTextStyle.title1Medium
+                          .copyWith(color: AppColors.deepNavy),
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
@@ -55,44 +59,43 @@ class LocationSelectionScreen extends StatelessWidget {
                         );
                       },
                       decoration: InputDecoration(
-                        fillColor: const Color.fromARGB(255, 230, 228, 228),
+                        fillColor: AppColors.lightBlueGrey,
                         filled: true,
                         hintText: "Search for a building, street name or area",
                         hintStyle: const TextStyle(
-                          color: Color.fromARGB(255, 142, 159, 168),
+                          color: AppColors.softBlue,
                         ),
                         suffixIcon: const Icon(Icons.search),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: AppColors.softBlue,),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color:AppColors.softBlue,),
                         ),
                         disabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: AppColors.softBlue,),
                         ),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: const BorderSide(color: Colors.grey),
+                          borderSide: const BorderSide(color: AppColors.softBlue,),
                         ),
                       ),
                     ),
                   ),
                   const SizedBox(height: 15),
-                  CustomActionButton(
-                    isEnable: true,
-                    text: 'USE THIS ADDRESS',
-                    backgroundColor: Colors.deepOrange,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      // Navigator.pushNamed(
-                      //     context, Routes.locationEditManuallyRoute);
-                      print('USE THIS ADDRESS');
-                    },
-                  ),
+                  CustomActionButton.orangeFilled(
+                  text: "USE CURRENT LOCATION",
+                  isEnable: isEnable,
+                  onPressed: () {
+                    Navigator.pushNamed(
+                        context, Routes.locationEditManuallyRoute);
+                    print('USE CURRENT LOCATION');
+                  },
+                ),
+                  
                  
                 ],
               ),

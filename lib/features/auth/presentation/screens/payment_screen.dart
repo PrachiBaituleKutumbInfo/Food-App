@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_BSheet.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_bsheet.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class PaymentScreen extends StatelessWidget {
@@ -118,18 +119,16 @@ class PaymentScreen extends StatelessWidget {
             ]),
           ),
 
-          CustomActionButton(
-            isEnable: true,
-            text: 'MAKE PAYMENT',
-            backgroundColor: Colors.green[400]!,
-            textColor: Colors.white,
-            onPressed: () {
-              // Navigator.pushNamed(context, Routes.otpRoute);
-              print('MAKE PAYMENT');
-            },
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+            child: CustomActionButton.greenFilled(
+              text: "MAKE PAYMENT",
+              onPressed: () {
+                 Navigator.pushNamed(context, Routes.orderplaceBSheetRoute);
+                print('MAKE PAYMENT');
+              },
+            ),
           ),
-
-          
         ],
       ),
     );

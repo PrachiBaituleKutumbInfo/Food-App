@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OtpScreen extends StatefulWidget {
@@ -13,7 +16,7 @@ class OtpScreen extends StatefulWidget {
 }
 
 class _OtpScreenState extends State<OtpScreen> {
-   bool isEnable = true;
+  bool isEnable = true;
   List<TextEditingController> otpControllers =
       List.generate(4, (index) => TextEditingController());
   List<FocusNode> otpFocusNodes = List.generate(4, (index) => FocusNode());
@@ -89,11 +92,10 @@ class _OtpScreenState extends State<OtpScreen> {
                   icon: const Icon(Icons.arrow_back),
                 ),
                 const SizedBox(width: 10),
-                const Expanded(
-                  child: Text(
-                    "Verify Details",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
+                Expanded(
+                  child: Text("Verify Details",
+                      style: AppTextStyle.title1Medium
+                          .copyWith(color: AppColors.deepNavy)),
                 ),
               ],
             ),
@@ -106,21 +108,20 @@ class _OtpScreenState extends State<OtpScreen> {
               ),
             ),
             const SizedBox(height: 5),
-            const Center(
+            Center(
               child: Text(
                 "+91 9876543210",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+                style:
+                    AppTextStyle.caption1.copyWith(color: AppColors.deepNavy),
               ),
             ),
             const SizedBox(height: 70),
-            const Padding(
+            Padding(
               padding: EdgeInsets.symmetric(horizontal: 8.0),
               child: Text(
                 'Enter OTP',
-                style: TextStyle(fontSize: 16),
+                style:
+                    AppTextStyle.caption2.copyWith(color: AppColors.oliveGreen),
               ),
             ),
             const SizedBox(height: 10),
@@ -143,14 +144,14 @@ class _OtpScreenState extends State<OtpScreen> {
                       decoration: InputDecoration(
                         counterText: "",
                         filled: true,
-                        fillColor: Colors.grey[200],
+                        fillColor: AppColors.lightBlueGrey,
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color: AppColors.softBlue),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
-                          borderSide: const BorderSide(color: Colors.black12),
+                          borderSide: const BorderSide(color: AppColors.softBlue),
                         ),
                       ),
                       onChanged: (value) {
@@ -172,28 +173,23 @@ class _OtpScreenState extends State<OtpScreen> {
               }),
             ),
             const SizedBox(height: 30),
-            CustomActionButton(
-                    isEnable: isEnable,
-                    text: 'VERIFY',
-                    backgroundColor: Colors.deepOrange,
-                    textColor: Colors.white,
-                    onPressed: () {
-                     Navigator.pushNamed(context, Routes.locationAccessRoute);
-                      print('Verify');
-                    },
-                  ),
-          // CustomOrangeButton(isEnable: isEnable, onPressed: () {
-          //             Navigator.pushNamed(context, Routes.locationAccessRoute);
-          //           print('hit continue');
-          //           }, buttonText: 'VERIFY'),
+            CustomActionButton.orangeFilled(
+              text: "VERIFY",
+              isEnable: isEnable,
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.locationAccessRoute);
+                print('verify');
+              },
+            ),
             const SizedBox(height: 20),
             Center(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text(
+                  Text(
                     "Didn't receive OTP?",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                    style: AppTextStyle.caption2
+                        .copyWith(color: AppColors.oliveGreen),
                   ),
                   const SizedBox(width: 5),
                   countdown > 0
@@ -206,13 +202,15 @@ class _OtpScreenState extends State<OtpScreen> {
                                 fontWeight: FontWeight.bold,
                                 decoration: TextDecoration.underline,
                                 decorationThickness: 2.0,
+                                color: AppColors.deepNavy,
                                 height:
                                     2, // This increases the line height (space between text and underline)
                               ),
                             ),
                             Text(
                               " in $countdown sec",
-                              style: const TextStyle(fontSize: 16),
+                              style: AppTextStyle.caption2
+                                  .copyWith(color: AppColors.oliveGreen),
                             ),
                           ],
                         )

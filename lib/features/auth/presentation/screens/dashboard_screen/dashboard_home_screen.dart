@@ -7,14 +7,14 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/address_deta
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+class DashboardHomeScreen extends StatefulWidget {
+  const DashboardHomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() => HomeScreenState();
+  State<DashboardHomeScreen> createState() => DashboardHomeScreenState();
 }
 
-class HomeScreenState extends State<HomeScreen> {
+class DashboardHomeScreenState extends State<DashboardHomeScreen> {
   int _selectedIndex = 0;
 
   void _updateQuantity(int index, int change) {
@@ -37,7 +37,7 @@ class HomeScreenState extends State<HomeScreen> {
     switch (index) {
       case 0:
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+            MaterialPageRoute(builder: (context) => const DashboardHomeScreen()));
         break;
       case 1:
         Navigator.pushReplacement(context,

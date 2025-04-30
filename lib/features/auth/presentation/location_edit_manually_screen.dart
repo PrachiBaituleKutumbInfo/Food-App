@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationEditManuallyScreen extends StatefulWidget {
@@ -109,22 +111,21 @@ class _LocationEditManuallyScreenState
                       const SizedBox(height: 8),
                       Row(
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
                               "A-205, Nakshatra Apartment, Police Line,\nOros, Sindhudurg, Maharashtra 416534",
-                              style: TextStyle(fontSize: 14),
+                              style: AppTextStyle.caption2
+                                  .copyWith(color: AppColors.oliveGreen),
                             ),
                           ),
                           IconButton(
                             onPressed: () {
                               showAddressDetailsBottomSheet(context);
                             },
-                            icon: SvgPicture.asset(
-                              'assets/svgicons/edit.svg',
-                              width: 24,
-                              height: 24,
-                              color: Colors.deepOrange,
-                            ),
+                            icon: SvgPicture.asset('assets/svgicons/edit.svg',
+                                width: 24,
+                                height: 24,
+                                color: AppColors.primary),
                           ),
                         ],
                       ),
@@ -132,34 +133,33 @@ class _LocationEditManuallyScreenState
                       Container(
                         padding: const EdgeInsets.all(8),
                         decoration: BoxDecoration(
-                          color: Colors.amber[100],
+                          color: AppColors.deepOrange,
                           borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: Colors.orange),
+                          border: Border.all(color: AppColors.amberYellow),
                         ),
                         child: const Row(
                           children: [
                             Icon(Icons.error_outline,
-                                color: Color.fromARGB(255, 171, 107, 56)),
+                                color: AppColors.goldenBrown),
                             SizedBox(width: 8),
                             Expanded(
                               child: Text(
                                 "We are sorry! We don't serve this area yet.",
                                 style: TextStyle(
-                                    color: Color.fromARGB(255, 171, 107, 56)),
+                                    color:AppColors.goldenBrown),
                               ),
                             ),
                           ],
                         ),
                       ),
                       const SizedBox(height: 16),
-                      CustomActionButton(
+                      CustomActionButton.orangeFilled(
+                        text: "USE CURRENT LOCATION",
                         isEnable: isEnable,
-                        text: 'USE THIS ADDRESS',
-                        backgroundColor: Colors.deepOrange,
-                        textColor: Colors.white,
                         onPressed: () {
-                          Navigator.pushNamed(context, Routes.homeRoute);
-                          print('USE THIS ADDRESS');
+                          Navigator.pushNamed(
+                              context, Routes.dashboardhomeRoute);
+                          print('USE CURRENT LOCATION');
                         },
                       ),
                     ],

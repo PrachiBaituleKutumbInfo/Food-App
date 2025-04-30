@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class CustomPhoneTextField extends StatelessWidget {
   final TextEditingController countryCodeController;
@@ -20,12 +21,11 @@ class CustomPhoneTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        
         Container(
           height: 50,
           decoration: BoxDecoration(
-            border: Border.all(width: 1, color: Colors.grey),
-            borderRadius: BorderRadius.circular(10),
+            border: Border.all(width: 1, color: AppColors.softBlue),
+            borderRadius: BorderRadius.circular(10), // ✅ fixed placement
           ),
           child: Row(
             children: [
@@ -38,7 +38,10 @@ class CustomPhoneTextField extends StatelessWidget {
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: '+91',
-                    hintStyle: TextStyle(color: Colors.black),
+                    hintStyle: TextStyle( // ✅ fixed incorrect color usage
+                      color:AppColors.lightBlueGrey,
+                      fontSize: 16,
+                    ),
                   ),
                 ),
               ),
@@ -50,7 +53,7 @@ class CustomPhoneTextField extends StatelessWidget {
                 child: TextField(
                   controller: phoneNumberController,
                   keyboardType: TextInputType.number,
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: AppColors.primary,
                   inputFormatters: [
                     FilteringTextInputFormatter.digitsOnly,
                     LengthLimitingTextInputFormatter(10),
@@ -58,11 +61,12 @@ class CustomPhoneTextField extends StatelessWidget {
                   onChanged: onChanged,
                   textAlignVertical: TextAlignVertical.center,
                   decoration: InputDecoration(
-                    isCollapsed: true,
+                    fillColor: AppColors.lightBlueGrey,
+                    filled: true,
                     contentPadding: const EdgeInsets.symmetric(vertical: 14),
                     border: InputBorder.none,
                     suffixIcon: isEnable
-                        ? const Icon(Icons.check, color: Colors.deepOrange)
+                        ? const Icon(Icons.check, color: AppColors.primary)
                         : null,
                   ),
                 ),

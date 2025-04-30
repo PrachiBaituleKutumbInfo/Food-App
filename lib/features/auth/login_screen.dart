@@ -5,6 +5,8 @@ import 'package:http/http.dart' as http;
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
 import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 import 'package:konkan_bite_food/widgets/custom_textfield.dart';
 
@@ -91,87 +93,65 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
+                  Text(
                     "Konkan #1 Food Delivery App",
-                    style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    style: AppTextStyle.loginTitleMedium
+                        .copyWith(color: AppColors.deepNavy),
                   ),
                   const SizedBox(height: 20),
-                  const Text(
-                    "Login or Signup",
-                    style: TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
-                    "Enter Mobile Number",
-                    style: TextStyle(fontSize: 13, color: Colors.black87),
-                  ),
+                  Text("Login or Signup",
+                      style: AppTextStyle.title1Medium
+                          .copyWith(color: AppColors.deepNavy)),
+                  const SizedBox(height: 15),
+                  Text("Enter Mobile Number",
+                      style: AppTextStyle.caption2
+                          .copyWith(color: AppColors.oliveGreen)),
                   const SizedBox(height: 8),
-                  //
                   CustomPhoneTextField(
                     countryCodeController: countryCodeController,
                     phoneNumberController: phoneNumberController,
                     onChanged: _validatePhone,
                     isEnable: isEnable,
                   ),
-
                   const SizedBox(height: 20),
-                  CustomActionButton(
+                  CustomActionButton.orangeFilled(
+                    text: "CONTINUE",
                     isEnable: isEnable,
-                    text: 'Login',
-                    backgroundColor: Colors.deepOrange,
-                    textColor: Colors.white,
                     onPressed: () {
                       Navigator.pushNamed(context, Routes.otpRoute);
                       print('hit continue');
                     },
                   ),
-
                   const SizedBox(height: 20),
-                  const Center(
-                      child: Text(
-                    'or connect with',
-                    style: TextStyle(fontSize: 14),
-                  )),
+                  Center(
+                    child: Text('or connect with',
+                        style: AppTextStyle.caption2
+                            .copyWith(color: AppColors.oliveGreen)),
+                  ),
                   const SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color.fromARGB(255, 241, 239, 238),
-                      shape: RoundedRectangleBorder(
-                        side: const BorderSide(color: Colors.deepOrange),
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+                  CustomActionButton.orangeBorderWithIcon(
+                    text: "GOOGLE",
+                    icon: SvgPicture.asset(
+                      'assets/svgicons/google.svg',
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset('assets/svgicons/google.svg'),
-                        const SizedBox(width: 10),
-                        const Text(
-                          'GOOGLE',
-                          style:
-                              TextStyle(color: Colors.deepOrange, fontSize: 18),
-                        ),
-                      ],
-                    ),
+                    onPressed: () {
+                      print("Google button pressed");
+                    },
                   ),
                   const SizedBox(height: 20),
                   Center(
                     child: Text.rich(
                       TextSpan(
                         text: "By continuing you agree to the ",
-                        style: const TextStyle(color: Colors.black87),
+                        style: const TextStyle(color: AppColors.oliveGreen),
                         children: [
                           TextSpan(
                             text: "Terms of Service",
                             style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              decoration: TextDecoration.underline,
-                              decorationThickness: 2.0,
-                            ),
+                                fontWeight: FontWeight.bold,
+                                decoration: TextDecoration.underline,
+                                decorationThickness: 2.0,
+                                color: AppColors.deepNavy),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(
@@ -182,7 +162,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 );
                               },
                           ),
-                          const TextSpan(text: " and "),
+                        const  TextSpan(
+                            text: " and ",
+                            style: TextStyle(color: AppColors.oliveGreen),
+                          ),
                           TextSpan(
                             text: "Privacy Policy",
                             style: const TextStyle(
@@ -190,7 +173,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 decoration: TextDecoration.underline,
                                 decorationThickness: 2.0,
                                 height: 2,
-                                color: Colors.black),
+                                color: AppColors.deepNavy),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () {
                                 Navigator.push(

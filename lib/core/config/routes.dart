@@ -5,9 +5,15 @@ import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
 import 'package:konkan_bite_food/features/auth/login_screen.dart';
 import 'package:konkan_bite_food/features/auth/otp_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_BSheet.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_tracking_Map_Screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/payment_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_details_screen.dart';
 
 // Define all your routes here as constants
 class Routes {
@@ -17,12 +23,14 @@ class Routes {
   static const String locationEditManuallyRoute = '/location_edit_manually';
   static const String locationSelectionRoute = '/location_selection';
   static const String addressDetailsRoute = '/address_details';
-    static const String homeRoute = '/home';
-        static const String orderTrackingRoute = '/order_tracking';
-
-  // static String orderTrackRoute;
-
-
+  static const String dashboardhomeRoute = '/dashboard_home';
+  static const String cartRoute = '/cart';
+  static const String paymentRoute = '/payment';
+  static const String orderplaceBSheetRoute = '/order_place_bsheet';
+  static const String orderTrackingRoute = '/order_tracking';
+  static const String profileDetailRoute = '/profile_detail';
+  static const String personalInfoRoute = '/personal_info';
+ 
 
   // Generate routes based on the route names
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,21 +45,31 @@ class Routes {
         return MaterialPageRoute(
             builder: (_) => const LocationEditManuallyScreen());
       case locationSelectionRoute:
-        return MaterialPageRoute(
-            builder: (_) => LocationSelectionScreen());
+        return MaterialPageRoute(builder: (_) => LocationSelectionScreen());
       case addressDetailsRoute:
         return MaterialPageRoute(
             builder: (_) => const AddressDetailsBottomSheet());
-            case homeRoute:
-        return MaterialPageRoute(
-            builder: (_) => const HomeScreen());
-            case orderTrackingRoute:
-        return MaterialPageRoute(
-            builder: (_) => const OrderTrackingScreen());
+      case dashboardhomeRoute:
+        return MaterialPageRoute(builder: (_) => const DashboardHomeScreen());
+      case cartRoute:
+        return MaterialPageRoute(builder: (_) => const CartScreen());
+      case paymentRoute:
+        return MaterialPageRoute(builder: (_) => const PaymentScreen());
+      case paymentRoute:
+        return MaterialPageRoute(builder: (_) => const PaymentScreen());
+      case orderplaceBSheetRoute:
+        return MaterialPageRoute(builder: (_) => const OrderProgressWidget());
+      case orderTrackingRoute:
+        return MaterialPageRoute(builder: (_) => const OrderTrackingScreen());
+      case profileDetailRoute:
+        return MaterialPageRoute(builder: (_) => const ProfileDetailScreen());
+      case personalInfoRoute:
+        return MaterialPageRoute(builder: (_) => const PersonalInfoScreen());
+     
+
       default:
         return MaterialPageRoute(
             builder: (_) => const LoginScreen()); // Default route
-            
     }
   }
 }

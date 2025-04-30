@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationAccessScreen extends StatefulWidget {
@@ -11,6 +12,8 @@ class LocationAccessScreen extends StatefulWidget {
 }
 
 class _LocationAccessScreenState extends State<LocationAccessScreen> {
+  bool isEnable = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,11 +65,9 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
             // Buttons at the Bottom
             Column(
               children: [
-                CustomActionButton(
-                  isEnable: true,
-                  text: 'USE CURRENT LOCATION',
-                  backgroundColor: Colors.deepOrange,
-                  textColor: Colors.white,
+                CustomActionButton.orangeFilled(
+                  text: "USE CURRENT LOCATION",
+                  isEnable: isEnable,
                   onPressed: () {
                     Navigator.pushNamed(
                         context, Routes.locationEditManuallyRoute);
@@ -74,15 +75,13 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-                CustomActionButton(
-                  isEnable: true,
-                  text: 'ENTER MANUALLY',
-                  backgroundColor: const Color.fromARGB(255, 252, 243, 243),
-                  textColor: Colors.deepOrange,
-                  borderColor: Colors.deepOrange,
+                CustomActionButton.orangeBorderWithIcon(
+                  text: "ENTER MANUALLY",
+                  icon: Icon(Icons.edit, color: Colors.transparent),
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.locationSelectionRoute);
-                    print('ENTER MANUALLY');
+
+                    print("ENTER MANUALLY");
                   },
                 ),
               ],

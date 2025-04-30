@@ -78,16 +78,24 @@ class AddressDetailsScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 30),
-              CustomActionButton(
-                isEnable: true,
-                text: 'ADD NEW ADDRESS',
-                backgroundColor: Colors.deepOrange,
-                textColor: Colors.white,
-                onPressed: () {
-                  // Navigator.pushNamed(context, Routes.otpRoute);
-                  print('ADD NEW ADDRESS');
-                },
-              ),
+               CustomActionButton.orangeFilled(
+              text: "ADD NEW ADDRESS",
+              isEnable: true,
+              onPressed: () {
+                // Navigator.pushNamed(context, Routes.locationAccessRoute);
+                print('ADD NEW ADDRESS');
+              },
+            ),
+              // CustomActionButton(
+              //   isEnable: true,
+              //   text: 'ADD NEW ADDRESS',
+              //   backgroundColor: Colors.deepOrange,
+              //   textColor: Colors.white,
+              //   onPressed: () {
+              //     // Navigator.pushNamed(context, Routes.otpRoute);
+              //     print('ADD NEW ADDRESS');
+              //   },
+              // ),
 
               const SizedBox(height: 20),
               const Divider(),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/home_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/bottom_navigation.dart';
@@ -23,7 +23,7 @@ class _MenuScreenState extends State<MenuScreen> {
     switch (index) {
       case 0:
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()));
+            MaterialPageRoute(builder: (context) => const DashboardHomeScreen()));
         break;
       case 1:
         Navigator.pushReplacement(context,

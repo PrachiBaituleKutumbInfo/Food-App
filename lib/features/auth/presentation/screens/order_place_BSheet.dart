@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OrderProgressWidget extends StatefulWidget {
@@ -90,10 +96,10 @@ class _OrderProgressWidgetState extends State<OrderProgressWidget> {
                                 : const Icon(Icons.check_circle,
                                     size: 60, color: Colors.green),
                             const SizedBox(height: 20),
-                            const Text(
+                            Text(
                               'Order Placed',
-                              style: TextStyle(
-                                  fontSize: 30, fontWeight: FontWeight.bold),
+                              style: AppTextStyle.largeTitleRegular
+                                  .copyWith(color: AppColors.navyBlack),
                             ),
                             const SizedBox(height: 10),
                             const Text(
@@ -137,18 +143,15 @@ class _OrderProgressWidgetState extends State<OrderProgressWidget> {
               // TRACK ORDER BUTTON at bottom
               if (step == 3) ...[
                 const SizedBox(height: 20),
-                CustomActionButton(
-                  isEnable: true,
-                  text: 'TRACK ORDER',
-                  backgroundColor: const Color.fromARGB(255, 252, 243, 243),
-                  textColor: Colors.deepOrange,
-                  borderColor: Colors.deepOrange,
+                CustomActionButton.orangeBorderWithIcon(
+                  text: "TRACK ORDER",
+                  icon: Icon(Icons.edit, color: Colors.transparent),
                   onPressed: () {
                     Navigator.pushNamed(context, Routes.orderTrackingRoute);
-                    print('TRACK ORDER');
+
+                    print("TRACK ORDER");
                   },
                 ),
-               
               ],
             ],
           ),
