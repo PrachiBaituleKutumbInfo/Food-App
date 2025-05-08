@@ -1,6 +1,6 @@
 // routes.dart
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
 import 'package:konkan_bite_food/features/auth/login_screen.dart';

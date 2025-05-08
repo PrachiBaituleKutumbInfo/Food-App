@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_bsheet.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
+import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
+import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 
 class PaymentScreen extends StatelessWidget {
   const PaymentScreen({super.key});
@@ -14,56 +17,29 @@ class PaymentScreen extends StatelessWidget {
         children: [
           /// **Header**
           Padding(
-            padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-            child: SizedBox(
-              height: 50,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  const Center(
-                    child: Text(
-                      'Payment',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: Color.fromARGB(255, 164, 104, 13),
-                      ),
-                    ),
-                  ),
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Color.fromARGB(255, 244, 243, 243),
-                      ),
-                      child: IconButton(
-                        icon: const Icon(Icons.arrow_back, color: Colors.black),
-                        onPressed: () => Navigator.pop(context),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
+            padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
+            child: Row(
+              children: [
+                /// Back button on the left
+                CircularBackButton(
+                  onPressed: () => Navigator.pop(context),
+                ),
 
-          /// **Divider**
-          Container(
-            height: 1.5,
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-              boxShadow: [
-                BoxShadow(
-                  color:
-                      const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-                  blurRadius: 2,
-                  spreadRadius: 0,
-                  offset: const Offset(0, 3),
+                /// Centered title
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: HeaderTitle(
+                      title: 'Payment',
+                    ),
+                  ),
                 ),
               ],
             ),
           ),
+
+          const HeaderShadowDivider(), // Use the HeaderShadowDivider here
+          const SizedBox(height: 10),
 
           const SizedBox(height: 16),
 
@@ -124,7 +100,7 @@ class PaymentScreen extends StatelessWidget {
             child: CustomActionButton.greenFilled(
               text: "MAKE PAYMENT",
               onPressed: () {
-                 Navigator.pushNamed(context, Routes.orderplaceBSheetRoute);
+                Navigator.pushNamed(context, Routes.orderplaceBSheetRoute);
                 print('MAKE PAYMENT');
               },
             ),

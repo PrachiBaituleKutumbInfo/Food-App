@@ -3,9 +3,14 @@ import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code_cart.dart';
 import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order_snackbar.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
+import 'package:konkan_bite_food/widgets/custom_footer_divider.dart';
+import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
+import 'package:konkan_bite_food/widgets/custom_header_title.dart';
+import 'package:konkan_bite_food/widgets/quanity_counter_button.dart';
 import 'dashboard_screen/dashboard_home_screen.dart';
-import 'menu_screen.dart';
+import 'menu_screen/menu_screen.dart';
 import 'orders_screen.dart';
 
 class CartScreen extends StatefulWidget {
@@ -75,66 +80,34 @@ class _CartScreenState extends State<CartScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /// **Header**
             Padding(
-              padding: const EdgeInsets.only(top: 50, left: 10, right: 10),
-              child: SizedBox(
-                height: 50,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const Center(
-                      child: Text(
-                        'Cart',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 164, 104, 13),
-                        ),
+              padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
+              child: Row(
+                children: [
+                  /// Back button on the left
+                  CircularBackButton(
+                    onPressed: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const DashboardHomeScreen(),
                       ),
                     ),
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 244, 243, 243),
-                        ),
-                        child: IconButton(
-                          icon:
-                              const Icon(Icons.arrow_back, color: Colors.black),
-                          onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const DashboardHomeScreen(),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+                  ),
 
-            /// **Divider**
-            Container(
-              height: 1.5,
-              decoration: BoxDecoration(
-                color:
-                    const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 139, 137, 137)
-                        .withOpacity(0.5),
-                    blurRadius: 2,
-                    spreadRadius: 0,
-                    offset: const Offset(0, 3),
+                  /// Centered title
+                  const Expanded(
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: HeaderTitle(
+                        title: 'Cart',
+                      ),
+                    ),
                   ),
                 ],
               ),
             ),
 
+            const HeaderShadowDivider(), // Use the HeaderShadowDivider here
             const SizedBox(height: 10),
 
             /// **Scrollable Area Starts Here**
@@ -266,7 +239,7 @@ class _CartScreenState extends State<CartScreen> {
                                 ),
                               ),
 
-                              buildQuantityCounter(
+                              QuantityCounterWidget(
                                 quantity: cartItems[index]["quantity"],
                                 onAdd: () {
                                   setState(() {
@@ -352,6 +325,7 @@ class _CartScreenState extends State<CartScreen> {
                 const ApplyCodeWidget(),
               ],
             ),
+            const FooterShadowDivider(),
           ],
         ),
       ),
@@ -360,65 +334,6 @@ class _CartScreenState extends State<CartScreen> {
       bottomNavigationBar: const SizedBox(
         height: 80, // Set a fixed height
         child: PlaceOrder(),
-      ),
-    );
-  }
-
-  Widget buildQuantityCounter({
-    required int quantity,
-    required VoidCallback onAdd,
-    required VoidCallback onRemove,
-  }) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(color: Colors.grey),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: const [
-          BoxShadow(
-            color: Colors.black12,
-            blurRadius: 4,
-            offset: Offset(2, 2),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          GestureDetector(
-            onTap: onRemove,
-            child: const Text(
-              "-",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-          ),
-          const SizedBox(width: 15),
-          Text(
-            "$quantity",
-            style: const TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.green,
-            ),
-          ),
-          const SizedBox(width: 15),
-          GestureDetector(
-            onTap: onAdd,
-            child: const Text(
-              "+",
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.green,
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

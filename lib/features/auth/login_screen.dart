@@ -8,7 +8,7 @@ import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
-import 'package:konkan_bite_food/widgets/custom_textfield.dart';
+import 'package:konkan_bite_food/widgets/custom_login_textfield.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});

@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class AppTextStyle {
   static const TextStyle largeTitleRegular = TextStyle(
-    fontSize: 34,
+    fontSize: 32,
     fontWeight: FontWeight.w600,
+    color: AppColors.darkBlue,
   );
 
   static const TextStyle largeTitleSemibold = TextStyle(
-    fontSize: 34,
+    fontSize: 28,
     fontWeight: FontWeight.w900,
+    color: AppColors.goldenBrown,
   );
 
   static const TextStyle title1Regular = TextStyle(
@@ -18,7 +21,8 @@ class AppTextStyle {
 
   static const TextStyle title1Medium = TextStyle(
     fontSize: 22,
-    fontWeight: FontWeight.w500,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primaryDark,
   );
 
   static const TextStyle title2Regular = TextStyle(
@@ -30,22 +34,22 @@ class AppTextStyle {
     fontSize: 22,
     fontWeight: FontWeight.w500,
   );
- 
 
-
-  static const TextStyle loginTitleMedium = TextStyle(
+  static TextStyle loginTitleMedium = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.w900,
+    color: AppColors.deepBlue,
   );
 
-  static const TextStyle title3Regular = TextStyle(
+  static TextStyle title3Regular = const TextStyle(
     fontSize: 18,
     fontWeight: FontWeight.w400,
   );
 
   static const TextStyle title3Medium = TextStyle(
-    fontSize: 18,
+    fontSize: 34,
     fontWeight: FontWeight.w500,
+    color: AppColors.deepNavy,
   );
 
   static const TextStyle headline = TextStyle(
@@ -84,8 +88,9 @@ class AppTextStyle {
   );
 
   static const TextStyle caption1 = TextStyle(
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: FontWeight.w800,
+    color: AppColors.darkBlue
   );
 
   static const TextStyle caption2 = TextStyle(
@@ -94,7 +99,8 @@ class AppTextStyle {
   );
 
   static const TextStyle formLabel = TextStyle(
-    fontSize: 12,
-    fontWeight: FontWeight.w500,
-  );
+      fontSize: 12, fontWeight: FontWeight.w500, 
+      color: AppColors.steelBlue);
+
+  AppTextStyle(title1medium);
 }

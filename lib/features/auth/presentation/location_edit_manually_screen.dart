@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
+import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationEditManuallyScreen extends StatefulWidget {
@@ -130,28 +131,34 @@ class _LocationEditManuallyScreenState
                         ],
                       ),
                       const SizedBox(height: 10),
-                      Container(
-                        padding: const EdgeInsets.all(8),
-                        decoration: BoxDecoration(
-                          color: AppColors.deepOrange,
-                          borderRadius: BorderRadius.circular(8),
-                          border: Border.all(color: AppColors.amberYellow),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(Icons.error_outline,
-                                color: AppColors.goldenBrown),
-                            SizedBox(width: 8),
-                            Expanded(
-                              child: Text(
-                                "We are sorry! We don't serve this area yet.",
-                                style: TextStyle(
-                                    color:AppColors.goldenBrown),
-                              ),
-                            ),
-                          ],
-                        ),
+
+                      const AppInfoBox(
+                        message: "We are sorry! We don't serve this area yet.",
+                        icon: Icons.error_outline,
                       ),
+
+                      // Container(
+                      //   padding: const EdgeInsets.all(8),
+                      //   decoration: BoxDecoration(
+                      //     color: AppColors.deepOrange,
+                      //     borderRadius: BorderRadius.circular(8),
+                      //     border: Border.all(color: AppColors.amberYellow),
+                      //   ),
+                      //   child: const Row(
+                      //     children: [
+                      //       Icon(Icons.error_outline,
+                      //           color: AppColors.goldenBrown),
+                      //       SizedBox(width: 8),
+                      //       Expanded(
+                      //         child: Text(
+                      //           "We are sorry! We don't serve this area yet.",
+                      //           style: TextStyle(
+                      //               color:AppColors.goldenBrown),
+                      //         ),
+                      //       ),
+                      //     ],
+                      //   ),
+                      // ),
                       const SizedBox(height: 16),
                       CustomActionButton.orangeFilled(
                         text: "USE CURRENT LOCATION",

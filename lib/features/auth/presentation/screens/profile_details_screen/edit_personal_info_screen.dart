@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_card_widget.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 
 class PersonalInfoScreen extends StatelessWidget {
   const PersonalInfoScreen({super.key});
@@ -13,16 +16,8 @@ class PersonalInfoScreen extends StatelessWidget {
         elevation: 0,
         leading: Padding(
           padding: const EdgeInsets.only(left: 12,),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color.fromARGB(255, 244, 243, 243),
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
+          child: CircularBackButton(onPressed: () => Navigator.pop(context),)
+          
         ),
         title: const Text(
           'Personal Info',
@@ -85,24 +80,24 @@ class PersonalInfoScreen extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 229, 241, 248),
+          color: AppColors.lightBlueGrey,
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Column(
                 children: [
-                  _InfoRow(
+                  ProfileCardWidget(
                     icon: SvgPicture.asset('assets/svgicons/person.svg'),
                     label: "Full Name",
                     value: "Deven Parab",
                   ),
                   const SizedBox(height: 16),
-                  _InfoRow(
+                 ProfileCardWidget(
                     icon: SvgPicture.asset('assets/svgicons/mail.svg'),
                     label: "Email",
                     value: "devenparab@gmail.com",
                   ),
                   const SizedBox(height: 16),
-                  _InfoRow(
+                 ProfileCardWidget(
                     icon: SvgPicture.asset('assets/svgicons/phone.svg'),
                     label: "Phone Number",
                     value: "+91 9876543210",
@@ -113,52 +108,6 @@ class PersonalInfoScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _InfoRow extends StatelessWidget {
-  final Widget icon;
-  final String label;
-  final String value;
-
-  const _InfoRow({
-    Key? key,
-    required this.icon,
-    required this.label,
-    required this.value,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircleAvatar(
-          radius: 20,
-          backgroundColor: const Color(0xFFFFEFE6),
-          child: icon,
-        ),
-        const SizedBox(width: 16),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label.toUpperCase(),
-              style: const TextStyle(
-                fontSize: 12,
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              value,
-              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
-            ),
-          ],
-        )
-      ],
     );
   }
 }

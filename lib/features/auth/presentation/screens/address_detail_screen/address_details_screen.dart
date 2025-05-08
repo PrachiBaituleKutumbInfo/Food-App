@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_card_widget.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class AddressDetailsScreen extends StatelessWidget {
@@ -13,20 +16,12 @@ class AddressDetailsScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(
-            left: 12,
-          ),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color.fromARGB(255, 244, 243, 243),
+            padding: const EdgeInsets.only(
+              left: 12,
             ),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
+            child: CircularBackButton(
               onPressed: () => Navigator.pop(context),
-            ),
-          ),
-        ),
+            )),
         title: const Text(
           'My Address',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -68,7 +63,7 @@ class AddressDetailsScreen extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 159, 47, 13),
+                          color: AppColors.primaryDark,
                         ),
                       ),
                       Text('Using GPS'),
@@ -78,24 +73,14 @@ class AddressDetailsScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 30),
-               CustomActionButton.orangeFilled(
-              text: "ADD NEW ADDRESS",
-              isEnable: true,
-              onPressed: () {
-                // Navigator.pushNamed(context, Routes.locationAccessRoute);
-                print('ADD NEW ADDRESS');
-              },
-            ),
-              // CustomActionButton(
-              //   isEnable: true,
-              //   text: 'ADD NEW ADDRESS',
-              //   backgroundColor: Colors.deepOrange,
-              //   textColor: Colors.white,
-              //   onPressed: () {
-              //     // Navigator.pushNamed(context, Routes.otpRoute);
-              //     print('ADD NEW ADDRESS');
-              //   },
-              // ),
+              CustomActionButton.orangeFilled(
+                text: "ADD NEW ADDRESS",
+                isEnable: true,
+                onPressed: () {
+                  // Navigator.pushNamed(context, Routes.locationAccessRoute);
+                  print('ADD NEW ADDRESS');
+                },
+              ),
 
               const SizedBox(height: 20),
               const Divider(),
@@ -106,14 +91,13 @@ class AddressDetailsScreen extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 159, 47, 13),
+                  color: AppColors.primaryDark,
                 ),
               ),
 
               const SizedBox(height: 20),
 
-              // Address Card - Home
-              _addressCard(
+              AddressCard(
                 iconWidget: SvgPicture.asset(
                   'assets/svgicons/home-green.svg',
                   width: 30,
@@ -132,8 +116,7 @@ class AddressDetailsScreen extends StatelessWidget {
 
               const SizedBox(height: 10),
 
-              // Address Card - Work
-              _addressCard(
+              AddressCard(
                 iconWidget: SvgPicture.asset(
                   'assets/svgicons/work-blue.svg',
                   width: 30,
@@ -152,70 +135,6 @@ class AddressDetailsScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _addressCard({
-    required Widget iconWidget,
-    required String label,
-    required String address,
-    required VoidCallback onEdit,
-    required VoidCallback onDelete,
-  }) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 229, 241, 248),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          iconWidget,
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      label,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
-                    ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: onEdit,
-                      icon: SvgPicture.asset(
-                        'assets/svgicons/edit.svg',
-                        width: 20,
-                        height: 20,
-                        color: Colors.grey,
-                      ),
-                    ),
-                    IconButton(
-                      onPressed: onDelete,
-                      icon: SvgPicture.asset(
-                        'assets/svgicons/trash-orange.svg',
-                        width: 20,
-                        height: 20,
-                      ),
-                    ),
-                  ],
-                ),
-                Text(
-                  address,
-                  style: const TextStyle(
-                      fontSize: 14, color: Color.fromARGB(255, 119, 127, 137)),
-                ),
-              ],
-            ),
-          ),
-        ],
       ),
     );
   }

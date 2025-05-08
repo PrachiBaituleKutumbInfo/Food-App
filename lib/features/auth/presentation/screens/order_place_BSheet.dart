@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
@@ -40,8 +36,15 @@ class _OrderProgressWidgetState extends State<OrderProgressWidget> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Stack(
+    // AssetImage('assets/map.png'),
       clipBehavior: Clip.none,
       children: [
+        Positioned.fill(
+      child: Image.asset(
+        'assets/map.png',
+        fit: BoxFit.cover,
+      ),
+    ),
         Container(
           height: screenHeight * 0.65,
           width: double.infinity,

@@ -8,6 +8,7 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/order_histor
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_tile.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/settings_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/terms_and_service_screen.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
   const ProfileDetailScreen({super.key});
@@ -23,16 +24,8 @@ class ProfileDetailScreen extends StatelessWidget {
           padding: const EdgeInsets.only(
             left: 12,
           ),
-          child: Container(
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Color.fromARGB(255, 244, 243, 243),
-            ),
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back, color: Colors.black),
-              onPressed: () => Navigator.pop(context),
-            ),
-          ),
+          child: CircularBackButton(onPressed: () => Navigator.pop(context),)
+          
         ),
         title: const Text(
           'Profile',

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class ProfileTile extends StatelessWidget {
   final Widget iconWidget;
@@ -34,16 +35,16 @@ class SectionContainer extends StatelessWidget {
   final List<Widget> children;
 
   const SectionContainer({
-    Key? key,
+    super.key,
     required this.children,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 20),
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 229, 241, 248),
+        color: AppColors.lightBlueGrey,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(

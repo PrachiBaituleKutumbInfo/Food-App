@@ -24,22 +24,23 @@ class CustomPhoneTextField extends StatelessWidget {
         Container(
           height: 50,
           decoration: BoxDecoration(
+            color: AppColors.lightBlueGrey, // 🌟 Apply full background here
             border: Border.all(width: 1, color: AppColors.softBlue),
-            borderRadius: BorderRadius.circular(10), // ✅ fixed placement
+            borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             children: [
               const SizedBox(width: 10),
               SizedBox(
-                width: 40,
+                width: 60,
                 child: TextField(
                   controller: countryCodeController,
                   readOnly: true,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: '+91',
-                    hintStyle: TextStyle( // ✅ fixed incorrect color usage
-                      color:AppColors.lightBlueGrey,
+                    hintStyle: TextStyle(
+                      color: AppColors.softBlue,
                       fontSize: 16,
                     ),
                   ),
@@ -47,7 +48,7 @@ class CustomPhoneTextField extends StatelessWidget {
               ),
               const Text(
                 '| ',
-                style: TextStyle(fontSize: 20, color: Colors.grey),
+                style: TextStyle(fontSize: 26, color: AppColors.softBlue),
               ),
               Expanded(
                 child: TextField(
@@ -60,17 +61,17 @@ class CustomPhoneTextField extends StatelessWidget {
                   ],
                   onChanged: onChanged,
                   textAlignVertical: TextAlignVertical.center,
-                  decoration: InputDecoration(
-                    fillColor: AppColors.lightBlueGrey,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(vertical: 14),
+                  decoration: const InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(vertical: 14),
                     border: InputBorder.none,
-                    suffixIcon: isEnable
-                        ? const Icon(Icons.check, color: AppColors.primary)
-                        : null,
                   ),
                 ),
               ),
+              if (isEnable)
+                const Padding(
+                  padding: EdgeInsets.only(right: 10),
+                  child: Icon(Icons.check, color: AppColors.primary),
+                ),
             ],
           ),
         ),

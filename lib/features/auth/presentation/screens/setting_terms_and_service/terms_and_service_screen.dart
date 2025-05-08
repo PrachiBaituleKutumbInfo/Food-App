@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
+import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
+import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 
 class TermsAndServiceScreen extends StatelessWidget {
   const TermsAndServiceScreen({super.key});
@@ -7,90 +10,54 @@ class TermsAndServiceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          children: [
-            /// Header
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: SizedBox(
-                height: 50,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    const Center(
-                      child: Text(
-                        "Terms of Service",
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color.fromARGB(255, 164, 104, 13),
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: Color.fromARGB(255, 244, 243, 243),
-                        ),
-                        child: IconButton(
-                          icon: const Icon(Icons.arrow_back, color: Colors.black),
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                    ),
-                  ],
+      body: Column(
+        children: [
+          /// Header
+          Padding(
+            padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
+            child: Row(
+              children: [
+                /// Back button on the left
+                CircularBackButton(
+                  onPressed: () => Navigator.pop(context),
                 ),
-              ),
-            ),
-
-            /// Divider
-            Container(
-              height: 1.5,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-                boxShadow: [
-                  BoxShadow(
-                    color: const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
-                    blurRadius: 2,
-                    offset: const Offset(0, 3),
+      
+                /// Centered title
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: HeaderTitle(
+                      title: 'Terms of Service',
+                    ),
                   ),
+                ),
+              ],
+            ),
+          ),
+      
+          const HeaderShadowDivider(), // Use the HeaderShadowDivider here
+      
+          const SizedBox(height: 20),
+      
+          /// Terms Sections
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildSection("I. Acceptance of terms",
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."),
+                  buildSection("II. Definitions",
+                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."),
+                  buildSection("III. Payment Information",
+                      "Please enter your payment information to proceed with the purchase."),
+                  buildSection("IV. Shipping Address",
+                      "Please provide your shipping address for delivery."),
                 ],
               ),
             ),
-
-            const SizedBox(height: 20),
-
-            /// Terms Sections
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    buildSection(
-                      "I. Acceptance of terms",
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
-                    ),
-                    buildSection(
-                      "II. Definitions",
-                      "Lorem Ipsum is simply dummy text of the printing and typesetting industry..."
-                    ),
-                    buildSection(
-                      "III. Payment Information",
-                      "Please enter your payment information to proceed with the purchase."
-                    ),
-                    buildSection(
-                      "IV. Shipping Address",
-                      "Please provide your shipping address for delivery."
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
