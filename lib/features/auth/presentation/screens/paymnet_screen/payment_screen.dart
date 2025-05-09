@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/order_place_bsheet.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/order_place_bsheet.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/paymnet_screen/widgets/payment_method_card.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
@@ -41,48 +42,56 @@ class PaymentScreen extends StatelessWidget {
           const HeaderShadowDivider(), // Use the HeaderShadowDivider here
           const SizedBox(height: 10),
 
-          const SizedBox(height: 16),
-
           /// **Payment Methods**
           Expanded(
             child: ListView(
               children: [
-                ...[
-                  "Debit / Credit Card",
-                  "Cash",
-                  "PayPal",
-                  "Apple Pay",
-                  "Google Pay",
-                  "Netbanking"
-                ].map((paymentMethod) => Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 8),
-                      child: GestureDetector(
-                        onTap: () {
-                          print("$paymentMethod selected");
-                        },
-                        child: Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(vertical: 25),
-                          decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 237, 247, 252),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Center(
-                            child: Text(
-                              paymentMethod,
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: Colors.blueGrey,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )),
+                PaymentMethodCard(
+                  title: "Debit / Credit Card",
+                  onPressed: () {
+                    print("Card selected");
+                    // Handle card payment logic
+                  },
+                ),
+                PaymentMethodCard(
+                  title: "Cash",
+                  onPressed: () {
+                    print("Cash selected");
+                    // Handle cash logic
+                  },
+                ),
+                PaymentMethodCard(
+                  title: "PayPal",
+                  onPressed: () {
+                    print("PayPal selected");
+                    // Navigate or show PayPal integration
+                  },
+                ),
+                PaymentMethodCard(
+                  title: "Apple Pay",
+                  onPressed: () {
+                    print("Apple Pay selected");
+                    // Handle Apple Pay logic
+                  },
+                ),
+                PaymentMethodCard(
+                  title: "Google Pay",
+                  onPressed: () {
+                    print("Google Pay selected");
+                    // Handle GPay logic
+                  },
+                ),
+                PaymentMethodCard(
+                  title: "Netbanking",
+                  onPressed: () {
+                    print("Netbanking selected");
+                    // Handle netbanking logic
+                  },
+                ),
               ],
             ),
           ),
+
           Container(
             height: 2.5,
             decoration:

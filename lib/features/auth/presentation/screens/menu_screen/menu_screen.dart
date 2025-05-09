@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/food_category_filter.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_floating_button.dart';

@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/customer_supports_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/payment_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/paymnet_screen/payment_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_awatar_widget.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_tile.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/settings_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/setting_terms_and_service/terms_and_service_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/terms_of_service/terms_and_service_screen.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 
 class ProfileDetailScreen extends StatelessWidget {
@@ -21,12 +22,12 @@ class ProfileDetailScreen extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: Padding(
-          padding: const EdgeInsets.only(
-            left: 12,
-          ),
-          child: CircularBackButton(onPressed: () => Navigator.pop(context),)
-          
-        ),
+            padding: const EdgeInsets.only(
+              left: 12,
+            ),
+            child: CircularBackButton(
+              onPressed: () => Navigator.pop(context),
+            )),
         title: const Text(
           'Profile',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
@@ -40,33 +41,14 @@ class ProfileDetailScreen extends StatelessWidget {
             const SizedBox(height: 10),
 
             // ✅ Profile Header
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  child: SvgPicture.asset(
-                    'assets/svgicons/profile-icon.svg',
-                    width: 90,
-                    height: 90,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Deven Parab',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text('devenparab@gmail.com'),
-                    Text(
-                      '+91 9876543210',
-                    ),
-                  ],
-                ),
-              ],
+            const ProfileInfoRow(
+              name: 'Deven Parab',
+              email: 'devenparab@gmail.com',
+              phone: '+91 9876543210',
+              avatarAssetPath: 'assets/svgicons/profile-icon.svg',
             ),
+
+           
 
             const SizedBox(height: 30),
 
@@ -139,16 +121,21 @@ class ProfileDetailScreen extends StatelessWidget {
                   iconWidget: SvgPicture.asset('assets/svgicons/setting.svg'),
                   title: "Settings",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const SettingsScreen()));
                   },
-                  
                 ),
                 ProfileTile(
                   iconWidget:
                       SvgPicture.asset('assets/svgicons/terms-of-service.svg'),
                   title: "Terms of Service",
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (_) => const TermsAndServiceScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const TermsAndServiceScreen()));
                   },
                 ),
               ],
@@ -163,7 +150,6 @@ class ProfileDetailScreen extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
-
           ],
         ),
       ),

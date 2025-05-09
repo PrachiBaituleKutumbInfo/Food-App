@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class ItemAddedBottomBar {
 
@@ -65,7 +66,7 @@ class ItemAddedBottomBar {
                         Navigator.pushNamed(context, "/cart");
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.green,
+                        backgroundColor: AppColors.mintGreen,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),

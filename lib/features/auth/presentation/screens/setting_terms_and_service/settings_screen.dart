@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/faq_list_widget.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/widgets/circular_back_button.dart';
+import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
+import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -8,112 +12,94 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            /// Header
-            buildHeader(context),
-
-            const SizedBox(height: 20),
-
-            /// Title
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                "Need help with this order?",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ),
-
-            const SizedBox(height: 20),
-
-            /// FAQ List
-            FAQCategoryList(
-              items: const [
-                "Need help with food delivered?",
-                "Food quality was not good?",
-                "Do you have food quantity issue?",
-                "Packaging or spillage issue?",
-                "I have not received my order?",
-              ],
-              onItemTap: (item) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text('$item clicked')),
-                );
-              },
-            ),
-
-            const SizedBox(height: 30),
-
-            /// Get Help Section
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Get Help",
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  const Text(
-                    "Still need support?\nWe are available 9am - 9pm",
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.black54,
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  buildChatButton(),
-                ],
-              ),
-            ),
-
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  /// Header Widget
-  Widget buildHeader(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: SizedBox(
-        height: 50,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            const Center(
-              child: Text(
-                "Get Help",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Color.fromARGB(255, 164, 104, 13),
-                ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Container(
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Color.fromARGB(255, 244, 243, 243),
-                ),
-                child: IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.black),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          /// Header
+          Padding(
+            padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
+            child: Row(
+              children: [
+                /// Back button on the left
+                CircularBackButton(
                   onPressed: () => Navigator.pop(context),
                 ),
-              ),
+
+                /// Centered title
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: HeaderTitle(
+                      title: 'Get Help',
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
+          ),
+
+          const HeaderShadowDivider(), // Use the HeaderShadowDivider here
+
+          const SizedBox(height: 20),
+
+          /// Title
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Text(
+              "Need help with this order?",
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            ),
+          ),
+
+          const SizedBox(height: 20),
+
+          /// FAQ List
+          FAQCategoryList(
+            items: const [
+              "Need help with food delivered?",
+              "Food quality was not good?",
+              "Do you have food quantity issue?",
+              "Packaging or spillage issue?",
+              "I have not received my order?",
+            ],
+            onItemTap: (item) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text('$item clicked')),
+              );
+            },
+          ),
+
+          const SizedBox(height: 30),
+
+          /// Get Help Section
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Get Help",
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  "Still need support?\nWe are available 9am - 9pm",
+                  style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.black54,
+                  ),
+                ),
+                const SizedBox(height: 20),
+                buildChatButton(),
+              ],
+            ),
+          ),
+
+          const SizedBox(height: 20),
+        ],
       ),
     );
   }
@@ -122,10 +108,9 @@ class SettingsScreen extends StatelessWidget {
   Widget buildChatButton() {
     return SizedBox(
       child: ElevatedButton.icon(
-        
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.deepOrange,
-          padding: const EdgeInsets.symmetric(vertical: 14),
+          backgroundColor: AppColors.primary,
+          padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
           ),

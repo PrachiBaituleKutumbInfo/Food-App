@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class FeedbackBottomSheet extends StatelessWidget {
   const FeedbackBottomSheet({super.key});
@@ -20,7 +22,8 @@ class FeedbackBottomSheet extends StatelessWidget {
               padding: const EdgeInsets.all(20),
               child: Wrap(
                 children: [
-                  const SizedBox(height: 40), // To prevent overlap with close button
+                  const SizedBox(
+                      height: 40), // To prevent overlap with close button
                   Center(
                     child: Column(
                       children: [
@@ -39,7 +42,7 @@ class FeedbackBottomSheet extends StatelessWidget {
                           'Help us improve our services and your experiences by rating this delivery.',
                           style: TextStyle(
                             fontSize: 14,
-                            color: Color.fromARGB(255, 59, 71, 80),
+                            color: AppColors.darkText,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -47,11 +50,12 @@ class FeedbackBottomSheet extends StatelessWidget {
                         const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Icon(Icons.star, color: Colors.orange, size: 30),
-                            Icon(Icons.star, color: Colors.orange, size: 30),
-                            Icon(Icons.star, color: Colors.orange, size: 30),
-                            Icon(Icons.star, color: Colors.orange, size: 30),
-                            Icon(Icons.star_border, color: Colors.orange, size: 30),
+                            Icon(Icons.star, color: AppColors.amber, size: 30),
+                            Icon(Icons.star, color: AppColors.amber, size: 30),
+                            Icon(Icons.star, color: AppColors.amber, size: 30),
+                            Icon(Icons.star, color: AppColors.amber, size: 30),
+                            Icon(Icons.star_border,
+                                color: AppColors.amber, size: 30),
                           ],
                         ),
                         const SizedBox(height: 20),
@@ -61,43 +65,29 @@ class FeedbackBottomSheet extends StatelessWidget {
                           decoration: InputDecoration(
                             hintText: "Write your feedback here",
                             hintStyle: const TextStyle(
-                              color: Color.fromARGB(255, 167, 179, 183),
+                              color: AppColors.steelBlue,
                             ),
                             filled: true,
-                            fillColor: const Color.fromARGB(255, 230, 236, 239),
+                            fillColor: AppColors.lightBlueGrey,
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
+                              borderSide: const BorderSide(color: AppColors.softBlue),
                             ),
                             focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
-                              borderSide: const BorderSide(color: Colors.grey),
+                              borderSide:
+                                  const BorderSide(color: AppColors.softBlue),
                             ),
                           ),
                         ),
                         const SizedBox(height: 20),
-                        SizedBox(
-                          height: 45,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.deepOrange,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                            onPressed: () {
-                              Navigator.pop(context);
-                            },
-                            child: const Text(
-                              'SUBMIT',
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
-                            ),
-                          ),
+                        CustomActionButton.orangeFilled(
+                          text: "SUBMIT",
+                          isEnable: true,
+                          onPressed: () {
+                            // Navigator.pushNamed(context, Routes.locationAccessRoute);
+                            print('submit');
+                          },
                         ),
                         const SizedBox(height: 20),
                       ],

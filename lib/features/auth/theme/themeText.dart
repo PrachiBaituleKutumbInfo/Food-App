@@ -35,7 +35,7 @@ class AppTextStyle {
     fontWeight: FontWeight.w500,
   );
 
-  static TextStyle loginTitleMedium = TextStyle(
+  static TextStyle loginTitleMedium = const TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.w900,
     color: AppColors.deepBlue,

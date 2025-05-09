@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_card_widget.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
@@ -44,7 +45,7 @@ class AddressDetailsScreen extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(10),
                       decoration: const BoxDecoration(
-                        color: Color.fromARGB(255, 244, 243, 243),
+                        color: AppColors.lightBlueGrey,
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
@@ -60,11 +61,7 @@ class AddressDetailsScreen extends StatelessWidget {
                     children: [
                       Text(
                         'Current Location',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primaryDark,
-                        ),
+                        style: AppTextStyle.title1Medium
                       ),
                       Text('Using GPS'),
                     ],
@@ -88,11 +85,7 @@ class AddressDetailsScreen extends StatelessWidget {
 
               const Text(
                 'Saved Locations',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.primaryDark,
-                ),
+            style: AppTextStyle.title1Medium
               ),
 
               const SizedBox(height: 20),

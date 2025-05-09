@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/payment_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/paymnet_screen/payment_screen.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class PlaceOrder extends StatelessWidget {
   const PlaceOrder({super.key});
@@ -23,15 +24,15 @@ class PlaceOrder extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           /// **Total Price Section**
-          Column(
+          const Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
+              Text(
                 'To Pay',
                 style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 5),
-              const Text(
+              SizedBox(height: 5),
+              Text(
                 '₹420',
                 style: TextStyle(
                   fontSize: 20,
@@ -55,7 +56,7 @@ class PlaceOrder extends StatelessWidget {
                 print("Place Order Clicked!");
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green,
+                backgroundColor: AppColors.success,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
                 ),

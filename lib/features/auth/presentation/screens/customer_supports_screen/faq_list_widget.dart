@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class FAQCategoryList extends StatelessWidget {
   final List<String> items;
-  final void Function(String)? onItemTap;
+  final void Function(String item)? onItemTap;
 
   const FAQCategoryList({
     super.key,
@@ -16,7 +17,7 @@ class FAQCategoryList extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: const Color.fromARGB(255, 211, 210, 210)),
+          border: Border.all(color: AppColors.softBlue),
           borderRadius: BorderRadius.circular(8),
         ),
         margin: const EdgeInsets.only(bottom: 8),
@@ -30,16 +31,12 @@ class FAQCategoryList extends StatelessWidget {
                     item,
                     style: const TextStyle(
                       fontSize: 16,
-                      color: Color.fromARGB(255, 92, 107, 131),
+                      color: AppColors.steelBlue,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: const Icon(Icons.arrow_forward_ios, size: 16),
-                  onTap: () {
-                    if (onItemTap != null) {
-                      onItemTap!(item);
-                    }
-                  },
+                  onTap: () => onItemTap?.call(item),
                 ),
                 const Divider(height: 1),
               ],

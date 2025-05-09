@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/deliver_to.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/food_item_card.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/section_title.dart';
@@ -71,18 +71,7 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
 
   final List<Map<String, dynamic>> cartItems = [];
 
-  // void _updateQuantity(int index, int change) {
-  //   setState(() {
-  //     cartItems[index]["quantity"] += change;
-
-  //     // Ensure quantity does not go below 0
-  //     if (cartItems[index]["quantity"] < 0) {
-  //       cartItems[index]["quantity"] = 0;
-  //     }
-  //   });
-  // }
-
-  void _onItemTapped(int index) {
+    void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });

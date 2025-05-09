@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/cancel_order_dialog.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/feedback_bottom_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_tracking_Map_Screen.dart';

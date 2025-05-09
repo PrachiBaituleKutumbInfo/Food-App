@@ -28,9 +28,9 @@ class AppColors {
   static const Color navyBlack = Color(0xFF181C2E);
   static const Color vibrantOrange = Color(0xFFFC6E2A);
   static const Color goldenBrown = Color(0xFFB27100);
-  static const Color amberYellow = Color(0xFFFFB12B);
-  static const Color peachBackground = Color(0xFFFCEEE9); // ✅ Fixed name
 
-  static final Color deepOrange = Colors.amber.shade100;
-  static const Color deepBlue = Color(0xFF102A43); // Example fallback value
+  static const Color peachBackground = Color(0xFFFCEEE9);
+
+  static const Color deepOrange = Color(0xFFFFECB3); 
+  static const Color deepBlue = Color(0xFF102A43); 
 }

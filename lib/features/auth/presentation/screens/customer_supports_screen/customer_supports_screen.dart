@@ -1,10 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/coupon&offers_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/faq_list_widget.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/status_details_cart_widget.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 
 class CustomerSupportsScreen extends StatelessWidget {
   const CustomerSupportsScreen({super.key});
 
+  static List<Widget> _orderItems() {
+    return [
+      const StatusDetailsCartWidget(
+        status: "Payment Failed",
+        icon: Icons.error_outline,
+        iconColor: Colors.red,
+        date: "7th Sep 2024, 4:05 PM",
+        price: "₹420",
+      ),
+    const  StatusDetailsCartWidget(
+        status: "Order Delivered",
+        icon: Icons.check_circle_outline,
+        iconColor: Colors.green,
+        date: "8th Sep 2024, 12:00 PM",
+        price: "₹380",
+      ),
+     const StatusDetailsCartWidget(
+        status: "Order Delivered",
+        icon: Icons.check_circle_outline,
+        iconColor: Colors.green,
+        date: "9th Sep 2024, 8:30 AM",
+        price: "₹520",
+      ),
+    ];
+  }
+
+  final List<String> categories = const [
+    'Coupons and Offers',
+    'General Inquiry',
+    'Payments',
+    'Orders',
+    'Feedback',
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -82,7 +117,7 @@ class CustomerSupportsScreen extends StatelessWidget {
             const SizedBox(height: 10),
 
             /// Order Cards
-            ..._orderItems(),
+           ..._orderItems(),
 
             const SizedBox(height: 20),
 
@@ -98,25 +133,36 @@ class CustomerSupportsScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 20),
+
             FAQCategoryList(
-              items: [
-                'Coupons and Offers',
-                'General Inquiry',
-                'Payments',
-                'Orders',
-                'Feedback',
-              ],
+              items: categories,
               onItemTap: (item) {
                 if (item == 'Coupons and Offers') {
                   Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => const CouponsAndOffersScreen()),
-                  );
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CouponsAndOffersScreen()));
+                } else if (item == 'General Inquiry') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const GeneralInquiryScreen()));
+                } else if (item == 'Payments') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const PaymentsScreen()));
+                } else if (item == 'Orders') {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => const OrdersScreen()));
+                } else if (item == 'Feedback') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const FeedbackScreen()));
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('$item clicked')),
-                  );
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(SnackBar(content: Text('$item clicked')));
                 }
               },
             ),
@@ -125,96 +171,5 @@ class CustomerSupportsScreen extends StatelessWidget {
       ),
     );
   }
-
-  /// Dummy order cards
-  static List<Widget> _orderItems() {
-    return [
-      _orderCard(
-        status: "Payment Failed",
-        icon: Icons.error_outline,
-        iconColor: Colors.red,
-        date: "7th Sep 2024, 4:05 PM",
-        price: "₹420",
-      ),
-      _orderCard(
-        status: "Order Delivered",
-        icon: Icons.check_circle_outline,
-        iconColor: Colors.green,
-        date: "8th Sep 2024, 12:00 PM",
-        price: "₹380",
-      ),
-      _orderCard(
-        status: "Order Delivered",
-        icon: Icons.check_circle_outline,
-        iconColor: Colors.green,
-        date: "9th Sep 2024, 8:30 AM",
-        price: "₹520",
-      ),
-    ];
-  }
-
-  /// Order card widget
-  static Widget _orderCard({
-    required String status,
-    required IconData icon,
-    required Color iconColor,
-    required String date,
-    required String price,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-      child: Container(
-        decoration: BoxDecoration(
-          color: const Color(0xFFF5F9FF),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        padding: const EdgeInsets.all(12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            /// Left side: Status + date
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  children: [
-                    Text(
-                      status,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Icon(icon, color: iconColor),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  date,
-                  style: const TextStyle(fontSize: 13, color: Colors.black54),
-                ),
-              ],
-            ),
-
-            /// Right side: Price + Arrow
-            Row(
-              children: [
-                Text(
-                  price,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(width: 6),
-                const Icon(Icons.arrow_forward_ios,
-                    size: 16, color: Colors.black54),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
+ 

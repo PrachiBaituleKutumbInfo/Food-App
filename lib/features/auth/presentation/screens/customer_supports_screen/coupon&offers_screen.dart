@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/faq_list_widget.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_tracking_Map_Screen.dart';
 
 class CouponsAndOffersScreen extends StatelessWidget {
-  const CouponsAndOffersScreen({super.key});
+  CouponsAndOffersScreen({super.key});
+
+  final List<String> faqItems = [
+    'Coupon not working/expired coupon',
+    'I forgot to apply my coupon code. What do I do now?',
+    'How do I refer my friend?',
+    'How to track my order status?',
+    'What payment methods are accepted?',
+    'Can I cancel my order after placing it?',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -82,24 +92,42 @@ class CouponsAndOffersScreen extends StatelessWidget {
 
             /// FAQ List
             FAQCategoryList(
-              items: const [
-                'Coupon not working/expired coupon',
-                'I forgot to apply my coupon code. What do I do now?',
-                'How do I refer my friend?',
-                'How to track my order status?',
-                'What payment methods are accepted?',
-                'Can I cancel my order after placing it?'
-              ],
+              items: faqItems,
               onItemTap: (item) {
                 if (item == 'Coupon not working/expired coupon') {
                   // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //       builder: (_) => const CouponsAndOffersScreen()),
-                  // );
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const CouponIssueScreen()));
+                } else if (item ==
+                    'I forgot to apply my coupon code. What do I do now?') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const CouponHelpScreen()));
+                } else if (item == 'How do I refer my friend?') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const ReferralScreen()));
+                } else if (item == 'How to track my order status?') {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const OrderTrackingScreen()));
+                } else if (item == 'What payment methods are accepted?') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const PaymentMethodsScreen()));
+                } else if (item == 'Can I cancel my order after placing it?') {
+                  // Navigator.push(
+                  //     context,
+                  //     MaterialPageRoute(
+                  //         builder: (_) => const CancellationPolicyScreen()));
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text('$item clicked')),
+                    SnackBar(content: Text('Tapped: $item')),
                   );
                 }
               },

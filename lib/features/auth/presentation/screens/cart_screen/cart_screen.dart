@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/apply_code_cart.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/place_order_snackbar.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/address_detail_screen/address_details_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/widgets/apply_code_cart.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/place_order_snackbar.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/widgets/bill_details_info.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/widgets/cart_text_field_widgets.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 import 'package:konkan_bite_food/widgets/custom_footer_divider.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
 import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 import 'package:konkan_bite_food/widgets/quanity_counter_button.dart';
-import 'dashboard_screen/dashboard_home_screen.dart';
-import 'menu_screen/menu_screen.dart';
-import 'orders_screen.dart';
+import '../dashboard_screen/dashboard_home_screen.dart';
+import '../menu_screen/menu_screen.dart';
+import '../orders_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -116,6 +120,11 @@ class _CartScreenState extends State<CartScreen> {
                 /// **Delivery Address Row**
                 GestureDetector(
                   onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const AddressDetailsScreen()),
+                    );
                     print("Address tapped!");
                   },
                   child: Padding(
@@ -150,30 +159,27 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                         ),
                         const Icon(Icons.arrow_forward_ios,
-                            size: 20, color: Colors.deepOrange),
+                            size: 20, color: AppColors.primary),
                       ],
                     ),
                   ),
                 ),
 
                 /// **Divider Below Address**
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: Container(
-                    height: 1,
-                    color: Colors.grey.withOpacity(0.5),
-                  ),
+                Container(
+                  height: 1,
+                  color: Colors.grey.withOpacity(0.5),
+                ),
+              const  SizedBox(
+                  height: 20,
                 ),
 
                 /// **Title: Items in Cart**
-                const Padding(
-                  padding: EdgeInsets.all(15),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('Items in your cart',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold)),
-                  ),
+                const IconHeadingRow(
+                  heading: 'Items in your cart',
+                ),
+              const  SizedBox(
+                  height: 20,
                 ),
 
                 /// **Cart Items List**
@@ -261,68 +267,80 @@ class _CartScreenState extends State<CartScreen> {
                     );
                   }).toList(),
                 ),
+
+                /// Add more items
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  child: CustomActionButton.orangeFilled(
-                    text: "USE CURRENT LOCATION",
-                    isEnable: true,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: CustomActionButton.orangeBorderWithIcon(
+                    text: "ADD MORE ITEMS",
+                    icon: const Icon(Icons.edit, color: Colors.transparent),
                     onPressed: () {
                       Navigator.pushNamed(
                           context, Routes.locationSelectionRoute);
-                      print('USE CURRENT LOCATION');
+
+                      print("ADD MORE ITEMS");
                     },
                   ),
                 ),
 
                 /// **Delivery Instructions**
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: Row(
-                    children: [
-                      SvgPicture.asset('assets/svgicons/truck.svg'),
-                      const SizedBox(
-                          width: 8), // Optional: Space between icon and text
-                      const Text(
-                        'Delivery Instructions',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                const IconHeadingRow(
+                  iconAssetPath: 'assets/svgicons/truck.svg',
+                  heading: 'Delivery Instructions',
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  child: CardTextField(
+                    hintText: "Enter your Instructions",
+                    isMultiline: true,
                   ),
                 ),
 
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  child: TextField(
-                    minLines: 3, // Minimum 3 lines visible
-                    maxLines: 10, // Maximum 10 lines allowed
-                    decoration: InputDecoration(
-                      hintText: "Enter your Instructions",
-                      hintStyle: const TextStyle(
-                          color: Color.fromARGB(
-                              255, 167, 179, 183)), // Hint text color
-                      filled: true, // Enables background color
-                      fillColor: const Color.fromARGB(
-                          255, 230, 236, 239), // Light background color
+                const SizedBox(height: 10),
+                const IconHeadingRow(
+                  iconAssetPath: 'assets/svgicons/tag.svg',
+                  heading: 'Discount & Promo Codes',
+                ),
+                const SizedBox(height: 10),
 
-                      // Border color same as hint text color (grey)
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(color: Colors.grey),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: const BorderSide(
-                            color: Colors.grey), // Slightly thicker on focus
-                      ),
+                /// **Apply Code**
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: SizedBox(
+                    height: 50,
+                    // margin: const EdgeInsets.only(right: 0),
+                    child: CardTextField(
+                      hintText: "Type Coupon Code",
+                      isMultiline: false,
+                      buttonText: "APPLY",
+                      onButtonPressed: () {
+                        print("Apply Code Pressed!");
+                      },
                     ),
                   ),
                 ),
 
-                /// **Discount & Promo Codes**
-                const ApplyCodeWidget(),
+                const SizedBox(height: 20),
+                const IconHeadingRow(
+                  iconAssetPath: 'assets/svgicons/Bill.svg',
+                  heading: 'Bill Details',
+                ),
+                const SizedBox(height: 10),
+                const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BillRow(title: "Subtotal", value: "₹210"),
+                    BillRow(title: "Discount", value: "-₹50", isNegative: true),
+                    BillRow(title: "Delivery Fee", value: "₹25"),
+                    BillRow(title: "Tax & Other Fees", value: "₹10"),
+                    BillRow(title: "Platform Fees", value: "₹5"),
+                    SizedBox(height: 10),
+                    Divider(thickness: 1),
+                    BillRow(title: "To Pay", value: "₹420", isBold: true),
+                    SizedBox(height: 20),
+                  ],
+                ),
               ],
             ),
             const FooterShadowDivider(),

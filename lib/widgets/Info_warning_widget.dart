@@ -18,8 +18,8 @@ class AppInfoBox extends StatelessWidget {
     this.padding = const EdgeInsets.all(10),
     this.borderRadius = 10,
     this.textStyle = const TextStyle(color: AppColors.goldenBrown),
-    this.backgroundColor = const AppColors.deepOrange,
-    this.borderColor = AppColors.amberYellow,
+    this.backgroundColor = AppColors.deepOrange,
+    this.borderColor = AppColors.amber,
     this.iconColor = AppColors.goldenBrown,
   });
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:konkan_bite_food/features/auth/presentation/widgets/item_added_bottom_bar_menu.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/item_added_snackbar.dart';
 
 class MenuDetailsBottomSheet {
   static void show(BuildContext context, Map<String, String> item) {

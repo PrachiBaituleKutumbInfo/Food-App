@@ -131,34 +131,10 @@ class _LocationEditManuallyScreenState
                         ],
                       ),
                       const SizedBox(height: 10),
-
                       const AppInfoBox(
                         message: "We are sorry! We don't serve this area yet.",
                         icon: Icons.error_outline,
                       ),
-
-                      // Container(
-                      //   padding: const EdgeInsets.all(8),
-                      //   decoration: BoxDecoration(
-                      //     color: AppColors.deepOrange,
-                      //     borderRadius: BorderRadius.circular(8),
-                      //     border: Border.all(color: AppColors.amberYellow),
-                      //   ),
-                      //   child: const Row(
-                      //     children: [
-                      //       Icon(Icons.error_outline,
-                      //           color: AppColors.goldenBrown),
-                      //       SizedBox(width: 8),
-                      //       Expanded(
-                      //         child: Text(
-                      //           "We are sorry! We don't serve this area yet.",
-                      //           style: TextStyle(
-                      //               color:AppColors.goldenBrown),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
                       const SizedBox(height: 16),
                       CustomActionButton.orangeFilled(
                         text: "USE CURRENT LOCATION",

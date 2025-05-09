@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:http/http.dart' as http;
 import 'package:konkan_bite_food/core/config/routes.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/terms_of_service/terms_and_service_screen.dart';
 import 'package:konkan_bite_food/features/auth/privacy_policy_screen.dart';
-import 'package:konkan_bite_food/features/auth/terms_of_service_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
@@ -158,7 +158,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) =>
-                                          const TermsOfServiceScreen()),
+                                          const TermsAndServiceScreen()),
                                 );
                               },
                           ),

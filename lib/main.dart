@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: Routes.loginRoute, // Use the initial route from the Routes class
       onGenerateRoute: Routes.generateRoute, // Use the route generator function

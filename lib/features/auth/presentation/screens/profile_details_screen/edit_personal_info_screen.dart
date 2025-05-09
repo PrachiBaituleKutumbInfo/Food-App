@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_awatar_widget.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/profile_card_widget.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
@@ -46,33 +47,11 @@ class PersonalInfoScreen extends StatelessWidget {
         child: Column(
           children: [
             // User Info
-            Row(
-              children: [
-                CircleAvatar(
-                  radius: 40,
-                  child: SvgPicture.asset(
-                    'assets/svgicons/profile-icon.svg',
-                    width: 90,
-                    height: 90,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                const Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Deven Parab',
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                    ),
-                    Text('devenparab@gmail.com'),
-                    Text(
-                      '+91 9876543210',
-                     
-                    ),
-                  ],
-                ),
-              ],
+           const ProfileInfoRow(
+              name: 'Deven Parab',
+              email: 'devenparab@gmail.com',
+              phone: '+91 9876543210',
+              avatarAssetPath: 'assets/svgicons/profile-icon.svg',
             ),
             const SizedBox(height: 30),
 
