@@ -1,0 +1,2 @@
+D:/dart_projects/Food-App/android/app/.cxx/Debug/3f3h103k/x86_64/CMakeFiles/edit_cache.dir
+D:/dart_projects/Food-App/android/app/.cxx/Debug/3f3h103k/x86_64/CMakeFiles/rebuild_cache.dir
