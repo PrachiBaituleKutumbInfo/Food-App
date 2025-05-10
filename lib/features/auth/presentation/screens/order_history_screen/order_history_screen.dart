@@ -18,8 +18,8 @@ class OrderHistoryScreen extends StatefulWidget {
 }
 
 class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
-int _selectedIndex = 2;
- void _onItemTapped(int index) {
+  int _selectedIndex = 2;
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -43,75 +43,75 @@ int _selectedIndex = 2;
         break;
     }
   }
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: Column(
         children: [
-           Padding(
-              padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
-              child: Row(
-                children: [
-                  /// Back button on the left
-                  CircularBackButton(
-                      onPressed: () => Navigator.pop(context),
-                  ),
+          Padding(
+            padding: const EdgeInsets.only(top: 50, bottom: 10, left: 5),
+            child: Row(
+              children: [
+                /// Back button on the left
+                CircularBackButton(
+                  onPressed: () => Navigator.pop(context),
+                ),
 
-                  /// Centered title
-                  const Expanded(
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: HeaderTitle(
-                        title: 'Order History',
-                      ),
+                /// Centered title
+                const Expanded(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: HeaderTitle(
+                      title: 'Order History',
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
+          ),
 
-            const HeaderShadowDivider(), // Use the HeaderShadowDivider here
+          const HeaderShadowDivider(), // Use the HeaderShadowDivider here
           Expanded(
-  child: OrderCardList(
-    orders: [
-      {
-        'status': 'Order Inprocess',
-        'date': '9th Sep 2024, 8:30 AM',
-        'amount': '₹520',
-        'items': [
-          {'text': '1 x Mexican Wave Pizza', 'veg': false},
-          {'text': '1 x Paneer Tikka Pizza', 'veg': true},
-          {'text': '1 x Peri-Peri Chicken Pizza', 'veg': false},
-        ],
-        'actions': ['Cancel', 'Track Order'],
-      },
-      {
-        'status': 'Payment Failed',
-        'date': '7th Sep 2024, 4:05 PM',
-        'amount': '₹420',
-        'items': [
-          {'text': '1 x Chicken Pepperoni Pizza', 'veg': false},
-          {'text': '1 x Vegetarian Margherita Pizza', 'veg': true},
-          {'text': '1 x Classic Veg Pizza', 'veg': true},
-        ],
-        'actions': ['Feedback', 'Reorder'],
-      },
-      {
-        'status': 'Order Delivered',
-        'date': '8th Sep 2024, 12:00 PM',
-        'amount': '₹380',
-        'items': [
-          {'text': '1 x Classic Margherita Pizza', 'veg': true},
-          {'text': '1 x Spicy Chicken Pizza', 'veg': false},
-          {'text': '1 x Cheese Burst Pizza', 'veg': true},
-        ],
-        'actions': ['Feedback', 'Reorder'],
-      },
-    ],
-  ),
-)
+            child: OrderCardList(
+              orders: [
+                {
+                  'status': 'Order Inprocess',
+                  'date': '9th Sep 2024, 8:30 AM',
+                  'amount': '₹520',
+                  'items': [
+                    {'text': '1 x Mexican Wave Pizza', 'veg': false},
+                    {'text': '1 x Paneer Tikka Pizza', 'veg': true},
+                    {'text': '1 x Peri-Peri Chicken Pizza', 'veg': false},
+                  ],
+                  'actions': ['Cancel', 'Track Order'],
+                },
+                {
+                  'status': 'Payment Failed',
+                  'date': '7th Sep 2024, 4:05 PM',
+                  'amount': '₹420',
+                  'items': [
+                    {'text': '1 x Chicken Pepperoni Pizza', 'veg': false},
+                    {'text': '1 x Vegetarian Margherita Pizza', 'veg': true},
+                    {'text': '1 x Classic Veg Pizza', 'veg': true},
+                  ],
+                  'actions': ['Feedback', 'Reorder'],
+                },
+                {
+                  'status': 'Order Delivered',
+                  'date': '8th Sep 2024, 12:00 PM',
+                  'amount': '₹380',
+                  'items': [
+                    {'text': '1 x Classic Margherita Pizza', 'veg': true},
+                    {'text': '1 x Spicy Chicken Pizza', 'veg': false},
+                    {'text': '1 x Cheese Burst Pizza', 'veg': true},
+                  ],
+                  'actions': ['Feedback', 'Reorder'],
+                },
+              ],
+            ),
+          )
 
           // Expanded(
           //   child: ListView(
