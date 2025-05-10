@@ -36,3 +36,8 @@ final class VerifyOtpEvent extends AuthEvent {
 
   VerifyOtpEvent(this.otp);
 }
+
+final class ResendOtpEvent extends AuthEvent {
+  final String mobileNumber;
+  ResendOtpEvent(this.mobileNumber);
+}

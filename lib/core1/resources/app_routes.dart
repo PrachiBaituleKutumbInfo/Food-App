@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/feature1/authentication/presentation/auth_screen.dart';
 import 'package:konkan_bite_food/feature1/authentication/presentation/otp_verification_screen.dart';
 import 'package:konkan_bite_food/feature1/home/presentation/home_screen.dart';
-import 'package:konkan_bite_food/features/auth/login_screen.dart';
 
 //routes from prachi
 import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
-import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/order_place_bsheet.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
@@ -49,8 +47,8 @@ class AppRoutes {
         );
       case home:
         return MaterialPageRoute(builder: (_) => const HomeScreen());
-      case otpRoute:
-        return MaterialPageRoute(builder: (_) => const OtpScreen());
+      // case otpRoute:
+      //   return MaterialPageRoute(builder: (_) => const OtpScreen());
       case locationAccessRoute:
         return MaterialPageRoute(builder: (_) => const LocationAccessScreen());
       case locationEditManuallyRoute:
@@ -108,7 +106,7 @@ class Routes {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
       case otpRoute:
-        return MaterialPageRoute(builder: (_) => const OtpScreen());
+        return MaterialPageRoute(builder: (_) => const OtpVerificationScreen());
       case locationAccessRoute:
         return MaterialPageRoute(builder: (_) => const LocationAccessScreen());
       case locationEditManuallyRoute:

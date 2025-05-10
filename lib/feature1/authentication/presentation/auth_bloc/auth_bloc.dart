@@ -13,6 +13,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final SecureStorageService secureStorage;
   final AuthenticationRepository repository;
   final VerifyOtpUsecase verifyOtpUsecase;
+  String mobileNumber = '';
 
   AuthBloc({
     required this.secureStorage,
@@ -22,6 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthCheckEvent>(_onAuthCheck);
     on<LoginWithOtpEvent>(_onLoginWithOtp);
     on<VerifyOtpEvent>(_onVerifyOtp);
+    on<ResendOtpEvent>(_onResendOtp);
   }
 
   Future<void> _onAuthCheck(
@@ -44,6 +46,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       LoginWithOtpEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
+      mobileNumber = event.mobileNumber;
       final result = await repository.loginWithOtp(mobNo: event.mobileNumber);
       await result.fold(
         (failure) async => emit(AuthOtpReceivedFailureState(failure.message)),
@@ -64,7 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       final result = await verifyOtpUsecase(VerifyOtpParams(
         otp: event.otp,
-        mobileNumber: '1234567890', // Replace with actual mobile number
+        mobileNumber: mobileNumber, // Replace with actual mobile number
       ));
       await result.fold(
         (failure) async => emit(AuthOtpReceivedFailureState(failure.message)),
@@ -78,6 +81,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(AuthFailure('Request timed out. Please check your network.'));
     } catch (e) {
       emit(AuthFailure('OTP verification error: $e'));
+    }
+  }
+
+  Future<void> _onResendOtp(
+      ResendOtpEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      mobileNumber = event.mobileNumber;
+      final result = await repository.loginWithOtp(
+          mobNo: event.mobileNumber); // Assume new repository method
+      await result.fold(
+        (failure) async => emit(AuthOtpReceivedFailureState(failure.message)),
+        (response) async => emit(AuthOtpReceivedSuccessState()),
+      );
+    } catch (e) {
+      emit(AuthFailure('Resend OTP error: $e'));
     }
   }
 }

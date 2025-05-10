@@ -36,8 +36,8 @@ class Routes {
     switch (settings.name) {
       case loginRoute:
         return MaterialPageRoute(builder: (_) => const LoginScreen());
-      case otpRoute:
-        return MaterialPageRoute(builder: (_) => const OtpScreen());
+      // case otpRoute:
+      //   return MaterialPageRoute(builder: (_) => const OtpScreen());
       case locationAccessRoute:
         return MaterialPageRoute(builder: (_) => const LocationAccessScreen());
       case locationEditManuallyRoute:
