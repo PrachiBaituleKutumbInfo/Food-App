@@ -6,7 +6,7 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_floating_button.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_item_card.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/bottom_navigation.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
@@ -40,7 +40,7 @@ class _MenuScreenState extends State<MenuScreen> {
         break;
       case 2:
         Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const OrdersScreen()));
+            MaterialPageRoute(builder: (context) => const OrderHistoryScreen()));
         break;
       case 3:
         Navigator.pushReplacement(context,

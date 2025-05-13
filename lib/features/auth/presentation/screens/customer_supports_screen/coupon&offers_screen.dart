@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/faq_list_widget.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/order_tracking_Map_Screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_tracking_Map_Screen.dart';
 
 class CouponsAndOffersScreen extends StatelessWidget {
   CouponsAndOffersScreen({super.key});

@@ -1,0 +1,2 @@
+D:/Kutumbinfo WorkSpace/konkan_bite_food/android/app/.cxx/Debug/e505zo26/x86/CMakeFiles/edit_cache.dir
+D:/Kutumbinfo WorkSpace/konkan_bite_food/android/app/.cxx/Debug/e505zo26/x86/CMakeFiles/rebuild_cache.dir

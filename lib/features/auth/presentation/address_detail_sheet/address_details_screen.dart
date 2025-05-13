@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
 import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_type_button.dart';
 import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/app_radio_button.dart';
 import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/app_textfield.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_card_list_widgets.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_details_card_widget.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
@@ -18,31 +13,6 @@ class OrderHistoryScreen extends StatefulWidget {
 }
 
 class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
-  int _selectedIndex = 2;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => const DashboardHomeScreen()));
-        break;
-      case 1:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const MenuScreen()));
-        break;
-      case 2:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const OrdersScreen()));
-        break;
-      case 3:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const CartScreen()));
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {

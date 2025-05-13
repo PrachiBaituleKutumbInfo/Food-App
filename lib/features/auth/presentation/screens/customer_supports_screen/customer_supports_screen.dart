@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/coupon&offers_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/faq_list_widget.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/customer_supports_screen/status_details_cart_widget.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 
 class CustomerSupportsScreen extends StatelessWidget {
   const CustomerSupportsScreen({super.key});
@@ -154,7 +154,7 @@ class CustomerSupportsScreen extends StatelessWidget {
                   //         builder: (_) => const PaymentsScreen()));
                 } else if (item == 'Orders') {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => const OrdersScreen()));
+                      MaterialPageRoute(builder: (_) => const OrderHistoryScreen()));
                 } else if (item == 'Feedback') {
                   // Navigator.push(
                   //     context,

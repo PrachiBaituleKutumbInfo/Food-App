@@ -14,8 +14,6 @@ import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
 import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 import 'package:konkan_bite_food/widgets/quanity_counter_button.dart';
 import '../dashboard_screen/dashboard_home_screen.dart';
-import '../menu_screen/menu_screen.dart';
-import '../orders_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -25,8 +23,6 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
-  int _selectedIndex = 3;
-
   /// 🛒 Cart Items with Quantity
   final List<Map<String, dynamic>> cartItems = [
     {
@@ -51,31 +47,6 @@ class _CartScreenState extends State<CartScreen> {
       "quantity": 1,
     },
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (index) {
-      case 0:
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (_) => const DashboardHomeScreen()));
-        break;
-      case 1:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const MenuScreen()));
-        break;
-      case 2:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const OrdersScreen()));
-        break;
-      case 3:
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (_) => const CartScreen()));
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -170,7 +141,7 @@ class _CartScreenState extends State<CartScreen> {
                   height: 1,
                   color: Colors.grey.withOpacity(0.5),
                 ),
-              const  SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 
@@ -178,7 +149,7 @@ class _CartScreenState extends State<CartScreen> {
                 const IconHeadingRow(
                   heading: 'Items in your cart',
                 ),
-              const  SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
 

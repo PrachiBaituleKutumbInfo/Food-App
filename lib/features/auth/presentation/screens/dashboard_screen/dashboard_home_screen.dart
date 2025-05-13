@@ -4,7 +4,7 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_sc
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/food_item_card.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/section_title.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/orders_screen.dart';
+import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/bottom_navigation.dart';
 
@@ -71,7 +71,7 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
 
   final List<Map<String, dynamic>> cartItems = [];
 
-    void _onItemTapped(int index) {
+  void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
@@ -89,33 +89,16 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
             MaterialPageRoute(builder: (context) => const MenuScreen()));
         break;
       case 2:
-        Navigator.pushReplacement(context,
-            MaterialPageRoute(builder: (context) => const OrdersScreen()));
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const OrderHistoryScreen()));
         break;
       case 3:
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => const CartScreen()));
         break;
     }
-  }
-
-  void _addToCart(int index) {
-    setState(() {
-      final foodItem = foodItems[index];
-      final existingCartItem = cartItems.firstWhere(
-          (item) => item["title"] == foodItem["title"],
-          orElse: () => {} // Return an empty map as the default value
-          );
-
-      if (existingCartItem.isNotEmpty) {
-        existingCartItem["quantity"]++;
-      } else {
-        cartItems.add({
-          ...foodItem,
-          "quantity": 1,
-        });
-      }
-    });
   }
 
   @override
@@ -176,6 +159,7 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
                 itemCount: foodItems.length,
                 itemBuilder: (context, index) {
                   return FoodItemCard(
+                    
                     image: foodItems[index]["image"],
                     title: foodItems[index]["title"],
                     subtitle: foodItems[index]["subtitle"],
@@ -185,10 +169,10 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
                     onAdd: () {
                       setState(() {
                         foodItems[index]["quantity"]++;
-
+                  
                         final existingIndex = cartItems.indexWhere((item) =>
                             item["title"] == foodItems[index]["title"]);
-
+                  
                         if (existingIndex != -1) {
                           cartItems[existingIndex]["quantity"]++;
                         } else {
@@ -200,13 +184,13 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
                       setState(() {
                         if (foodItems[index]["quantity"] > 0) {
                           foodItems[index]["quantity"]--;
-
+                  
                           final existingIndex = cartItems.indexWhere((item) =>
                               item["title"] == foodItems[index]["title"]);
-
+                  
                           if (existingIndex != -1) {
                             cartItems[existingIndex]["quantity"]--;
-
+                  
                             if (cartItems[existingIndex]["quantity"] <= 0) {
                               cartItems.removeAt(existingIndex);
                             }

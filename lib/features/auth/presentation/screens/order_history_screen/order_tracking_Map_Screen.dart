@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 // Step Enum for order status
 enum OrderStatus {
@@ -70,14 +71,16 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 5),
-                  Row(
+                  const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
+                    children: [
                       Text("Arriving at ", style: TextStyle(fontSize: 14)),
-                      Text("4:35 PM", style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("4:35 PM",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                       Spacer(),
                       Text("OTP - ", style: TextStyle(fontSize: 14)),
-                      Text("7548", style: TextStyle(fontWeight: FontWeight.bold)),
+                      Text("7548",
+                          style: TextStyle(fontWeight: FontWeight.bold)),
                     ],
                   ),
                   const SizedBox(height: 20),
@@ -92,7 +95,8 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                     children: [
                       const Text(
                         "Need any help?",
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500),
                       ),
                       const SizedBox(width: 10),
                       ElevatedButton.icon(
@@ -101,13 +105,15 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                         label: const Text("CALL"),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
-                          foregroundColor: Colors.deepOrange,
-                          side: const BorderSide(color: Colors.deepOrange),
+                          foregroundColor: AppColors.primary,
+                          side: const BorderSide(color: AppColors.primary),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                          textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          textStyle: const TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -118,11 +124,13 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
                   // Cancel Link
                   const Row(
                     children: [
-                      Text("Want to ", style: TextStyle(color: Color.fromARGB(255, 114, 113, 113))),
+                      Text("Want to ",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 114, 113, 113))),
                       Text(
                         "Cancel order?",
                         style: TextStyle(
-                          color: Color.fromARGB(255, 114, 113, 113),
+                          color: AppColors.darkText,
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline,
                           decorationThickness: 1.5,
@@ -144,11 +152,13 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
     return Row(
       children: List.generate(steps.length * 2 - 1, (index) {
         if (index.isOdd) {
-          // Line between circles
+          // Connector line between steps
+          int leftStep = index ~/ 2;
+          bool isActiveLine = currentStatus.index > leftStep;
           return Expanded(
             child: Container(
               height: 2,
-              color: Colors.deepOrange,
+              color: isActiveLine ? AppColors.primary : Colors.grey.shade300,
             ),
           );
         } else {
@@ -160,24 +170,35 @@ class _OrderTrackingScreenState extends State<OrderTrackingScreen> {
           return Column(
             children: [
               Container(
-                height: 22,
-                width: 22,
+                height: 24,
+                width: 24,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: isCompleted || isCurrent ? Colors.deepOrange : Colors.grey.shade300,
+                  color: isCompleted
+                      ? AppColors.primary
+                      : isCurrent
+                          ? AppColors.white
+                          : AppColors.primary,
+                  // width: isSelected ? 6.5 : 2,
                   border: Border.all(
-                    color: isCompleted || isCurrent ? Colors.deepOrange : Colors.grey,
+                    color: isCompleted || isCurrent
+                        ? AppColors.primary
+                        : AppColors.primary,
                     width: 2,
                   ),
                 ),
                 child: isCompleted
-                    ? const Icon(Icons.check, color: Colors.white, size: 14)
+                    ? Icon(Icons.check, color: Colors.white, size: 18)
                     : const SizedBox.shrink(),
               ),
-              const SizedBox(height: 4),
+              const SizedBox(height: 6),
               Text(
                 steps[stepIndex]['label'],
-                style: const TextStyle(fontSize: 12),
+                style: const TextStyle(
+                  fontSize: 12,
+                  // fontWeight: isCurrent ? FontWeight.bold : FontWeight.normal,
+                  // color: isCurrent ? AppColors.primary : Colors.black,
+                ),
               ),
             ],
           );

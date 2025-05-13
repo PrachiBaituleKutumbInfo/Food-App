@@ -99,7 +99,7 @@ class AppTextStyle {
   );
 
   static const TextStyle formLabel = TextStyle(
-      fontSize: 12, fontWeight: FontWeight.w500, 
+      fontSize: 14, fontWeight: FontWeight.w800, 
       color: AppColors.steelBlue);
 
   AppTextStyle(title1medium);
