@@ -59,10 +59,8 @@ class AddressDetailsScreen extends StatelessWidget {
                   const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Current Location',
-                        style: AppTextStyle.title1Medium
-                      ),
+                      Text('Current Location',
+                          style: AppTextStyle.title1Medium),
                       Text('Using GPS'),
                     ],
                   )
@@ -83,10 +81,7 @@ class AddressDetailsScreen extends StatelessWidget {
               const Divider(),
               const SizedBox(height: 20),
 
-              const Text(
-                'Saved Locations',
-            style: AppTextStyle.title1Medium
-              ),
+              const Text('Saved Locations', style: AppTextStyle.title1Medium),
 
               const SizedBox(height: 20),
 

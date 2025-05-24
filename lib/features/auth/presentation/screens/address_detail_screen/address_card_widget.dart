@@ -51,6 +51,7 @@ class AddressCard extends StatelessWidget {
                         'assets/svgicons/edit.svg',
                         width: 20,
                         height: 20,
+                        // ignore: deprecated_member_use
                         color: AppColors.greyText,
                       ),
                     ),

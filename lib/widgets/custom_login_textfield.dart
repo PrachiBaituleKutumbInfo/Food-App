@@ -9,12 +9,12 @@ class CustomPhoneTextField extends StatelessWidget {
   final bool isEnable;
 
   const CustomPhoneTextField({
-    Key? key,
+    super.key,
     required this.countryCodeController,
     required this.phoneNumberController,
     required this.onChanged,
     required this.isEnable,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

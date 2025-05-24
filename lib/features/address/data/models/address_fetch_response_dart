@@ -1,0 +1,62 @@
+
+class AddressResponseModel  extends AddResponseEntity{
+  final String responseStatus;
+  final String responseCode;
+  final String responseMessage;
+  final AddressResponseData? responseData;
+
+  AddressResponseModel({
+    required this.responseStatus,
+    required this.responseCode,
+    required this.responseMessage,
+    this.responseData,
+  });
+
+  factory AddressResponseModel.fromJson(Map<String, dynamic> json) {
+    return AddressResponseModel(
+      responseStatus: json['responseStatus'] as String,
+      responseCode: json['responseCode']  as String,
+      responseMessage: json['responseMessage']  as String,
+      responseData: json['responseData']  as String,
+          // ? AddressResponseData.fromJson(json['responseData'])
+          // : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'responseStatus': responseStatus,
+      'responseCode': responseCode,
+      'responseMessage': responseMessage,
+      'responseData': responseData?.toJson(),
+    };
+  }
+}
+
+class AddressResponseData {
+  final AddressModel? other;
+  final AddressModel? office;
+  final AddressModel? home;
+
+  AddressResponseData({
+    this.other,
+    this.office,
+    this.home,
+  });
+
+  factory AddressResponseData.fromJson(Map<String, dynamic> json) {
+    return AddressResponseData(
+      other: json['OTHER'] != null ? AddressModel.fromJson(json['OTHER']) : null,
+      office: json['OFFICE'] != null ? AddressModel.fromJson(json['OFFICE']) : null,
+      home: json['HOME'] != null ? AddressModel.fromJson(json['HOME']) : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'OTHER': other?.toJson(),
+      'OFFICE': office?.toJson(),
+      'HOME': home?.toJson(),
+    };
+  }
+}

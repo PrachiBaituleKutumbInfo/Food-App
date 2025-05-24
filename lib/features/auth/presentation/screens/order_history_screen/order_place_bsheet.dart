@@ -5,7 +5,7 @@ import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OrderProgressWidget extends StatefulWidget {
-  const OrderProgressWidget({Key? key}) : super(key: key);
+  const OrderProgressWidget({super.key});
 
   @override
   State<OrderProgressWidget> createState() => _OrderProgressWidgetState();
@@ -143,11 +143,13 @@ class _OrderProgressWidgetState extends State<OrderProgressWidget>
                                       TextSpan(
                                         text: 'Delivery OTP - ',
                                         style: AppTextStyle.caption1,
+                                        
                                         children: [
                                           TextSpan(
                                             text: '7548',
                                             style: TextStyle(
                                               color: AppColors.primary,
+                                              decoration: TextDecoration.none,
                                             ),
                                           ),
                                         ],

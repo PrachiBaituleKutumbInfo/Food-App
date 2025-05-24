@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_details_screen.dart';
+import 'package:konkan_bite_food/features/address/presnetation/address_details_screen.dart';
+import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
@@ -24,10 +25,13 @@ class _LocationEditManuallyScreenState
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      backgroundColor:
-          Colors.transparent, // Makes the background fully transparent
-      // barrierColor: Colors.black.withOpacity(0.3), // Semi-transparent black background behind sheet
-      builder: (context) => const AddressDetailsBottomSheet(),
+      backgroundColor: Colors.transparent,
+      builder: (context) {
+        return BlocProvider.value(
+          value: BlocProvider.of<AddressBloc>(context),
+          child: const AddressDetailsBottomSheet(),
+        );
+      },
     );
   }
 
@@ -121,13 +125,33 @@ class _LocationEditManuallyScreenState
                           ),
                           IconButton(
                             onPressed: () {
-                              showAddressDetailsBottomSheet(context);
+                              showModalBottomSheet(
+                                context: context,
+                                isScrollControlled: true,
+                                builder: (context) {
+                                  return BlocProvider.value(
+                                    value: BlocProvider.of<AddressBloc>(
+                                        context), // re-use existing bloc
+                                    child: const AddressDetailsBottomSheet(),
+                                  );
+                                },
+                              );
                             },
                             icon: SvgPicture.asset('assets/svgicons/edit.svg',
                                 width: 24,
                                 height: 24,
                                 color: AppColors.primary),
                           ),
+
+                          // IconButton(
+                          //   onPressed: () {
+                          //     showAddressDetailsBottomSheet(context);
+                          //   },
+                          //   icon: SvgPicture.asset('assets/svgicons/edit.svg',
+                          //       width: 24,
+                          //       height: 24,
+                          //       color: AppColors.primary),
+                          // ),
                         ],
                       ),
                       const SizedBox(height: 10),

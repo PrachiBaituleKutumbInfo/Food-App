@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as secureStorageService;
 import 'package:http/io_client.dart' as http_io;
 import 'package:konkan_bite_food/config/environment.dart';
 import 'package:konkan_bite_food/core1/services/secure_storage_service.dart';

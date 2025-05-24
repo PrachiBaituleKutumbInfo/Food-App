@@ -4,7 +4,7 @@ import 'package:konkan_bite_food/feature1/authentication/presentation/otp_verifi
 import 'package:konkan_bite_food/feature1/home/presentation/home_screen.dart';
 
 //routes from prachi
-import 'package:konkan_bite_food/features/auth/presentation/address_detail_sheet/address_details_screen.dart';
+import 'package:konkan_bite_food/features/address/presnetation/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
