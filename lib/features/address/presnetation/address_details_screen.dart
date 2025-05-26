@@ -260,7 +260,9 @@ String getNormalizedAddressType(String type) {
 
                         context
                             .read<AddressBloc>()
-                            .add(AddAddressEvent(address));
+                            .add(AddAddressEvent(address
+                              // address: enterAddress
+                              ));
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(

@@ -47,7 +47,7 @@ class AppTextStyle {
   );
 
   static const TextStyle title3Medium = TextStyle(
-    fontSize: 34,
+    fontSize: 32,
     fontWeight: FontWeight.w500,
     color: AppColors.deepNavy,
   );

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class LocationAccessScreen extends StatefulWidget {
@@ -18,75 +17,74 @@ class _LocationAccessScreenState extends State<LocationAccessScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  // Location Image with Error Handling
-                  SizedBox(
-                    height: 150,
-                    width: 150,
-                    child: _buildSvgImage(),
-                  ),
-                  const SizedBox(height: 30),
-
-                  // Heading & Bullet Points
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Allow location access',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
+      body: SafeArea(
+        bottom: true,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    // SVG image
+                    SizedBox(
+                      height: 150,
+                      width: 150,
+                      child: _buildSvgImage(),
+                    ),
+                    const SizedBox(height: 30),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Allow location access',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
-                      ),
-                      const SizedBox(height: 20),
-                      buildBulletPoint("Real-time tracking of your order"),
-                      buildBulletPoint("Faster and more accurate delivery"),
-                      buildBulletPoint(
-                          "Easy communication with the delivery person"),
-                      buildBulletPoint(
-                          "Increase safety and security during delivery"),
-                    ],
+                        const SizedBox(height: 20),
+                        buildBulletPoint("Real-time tracking of your order"),
+                        buildBulletPoint("Faster and more accurate delivery"),
+                        buildBulletPoint(
+                            "Easy communication with the delivery person"),
+                        buildBulletPoint(
+                            "Increase safety and security during delivery"),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+              Column(
+                children: [
+                  CustomActionButton.orangeFilled(
+                    text: "USE CURRENT LOCATION",
+                    isEnable: isEnable,
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, Routes.locationEditManuallyRoute);
+                      print('USE CURRENT LOCATION');
+                    },
+                  ),
+                  const SizedBox(height: 15),
+                  CustomActionButton.orangeBorderWithIcon(
+                    text: "ENTER MANUALLY",
+                    icon: const Icon(Icons.edit, color: Colors.transparent),
+                    onPressed: () {
+                      Navigator.pushNamed(
+                          context, Routes.locationSelectionRoute);
+                      print("ENTER MANUALLY");
+                    },
                   ),
                 ],
               ),
-            ),
-
-            // Buttons at the Bottom
-            Column(
-              children: [
-                CustomActionButton.orangeFilled(
-                  text: "USE CURRENT LOCATION",
-                  isEnable: isEnable,
-                  onPressed: () {
-                    Navigator.pushNamed(
-                        context, Routes.locationEditManuallyRoute);
-                    print('USE CURRENT LOCATION');
-                  },
-                ),
-                const SizedBox(height: 15),
-                CustomActionButton.orangeBorderWithIcon(
-                  text: "ENTER MANUALLY",
-                  icon: Icon(Icons.edit, color: Colors.transparent),
-                  onPressed: () {
-                    Navigator.pushNamed(context, Routes.locationSelectionRoute);
-
-                    print("ENTER MANUALLY");
-                  },
-                ),
-              ],
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

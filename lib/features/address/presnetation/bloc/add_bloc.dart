@@ -79,6 +79,12 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
 
   Future<void> _onAdd(AddAddressEvent event, Emitter<AddressState> emit) async {
     emit(AddressLoading());
+//     final result = await addAddress(event.address);
+// result.fold(
+//   (failure) => emit(AddressError(failure.message)),
+//   (newAddress) => emit(AddressOperationSuccess(newAddress)), // ✅ Return added address
+// );
+
     final result = await addAddress(event.address);
     result.fold(
       (failure) => emit(AddressError(failure.message)),
