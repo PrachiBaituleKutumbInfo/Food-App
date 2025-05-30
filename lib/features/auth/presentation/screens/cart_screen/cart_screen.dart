@@ -139,6 +139,7 @@ class _CartScreenState extends State<CartScreen> {
                 /// **Divider Below Address**
                 Container(
                   height: 1,
+                  // ignore: deprecated_member_use
                   color: Colors.grey.withOpacity(0.5),
                 ),
                 const SizedBox(

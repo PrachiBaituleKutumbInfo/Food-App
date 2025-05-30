@@ -14,25 +14,61 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
 
   const AddressRemoteDataSourceImpl(this._http);
 
-  @override
+  //   Future<List<AddressModel>> fetchAddress() async {
+//   final response = await _http.get('/get/add');
 
+//   if (response.statusCode == 200 &&
+//       response.data['responseStatus'] == 'SUCCESS') {
+//     final Map<String, dynamic> data = response.data['responseData'];
+
+//     // Only get non-null address entries (like HOME, OFFICE, OTHER)
+//     final List<AddressModel> addresses = [];
+
+//     data.forEach((key, value) {
+//       if (value != null) {
+//         addresses.add(AddressModel.fromJson(value));
+//       }
+//     });
+
+//     return addresses;
+//   } else {
+//     throw APIException(
+//       message: response.data['responseMessage'] ?? 'Something went wrong',
+//       statusCode: response.statusCode ?? 400,
+//     );
+//   }
+// }
+
+  // @override
+  // Future<List<AddressModel>> fetchAddress() async {
+  //   try {
+  //     const endpoint = ApiEndpoints.getAddress;
+
+  //     final response = await _http.get(
+  //       endpoint,
+  //       parser: (data) => (data['responseData'] as List)
+  //           .map((e) => AddressModel.fromJson(e))
+  //           .toList(),
+  //     );
+  //     return response;
+  //   } on HttpException catch (e) {
+  //     throw APIException(
+  //       message: e.message,
+  //       statusCode: 400,
+  //     );
+  //   } catch (e) {
+  //     throw APIException(message: 'Unexpected error: $e', statusCode: 500);
+  //   }
+  // }
+
+  @override
   Future<List<AddressModel>> fetchAddress() async {
   final response = await _http.get('/get/add');
 
   if (response.statusCode == 200 &&
       response.data['responseStatus'] == 'SUCCESS') {
-    final Map<String, dynamic> data = response.data['responseData'];
-
-    // Only get non-null address entries (like HOME, OFFICE, OTHER)
-    final List<AddressModel> addresses = [];
-
-    data.forEach((key, value) {
-      if (value != null) {
-        addresses.add(AddressModel.fromJson(value));
-      }
-    });
-
-    return addresses;
+    final List<dynamic> data = response.data['responseData'];
+    return data.map((json) => AddressModel.fromJson(json)).toList();
   } else {
     throw APIException(
       message: response.data['responseMessage'] ?? 'Something went wrong',
@@ -44,31 +80,16 @@ class AddressRemoteDataSourceImpl implements AddressRemoteDataSource {
 //   Future<List<AddressModel>> fetchAddress() async {
 //   final response = await _http.get('/get/add');
 
-//   if (response.statusCode == 200 &&
-//       response.data['responseStatus'] == 'SUCCESS') {
-//     final List<dynamic> data = response.data['responseData'];
+//   if (response.statusCode == 200) {
+//     final List<dynamic> data = response.data['responseData']; // ✅ Corrected
 //     return data.map((json) => AddressModel.fromJson(json)).toList();
 //   } else {
 //     throw APIException(
-//       message: response.data['responseMessage'] ?? 'Something went wrong',
-//       statusCode: response.statusCode ?? 400,
+//       message: response['responseMessage'] ?? 'Something went wrong',
+//       statusCode: 400,
 //     );
 //   }
 // }
-
-  // Future<List<AddressModel>> fetchAddress() async {
-  //   final response = await _http.get('/get/add');
-
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = response.data['data'];
-  //     return data.map((json) => AddressModel.fromJson(json)).toList();
-  //   } else {
-  //     throw APIException(
-  //       message: response['responseMessage'] ?? 'Something went wrong',
-  //       statusCode: 400,
-  //     );
-  //   }
-  // }
 
   @override
   Future<void> addAddress(AddressModel address) async {

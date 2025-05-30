@@ -95,8 +95,10 @@ class PaymentScreen extends StatelessWidget {
           Container(
             height: 2.5,
             decoration:
+                // ignore: deprecated_member_use
                 BoxDecoration(color: Colors.grey.withOpacity(0.10), boxShadow: [
               BoxShadow(
+                // ignore: deprecated_member_use
                 color: Colors.grey.withOpacity(0.5),
                 blurRadius: 5,
                 offset: const Offset(3, 0),

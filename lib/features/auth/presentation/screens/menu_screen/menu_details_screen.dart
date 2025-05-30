@@ -14,6 +14,7 @@ class MenuDetailsBottomSheet {
 
     showDialog(
       context: context,
+      // ignore: deprecated_member_use
       barrierColor: Colors.black.withOpacity(0.5),
       barrierDismissible: true,
       builder: (BuildContext dialogContext) {
@@ -31,7 +32,7 @@ class MenuDetailsBottomSheet {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: Colors.white,
                           shape: BoxShape.circle,
                           boxShadow: [
@@ -146,13 +147,9 @@ class MenuDetailsBottomSheet {
                                                 fontWeight: FontWeight.bold),
                                           ),
                                           const SizedBox(height: 10),
-                                          ...extraItems.keys
-                                              .map((extra) => _buildExtraItem(
-                                                  extra,
-                                                  "₹50",
-                                                  extraItems,
-                                                  setState))
-                                              .toList(),
+                                          ...extraItems.keys.map((extra) =>
+                                              _buildExtraItem(extra, "₹50",
+                                                  extraItems, setState)),
                                         ],
                                       ),
                                     ),
@@ -333,9 +330,9 @@ class MenuDetailsBottomSheet {
                 ),
                 side: const BorderSide(color: Colors.deepOrange, width: 2),
                 checkColor: Colors.white,
-                fillColor: MaterialStateProperty.resolveWith<Color>(
-                  (Set<MaterialState> states) {
-                    if (states.contains(MaterialState.selected)) {
+                fillColor: WidgetStateProperty.resolveWith<Color>(
+                  (Set<WidgetState> states) {
+                    if (states.contains(WidgetState.selected)) {
                       return Colors.deepOrange;
                     }
                     return Colors.transparent;

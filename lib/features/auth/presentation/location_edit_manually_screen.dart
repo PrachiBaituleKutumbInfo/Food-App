@@ -244,7 +244,6 @@ import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dar
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_state.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
@@ -279,7 +278,7 @@ class _LocationEditManuallyScreenState
       },
     );
     // Re-fetch after closing bottom sheet
-    context.read<AddressBloc>().add(FetchAddressesEvent());
+    // context.read<AddressBloc>().add(FetchAddressesEvent());
   }
 
   @override
@@ -364,84 +363,84 @@ class _LocationEditManuallyScreenState
                         children: [
                           Expanded(
                             child:
-                                //     BlocBuilder<AddressBloc, AddressState>(
-                                //   builder: (context, state) {
-                                //     if (state is AddressLoading) {
-                                //       return const Center(
-                                //           child: CircularProgressIndicator());
-                                //     } else if (state is AddressLoaded) {
-                                //       final addresses = state.addresses;
-                                //       return ListView.builder(
-                                //         itemCount: addresses.length,
-                                //         itemBuilder: (context, index) {
-                                //           final address = addresses[index];
-                                //           return ListTile(
-                                //             title: Text(address.houseNumber ?? ''),
-                                //             subtitle: Text(address.city ?? ''),
-                                //           );
-                                //         },
-                                //       );
-                                //     } else if (state is AddressError) {
-                                //       return Center(
-                                //           child: Text("Error: ${state.message}"));
-                                //     }
-                                //     return const SizedBox();
-                                //   },
-                                // )
+                                    BlocBuilder<AddressBloc, AddressState>(
+                                  builder: (context, state) {
+                                    if (state is AddressLoading) {
+                                      return const Center(
+                                          child: CircularProgressIndicator());
+                                    } else if (state is AddressLoaded) {
+                                      final addresses = state.addresses;
+                                      return ListView.builder(
+                                        itemCount: addresses.length,
+                                        itemBuilder: (context, index) {
+                                          final address = addresses[index];
+                                          return ListTile(
+                                            title: Text(address.houseNumber ?? ''),
+                                            subtitle: Text(address.city ?? ''),
+                                          );
+                                        },
+                                      );
+                                    } else if (state is AddressError) {
+                                      return Center(
+                                          child: Text("Error: ${state.message}"));
+                                    }
+                                    return const SizedBox();
+                                  },
+                                )
 
-                                //     BlocBuilder<AddressBloc, AddressState>(
-                                //   builder: (context, state) {
-                                //     if (state is AddressLoading) {
-                                //       return const Text("Loading address...");
-                                //     } else if (state is AddressLoaded &&
-                                //         state.addresses.isNotEmpty) {
-                                //       final address = state.addresses.first;
-                                //       return Text(
-                                //         "${address.houseNumber}, ${address.buildingName}, ${address.addressLineOne},\n"
-                                //         "${address.nearbyLandmark}, ${address.city}, ${address.state}, ${address.zipCode}",
-                                //         style: AppTextStyle.caption2
-                                //             .copyWith(color: AppColors.oliveGreen),
-                                //       );
-                                //     } else if (state is AddressError) {
-                                //       return Text(
-                                //         "Failed to load address: ${state.message}",
-                                //         style: TextStyle(color: Colors.red),
-                                //       );
-                                //     } else {
-                                //       return const Text("No address available");
-                                //     }
-                                //   },
-                                // ),
-                                BlocBuilder<AddressBloc, AddressState>(
-                              builder: (context, state) {
-                                if (state is AddressLoading) {
-                                  return const Text("Loading address...");
-                                } else if (state is AddressLoaded &&
-                                    state.addresses.isNotEmpty) {
-                                  // Get the primary address or fallback to first
-                                  // final address = state.addresses.firstWhere(
-                                  //   (addr) => addr.primary == true,
-                                  //   orElse: () => state.addresses.first,
-                                  // );
-                                  final address = state.addresses.first;
-                                  return Text(
-                                    "${address.houseNumber}, ${address.buildingName}, ${address.addressLineOne},\n"
-                                    "${address.nearbyLandmark}, ${address.city}, ${address.state}, ${address.zipCode}\n"
-                                    "Mobile: ${address.mobNum}, Alt: ${address.primarymob}\n"
-                                    "Email: ${address.emailAdd}, Type: ${address.addressType}",
-                                    style: AppTextStyle.caption2
-                                        .copyWith(color: AppColors.oliveGreen),
-                                  );
-                                } else if (state is AddressError) {
-                                  return Text(
-                                    "Failed to load address: ${state.message}",
-                                    style: const TextStyle(color: Colors.red),
-                                  );
-                                } else {
-                                  return const Text("No address available");
-                                }
-                              },
-                            ),
+                            //     //     BlocBuilder<AddressBloc, AddressState>(
+                            //     //   builder: (context, state) {
+                            //     //     if (state is AddressLoading) {
+                            //     //       return const Text("Loading address...");
+                            //     //     } else if (state is AddressLoaded &&
+                            //     //         state.addresses.isNotEmpty) {
+                            //     //       final address = state.addresses.first;
+                            //     //       return Text(
+                            //     //         "${address.houseNumber}, ${address.buildingName}, ${address.addressLineOne},\n"
+                            //     //         "${address.nearbyLandmark}, ${address.city}, ${address.state}, ${address.zipCode}",
+                            //     //         style: AppTextStyle.caption2
+                            //     //             .copyWith(color: AppColors.oliveGreen),
+                            //     //       );
+                            //     //     } else if (state is AddressError) {
+                            //     //       return Text(
+                            //     //         "Failed to load address: ${state.message}",
+                            //     //         style: TextStyle(color: Colors.red),
+                            //     //       );
+                            //     //     } else {
+                            //     //       return const Text("No address available");
+                            //     //     }
+                            //     //   },
+                            //     // ),
+                            //     BlocBuilder<AddressBloc, AddressState>(
+                            //   builder: (context, state) {
+                            //     if (state is AddressLoading) {
+                            //       return const Text("Loading address...");
+                            //     } else if (state is AddressLoaded &&
+                            //         state.addresses.isNotEmpty) {
+                            //       // Get the primary address or fallback to first
+                            //       // final address = state.addresses.firstWhere(
+                            //       //   (addr) => addr.primary == true,
+                            //       //   orElse: () => state.addresses.first,
+                            //       // );
+                            //       final address = state.addresses.first;
+                            //       return Text(
+                            //         "${address.houseNumber}, ${address.buildingName}, ${address.addressLineOne},\n"
+                            //         "${address.nearbyLandmark}, ${address.city}, ${address.state}, ${address.zipCode}\n"
+                            //         "Mobile: ${address.mobNum}, Alt: ${address.primarymob}\n"
+                            //         "Email: ${address.emailAdd}, Type: ${address.addressType}",
+                            //         style: AppTextStyle.caption2
+                            //             .copyWith(color: AppColors.oliveGreen),
+                            //       );
+                            //     } else if (state is AddressError) {
+                            //       return Text(
+                            //         "Failed to load address: ${state.message}",
+                            //         style: const TextStyle(color: Colors.red),
+                            //       );
+                            //     } else {
+                            //       return const Text("No address available");
+                            //     }
+                            //   },
+                            // ),
                           ),
                           IconButton(
                             onPressed: () =>
@@ -449,6 +448,7 @@ class _LocationEditManuallyScreenState
                             icon: SvgPicture.asset('assets/svgicons/edit.svg',
                                 width: 24,
                                 height: 24,
+                                // ignore: deprecated_member_use
                                 color: AppColors.primary),
                           ),
                         ],

@@ -15,6 +15,8 @@ import 'package:konkan_bite_food/features/address/data/repositories/add_repo_imp
 import 'package:konkan_bite_food/features/address/domain/repositories/add_repo.dart';
 import 'package:konkan_bite_food/features/address/domain/usecases/address_usecase.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
+import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
+import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -74,19 +76,21 @@ class MyApp extends StatelessWidget {
           )..add(AuthCheckEvent()),
         ),
         BlocProvider<AddressBloc>(
-            create: (context) => AddressBloc(
-                  secureStorage: secureStorage,
-                  repository: addressRepository,
-                  // fetchAddress: fetchAddress,
-                  // updateAddress: updateAddress,
-                  // deleteAddress: deleteAddress,
-                  addAddress: AddAddressUsecase(addressRepository),
-                  fetchAddress: FetchAddressUsecase(addressRepository),
-                  updateAddress: UpdateAddress(addressRepository),
-                  deleteAddress: DeleteAddress(addressRepository),
-                  addressUsecase: AddAddressUsecase(addressRepository),
-                  // addressUsecase: FetchAddressUsecase(addressRepository),
-                )),
+          create: (context) => AddressBloc(
+            secureStorage: secureStorage,
+            repository: addressRepository,
+            // fetchAddress: fetchAddress,
+            // updateAddress: updateAddress,
+            // deleteAddress: deleteAddress,
+            addAddress: AddAddressUsecase(addressRepository),
+            fetchAddress: FetchAddressUsecase(addressRepository),
+            updateAddress: UpdateAddress(addressRepository),
+            deleteAddress: DeleteAddress(addressRepository),
+            addressUsecase: AddAddressUsecase(addressRepository),
+            // addressUsecase: FetchAddressUsecase(addressRepository),
+          )..add(const FetchAddressesEvent()),
+          child: const LocationEditManuallyScreen(),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

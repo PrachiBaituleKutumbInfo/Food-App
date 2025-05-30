@@ -41,6 +41,7 @@ class CustomActionButton extends StatelessWidget {
       isEnable: isEnable,
       onPressed: onPressed,
       backgroundColor: AppColors.primary,
+      // ignore: deprecated_member_use
       disabledBackgroundColor: AppColors.primary.withOpacity(0.5),
       textColor: AppColors.white,
     );
@@ -89,8 +90,10 @@ class CustomActionButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: isEnable
               ? backgroundColor
+              // ignore: deprecated_member_use
               : (disabledBackgroundColor ?? backgroundColor.withOpacity(0.5)),
           disabledBackgroundColor:
+              // ignore: deprecated_member_use
               disabledBackgroundColor ?? backgroundColor.withOpacity(0.5),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

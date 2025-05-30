@@ -89,10 +89,12 @@ class CustomerSupportsScreen extends StatelessWidget {
               height: 1.5,
               decoration: BoxDecoration(
                 color:
+                    // ignore: deprecated_member_use
                     const Color.fromARGB(255, 139, 137, 137).withOpacity(0.5),
                 boxShadow: [
                   BoxShadow(
                     color: const Color.fromARGB(255, 139, 137, 137)
+                        // ignore: deprecated_member_use
                         .withOpacity(0.5),
                     blurRadius: 2,
                     offset: const Offset(0, 3),

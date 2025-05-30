@@ -43,7 +43,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
           ),
 
           const HeaderShadowDivider(), // Use the HeaderShadowDivider here
-          Expanded(
+          const Expanded(
             child: OrderCardList(
               orders: [
                 {

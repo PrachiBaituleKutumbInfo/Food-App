@@ -24,6 +24,7 @@ class HeaderShadowDivider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     final effectiveColor = color.withOpacity(opacity);
 
     return Container(

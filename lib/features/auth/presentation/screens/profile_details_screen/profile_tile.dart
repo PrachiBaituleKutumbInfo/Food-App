@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 
 class ProfileTile extends StatelessWidget {

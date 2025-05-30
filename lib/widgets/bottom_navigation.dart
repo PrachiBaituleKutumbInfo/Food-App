@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/custom_footer_divider.dart';
-import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
 
 class CustomBottomNavBar extends StatefulWidget {
   final int currentIndex;

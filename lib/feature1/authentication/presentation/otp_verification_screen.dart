@@ -576,15 +576,6 @@ import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 //third screen
 
-import 'dart:async';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter/services.dart';
-import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/feature1/authentication/presentation/auth_bloc/auth_bloc.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
-import 'package:konkan_bite_food/widgets/custom_button.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String? mobileNumber;
@@ -828,6 +819,7 @@ class OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                     fontWeight: FontWeight.bold,
                                     decoration: TextDecoration.underline,
                                     decorationThickness: 2.0,
+                                    // ignore: deprecated_member_use
                                     color: AppColors.deepNavy.withOpacity(0.5),
                                     height: 2,
                                   ),

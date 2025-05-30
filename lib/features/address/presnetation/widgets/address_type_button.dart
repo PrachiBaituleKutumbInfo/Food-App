@@ -29,6 +29,7 @@ class AddressTypeButton extends StatelessWidget {
                 assetPath,
                 width: 24,
                 height: 24,
+                // ignore: deprecated_member_use
                 color: isSelected ? AppColors.primary : AppColors.darkBlue,
               )
             : Icon(

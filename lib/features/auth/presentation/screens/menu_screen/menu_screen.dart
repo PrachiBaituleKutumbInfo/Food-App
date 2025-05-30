@@ -344,6 +344,7 @@ class _MenuScreenState extends State<MenuScreen> {
                 ? const Icon(Icons.close)
                 : SvgPicture.asset(
                     'assets/svgicons/Menu-icon.svg',
+                    // ignore: deprecated_member_use
                     color: AppColors.white,
                   ),
             label: Text(isOpen ? "Close" : "Menu"),

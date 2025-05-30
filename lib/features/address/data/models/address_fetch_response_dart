@@ -17,9 +17,10 @@ class AddressResponseModel  extends AddResponseEntity{
       responseStatus: json['responseStatus'] as String,
       responseCode: json['responseCode']  as String,
       responseMessage: json['responseMessage']  as String,
-      responseData: json['responseData']  as String,
-          // ? AddressResponseData.fromJson(json['responseData'])
-          // : null,
+      responseData: AddressResponseData.fromJson(json['responseData'] as String)
+      // responseData: json['responseData']  as String,
+      //     ? AddressResponseData.fromJson(json['responseData'])
+      //     : null,
     );
   }
 

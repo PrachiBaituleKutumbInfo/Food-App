@@ -4,8 +4,6 @@ import 'package:konkan_bite_food/feature1/authentication/presentation/auth_scree
 import 'package:konkan_bite_food/features/address/presnetation/address_details_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_access_screen.dart';
 import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
-import 'package:konkan_bite_food/features/auth/login_screen.dart';
-import 'package:konkan_bite_food/features/auth/otp_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_place_bsheet.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';

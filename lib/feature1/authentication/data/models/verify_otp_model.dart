@@ -1,17 +1,12 @@
 import 'package:konkan_bite_food/feature1/authentication/domain/entities/verify_otp_entity.dart';
 
 class VerifyOtpModel extends VerifyOtpEntity {
-  VerifyOtpModel({
-    required String responseStatus,
-    required String responseCode,
-    required String responseMessage,
-    required String token,
-  }) : super(
-          responseStatus: responseStatus,
-          responseCode: responseCode,
-          responseMessage: responseMessage,
-          token: token,
-        );
+  const VerifyOtpModel({
+    required super.responseStatus,
+    required super.responseCode,
+    required super.responseMessage,
+    required super.token,
+  });
 
   factory VerifyOtpModel.fromJson(Map<String, dynamic> json) {
     final responseData = json['responseData'] as List<dynamic>;
