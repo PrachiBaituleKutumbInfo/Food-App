@@ -1,5 +1,6 @@
+import 'package:konkan_bite_food/features/address/domain/entities/address_entity.dart';
+
 import 'package:equatable/equatable.dart';
-import '../../domain/entities/address_entity.dart';
 
 abstract class AddressState extends Equatable {
   const AddressState();
@@ -13,7 +14,7 @@ class AddressInitial extends AddressState {}
 class AddressLoading extends AddressState {}
 
 class AddressLoaded extends AddressState {
-  final List<AddressEntity> addresses;
+  final AddressEntity addresses;
 
   const AddressLoaded(this.addresses);
 
@@ -21,17 +22,12 @@ class AddressLoaded extends AddressState {
   List<Object?> get props => [addresses];
 }
 
+class AddressOperationSuccess extends AddressState {
+  const AddressOperationSuccess();
 
-// class AddressOperationSuccess extends AddressState {
-//   final AddressEntity address;
-
-//   const AddressOperationSuccess(this.address);
-
-//   @override
-//   List<Object?> get props => [address];
-// }
-
-class AddressOperationSuccess extends AddressState {}
+  @override
+  List<Object?> get props => [];
+}
 
 class AddressError extends AddressState {
   final String message;

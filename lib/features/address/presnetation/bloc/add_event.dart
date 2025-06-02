@@ -17,15 +17,6 @@ class FetchAddressesEvent extends AddressEvent {
   List<Object?> get props => [];
 }
 
-
-// class FetchAddressesEvent extends AddressEvent {
-//   final AddressEntity address;
-//   const FetchAddressesEvent(this.address);
-
-//   @override
-//   List<Object?> get props => [address];
-// }
-
 class AddAddressEvent extends AddressEvent {
   final AddressEntity address;
 

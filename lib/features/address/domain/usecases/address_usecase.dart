@@ -17,7 +17,7 @@ class FetchAddressUsecase {
 
   FetchAddressUsecase(this.repo);
 
-  ResultFuture<List<AddressEntity>> call() => repo.fetchAddress();
+  ResultFuture<AddressEntity> call() => repo.fetchAddress();
 }
 
 class UpdateAddress {

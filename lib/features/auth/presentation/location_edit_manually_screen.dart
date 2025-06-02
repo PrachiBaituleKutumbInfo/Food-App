@@ -363,30 +363,73 @@ class _LocationEditManuallyScreenState
                         children: [
                           Expanded(
                             child:
-                                    BlocBuilder<AddressBloc, AddressState>(
-                                  builder: (context, state) {
-                                    if (state is AddressLoading) {
-                                      return const Center(
-                                          child: CircularProgressIndicator());
-                                    } else if (state is AddressLoaded) {
-                                      final addresses = state.addresses;
-                                      return ListView.builder(
-                                        itemCount: addresses.length,
-                                        itemBuilder: (context, index) {
-                                          final address = addresses[index];
-                                          return ListTile(
-                                            title: Text(address.houseNumber ?? ''),
-                                            subtitle: Text(address.city ?? ''),
-                                          );
-                                        },
-                                      );
-                                    } else if (state is AddressError) {
-                                      return Center(
-                                          child: Text("Error: ${state.message}"));
-                                    }
-                                    return const SizedBox();
-                                  },
-                                )
+                            BlocBuilder<AddressBloc, AddressState>(
+  builder: (context, state) {
+    if (state is AddressLoading) {
+      return const Center(child: CircularProgressIndicator());
+    } else if (state is AddressLoaded) {
+      final addresses = state.addresses;
+
+      // if (addresses.isEmpty) {
+      //   return const Text("No addresses found.");
+      // }
+
+      // final address = addresses.first; // show only one for now
+
+      return Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(addresses.houseNumber ?? '', style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
+                const SizedBox(height: 4),
+                Text(addresses.city ?? '', style: const TextStyle(color: Colors.grey)),
+              ],
+            ),
+          ),
+          IconButton(
+            onPressed: () => showAddressDetailsBottomSheet(context),
+            icon: SvgPicture.asset(
+              'assets/svgicons/edit.svg',
+              width: 24,
+              height: 24,
+              color: AppColors.primary,
+            ),
+          ),
+        ],
+      );
+    } else if (state is AddressError) {
+      return Center(child: Text("Error: ${state.message}"));
+    }
+    return const SizedBox(); // Default state
+  },
+),
+
+                                //     BlocBuilder<AddressBloc, AddressState>(
+                                //   builder: (context, state) {
+                                //     if (state is AddressLoading) {
+                                //       return const Center(
+                                //           child: CircularProgressIndicator());
+                                //     } else if (state is AddressLoaded) {
+                                //       final addresses = state.addresses;
+                                //       return ListView.builder(
+                                //         itemCount: addresses.length,
+                                //         itemBuilder: (context, index) {
+                                //           final address = addresses[index];
+                                //           return ListTile(
+                                //             title: Text(address.houseNumber ?? ''),
+                                //             subtitle: Text(address.city ?? ''),
+                                //           );
+                                //         },
+                                //       );
+                                //     } else if (state is AddressError) {
+                                //       return Center(
+                                //           child: Text("Error: ${state.message}"));
+                                //     }
+                                //     return const SizedBox();
+                                //   },
+                                // )
 
                             //     //     BlocBuilder<AddressBloc, AddressState>(
                             //     //   builder: (context, state) {

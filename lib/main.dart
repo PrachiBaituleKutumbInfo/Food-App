@@ -77,8 +77,8 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider<AddressBloc>(
           create: (context) => AddressBloc(
-            secureStorage: secureStorage,
-            repository: addressRepository,
+            // secureStorage: secureStorage,
+            // repository: addressRepository,
             // fetchAddress: fetchAddress,
             // updateAddress: updateAddress,
             // deleteAddress: deleteAddress,
@@ -86,7 +86,7 @@ class MyApp extends StatelessWidget {
             fetchAddress: FetchAddressUsecase(addressRepository),
             updateAddress: UpdateAddress(addressRepository),
             deleteAddress: DeleteAddress(addressRepository),
-            addressUsecase: AddAddressUsecase(addressRepository),
+            // addressUsecase: AddAddressUsecase(addressRepository),
             // addressUsecase: FetchAddressUsecase(addressRepository),
           )..add(const FetchAddressesEvent()),
           child: const LocationEditManuallyScreen(),

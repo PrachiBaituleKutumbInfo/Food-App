@@ -37,7 +37,6 @@ class AddressEntity {
     this.isPrimary,
   });
 
-String get fullAddress =>
-    "$houseNumber, $buildingName, $addressLineOne, $nearbyLandmark, $city, $state, $zipCode";
-
+  String get fullAddress =>
+      "$houseNumber, $buildingName, $addressLineOne, $nearbyLandmark, $city, $state, $zipCode";
 }

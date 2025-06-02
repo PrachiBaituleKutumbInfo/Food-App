@@ -11,22 +11,43 @@ class AddressRepoImpl implements AddressRepository {
 
   const AddressRepoImpl(this._remoteDataSource);
 
-  @override
-  Future<Either<Failure, List<AddressEntity>>> fetchAddress() async {
-    try {
-      final result = await _remoteDataSource.fetchAddress();
-      return Right(result);
-    } on APIException catch (e) {
-      return Left(ApiFailure.fromException(e));
-    } catch (e) {
-      return Left(Failure(message: 'Unexpected error: $e', statusCode: 0));
-    }
+
+
+@override
+Future<Either<Failure, AddressEntity>> fetchAddress() async {
+  try {
+    final result = await _remoteDataSource.fetchAddress(); // result is AddressModel
+    final entity = result.toEntity(); // convert to AddressEntity
+    return Right(entity);
+  } on APIException catch (e) {
+    print('APIException: ${e.message}');
+    return Left(ApiFailure.fromException(e));
+  } catch (e) {
+    print('Unexpected Error: $e');
+    return Left(Failure(message: 'Unexpected error: $e', statusCode: 0));
   }
+}
+
+
+
+  // Future<Either<Failure, AddressEntity>>fetchAddress() async {
+  //   try {
+  //     final result = await _remoteDataSource.fetchAddress();
+  //     final entities = result.map((model) => model.toEntity()).toList();
+  //     return Right(entities);
+  //   } on APIException catch (e) {
+  //     print('APIException: ${e.message}');
+  //     return Left(ApiFailure.fromException(e));
+  //   } catch (e) {
+  //     print('Unexpected Error: $e');
+  //     return Left(Failure(message: 'Unexpected error: $e', statusCode: 0));
+  //   }
+  // }
 
   @override
   Future<Either<Failure, void>> addAddress(AddressEntity address) async {
     try {
-      final model = AddressModel.fromJson(_addressEntityToJson(address));
+      final model = AddressModel.fromEntity(address);
       await _remoteDataSource.addAddress(model);
       return const Right(null);
     } on APIException catch (e) {
@@ -39,7 +60,7 @@ class AddressRepoImpl implements AddressRepository {
   @override
   Future<Either<Failure, void>> updateAddress(AddressEntity address) async {
     try {
-      final model = AddressModel.fromJson(_addressEntityToJson(address));
+      final model = AddressModel.fromEntity(address);
       await _remoteDataSource.updateAddress(model);
       return const Right(null);
     } on APIException catch (e) {
@@ -59,27 +80,5 @@ class AddressRepoImpl implements AddressRepository {
     } catch (e) {
       return Left(Failure(message: 'Unexpected error: $e', statusCode: 0));
     }
-  }
-
-  Map<String, dynamic> _addressEntityToJson(AddressEntity address) {
-    return {
-      'id': address.id,
-      'houseNumber': address.houseNumber,
-      'buildingName': address.buildingName,
-      'addressLineOne': address.addressLineOne,
-      'nearbyLandmark': address.nearbyLandmark,
-      'city': address.city,
-      'state': address.state,
-      'zipCode': address.zipCode,
-      'country': address.country,
-      'urName': address.urName,
-      'mobNum': address.mobNum,
-      'addressType': address.addressType,
-      'storedate': address.storedate,
-      'userId': address.userId,
-      'primarymob': address.primarymob,
-      'emailAdd': address.emailAdd,
-      'primary': address.isPrimary,
-    };
   }
 }

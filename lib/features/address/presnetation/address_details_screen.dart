@@ -259,10 +259,10 @@ String getNormalizedAddressType(String type) {
                         );
 
                         context
-                            .read<AddressBloc>()
-                            .add(AddAddressEvent(address
-                              // address: enterAddress
-                              ));
+    .read<AddressBloc>()
+    .add(AddAddressEvent(address.toEntity()));
+    
+
 
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
