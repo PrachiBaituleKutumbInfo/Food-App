@@ -1,37 +1,38 @@
 
 
-import 'package:konkan_bite_food/core1/utils/typedef.dart';
-import 'package:konkan_bite_food/features/address/domain/entities/address_entity.dart';
-import 'package:konkan_bite_food/features/address/domain/repositories/add_repo.dart';
+// import 'package:konkan_bite_food/core1/utils/typedef.dart';
+// import 'package:konkan_bite_food/features/address/data/repositories/add_repo_impl.dart';
+// import 'package:konkan_bite_food/features/address/domain/entities/address_entity.dart';
+// import 'package:konkan_bite_food/features/address/domain/repositories/add_repo.dart';
 
-class AddAddressUsecase {
-  final AddressRepository repo;
+// class AddAddressUsecase {
+//   final AddressRepository repo;
 
-  AddAddressUsecase(this.repo);
+//   AddAddressUsecase(this.repo);
 
-  ResultFuture<void> call(AddressEntity address) => repo.addAddress(address);
-}
+//   ResultFuture<void> call(AddressEntity address) => repo.addAddress(address);
+// }
 
-class FetchAddressUsecase {
-  final AddressRepository repo;
+// class FetchAddressUsecase {
+//   final AddressRepository repo;
 
-  FetchAddressUsecase(this.repo);
+//   FetchAddressUsecase(this.repo);
 
-  ResultFuture<AddressEntity> call() => repo.fetchAddress();
-}
+//   ResultFuture<AddressEntity> call() => repo.fetchAddress();
+// }
 
-class UpdateAddress {
-  final AddressRepository repo;
+// class UpdateAddress {
+//   final AddressRepository repo;
 
-  UpdateAddress(this.repo);
+//   UpdateAddress(this.repo);
 
-  ResultFuture<void> call(AddressEntity address) => repo.updateAddress(address);
-}
+//   ResultFuture<void> call(AddressEntity address) => repo.updateAddress(address);
+// }
 
-class DeleteAddress {
-  final AddressRepository repo;
+// class DeleteAddress {
+//   final AddressRepository repo;
 
-  DeleteAddress(this.repo);
+//   DeleteAddress(this.repo);
 
-  ResultFuture<void> call(String id) => repo.deleteAddress(id);
-}
+//   ResultFuture<void> call(String id) => repo.deleteAddress(id);
+// }

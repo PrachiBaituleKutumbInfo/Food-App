@@ -11,12 +11,7 @@ import 'package:konkan_bite_food/feature1/authentication/domain/repositories/aut
 import 'package:konkan_bite_food/feature1/authentication/domain/usecases/verify_otp_usecase.dart';
 import 'package:konkan_bite_food/feature1/authentication/presentation/auth_bloc/auth_bloc.dart';
 import 'package:konkan_bite_food/features/address/data/datasource/add_remote_data_source.dart';
-import 'package:konkan_bite_food/features/address/data/repositories/add_repo_impl.dart';
-import 'package:konkan_bite_food/features/address/domain/repositories/add_repo.dart';
-import 'package:konkan_bite_food/features/address/domain/usecases/address_usecase.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
-import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
-import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,9 +30,10 @@ void main() async {
 
   final authRemoteDataSource = AuthRemoteDataSourceImpl(httpService);
   final authRepository = AuthRepoImpl(authRemoteDataSource);
+  final AddressRepository addressRepository = AddressRepository(httpService);
   // final addAddress = AddressRepoImpl(AddressRemoteDataSource);
-  final addressRemoteDataSource = AddressRemoteDataSourceImpl(httpService);
-  final addressRepository = AddressRepoImpl(addressRemoteDataSource);
+  // final addressRemoteDataSource = AddressRemoteDataSourceImpl(httpService);
+  // final addressRepository = AddressRepoImpl(addressRemoteDataSource);
 
   runApp(MyApp(
     secureStorage: secureStorage,
@@ -75,22 +71,25 @@ class MyApp extends StatelessWidget {
             verifyOtpUsecase: VerifyOtpUsecase(authRepository),
           )..add(AuthCheckEvent()),
         ),
-        BlocProvider<AddressBloc>(
-          create: (context) => AddressBloc(
-            // secureStorage: secureStorage,
-            // repository: addressRepository,
-            // fetchAddress: fetchAddress,
-            // updateAddress: updateAddress,
-            // deleteAddress: deleteAddress,
-            addAddress: AddAddressUsecase(addressRepository),
-            fetchAddress: FetchAddressUsecase(addressRepository),
-            updateAddress: UpdateAddress(addressRepository),
-            deleteAddress: DeleteAddress(addressRepository),
-            // addressUsecase: AddAddressUsecase(addressRepository),
-            // addressUsecase: FetchAddressUsecase(addressRepository),
-          )..add(const FetchAddressesEvent()),
-          child: const LocationEditManuallyScreen(),
+        BlocProvider(
+          create: (_) => AddressBloc(addressRepository),
         ),
+        // BlocProvider<AddressBloc>(
+        //   create: (context) => AddressBloc(
+        // secureStorage: secureStorage,
+        // repository: addressRepository,
+        // fetchAddress: fetchAddress,
+        // updateAddress: updateAddress,
+        // deleteAddress: deleteAddress,
+        // addAddress: AddAddressUsecase(addressRepository),
+        // fetchAddress: FetchAddressUsecase(addressRepository),
+        // updateAddress: UpdateAddress(addressRepository),
+        // deleteAddress: DeleteAddress(addressRepository),
+        // addressUsecase: AddAddressUsecase(addressRepository),
+        // addressUsecase: FetchAddressUsecase(addressRepository),
+        // )..add( FetchAddresses()),
+        // child: const LocationEditManuallyScreen(),
+        // ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

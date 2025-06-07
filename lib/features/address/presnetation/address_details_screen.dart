@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:konkan_bite_food/features/address/data/models/address_fetch_response.dart';
 import 'package:konkan_bite_food/features/address/data/models/address_models.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
@@ -240,7 +241,7 @@ String getNormalizedAddressType(String type) {
                     isEnable: true,
                     onPressed: () {
                       if (_formIsValid()) {
-                        final address = AddressModel(
+                        final address = Address(
                           houseNumber: houseNumberController.text,
                           buildingName: buildingNameController.text,
                           addressLineOne: addressLineController.text,
@@ -257,10 +258,11 @@ String getNormalizedAddressType(String type) {
                           primarymob: mobileController.text,
                           emailAdd: 'test@example.com',
                         );
+                        context.read<AddressBloc>().add(AddAddress(address));
 
-                        context
-    .read<AddressBloc>()
-    .add(AddAddressEvent(address.toEntity()));
+    //                     context
+    // .read<AddressBloc>()
+    // .add(AddAddress(address()));
     
 
 
