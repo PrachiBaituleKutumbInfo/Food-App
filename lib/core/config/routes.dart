@@ -7,7 +7,7 @@ import 'package:konkan_bite_food/features/auth/location_selection_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/cart_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_place_bsheet.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
-import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/features/address/presnetation/location_edit_manually_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_tracking_Map_Screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/paymnet_screen/payment_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/profile_details_screen/edit_personal_info_screen.dart';

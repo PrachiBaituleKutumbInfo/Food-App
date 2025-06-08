@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:konkan_bite_food/features/address/data/models/address_fetch_response.dart';
-import 'package:konkan_bite_food/features/address/data/models/address_models.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
 import 'package:konkan_bite_food/features/address/presnetation/widgets/address_type_button.dart';
 import 'package:konkan_bite_food/features/address/presnetation/widgets/app_radio_button.dart';
 import 'package:konkan_bite_food/features/address/presnetation/widgets/address_custom_textfield.dart';
+import 'package:konkan_bite_food/features/address/presnetation/location_edit_manually_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
@@ -63,18 +63,18 @@ class _AddressDetailsBottomSheetState extends State<AddressDetailsBottomSheet> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController mobileController = TextEditingController();
 
-@override
-void dispose() {
-  houseNumberController.dispose();
-  buildingNameController.dispose();
-  addressLineController.dispose();
-  landmarkController.dispose();
-  nameController.dispose();
-  mobileController.dispose();
-  super.dispose();
-}
+  @override
+  void dispose() {
+    houseNumberController.dispose();
+    buildingNameController.dispose();
+    addressLineController.dispose();
+    landmarkController.dispose();
+    nameController.dispose();
+    mobileController.dispose();
+    super.dispose();
+  }
 
-String getNormalizedAddressType(String type) {
+  String getNormalizedAddressType(String type) {
     switch (type.toLowerCase()) {
       case 'home':
         return 'HOME';
@@ -136,30 +136,6 @@ String getNormalizedAddressType(String type) {
                         );
                       }).toList(),
                     )
-
-                    // Row(
-                    //   children: [
-                    //     CustomRadioButton(
-                    //       title: "Myself",
-                    //       isSelected: selectedPerson == "Myself",
-                    //       onTap: () {
-                    //         setState(() {
-                    //           selectedPerson = "Myself";
-                    //         });
-                    //       },
-                    //     ),
-                    //     const SizedBox(width: 20),
-                    //     CustomRadioButton(
-                    //       title: "For someone else",
-                    //       isSelected: selectedPerson == "For someone else",
-                    //       onTap: () {
-                    //         setState(() {
-                    //           selectedPerson = "For someone else";
-                    //         });
-                    //       },
-                    //     ),
-                    //   ],
-                    // ),
                   ],
                 ),
                 const SizedBox(height: 10),
@@ -260,12 +236,6 @@ String getNormalizedAddressType(String type) {
                         );
                         context.read<AddressBloc>().add(AddAddress(address));
 
-    //                     context
-    // .read<AddressBloc>()
-    // .add(AddAddress(address()));
-    
-
-
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                               content: Text("Address saved successfully")),
@@ -273,7 +243,17 @@ String getNormalizedAddressType(String type) {
 
                         print(
                             "✅ Saved Address: ${address.toJson()}"); // Ensure you have toJson()
-                        Navigator.pop(context); // optional: close bottom sheet
+                        // Navigator.pop(context); // optional: close bottom sheet
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => BlocProvider.value(
+                              value: context.read<AddressBloc>()
+                                ..add(FetchAddresses()), // 🔁 Fetch on redirect
+                              child: const LocationEditManuallyScreen(),
+                            ),
+                          ),
+                        );
                       }
                     })
               ],

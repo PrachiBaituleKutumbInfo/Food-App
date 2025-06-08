@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/core/config/routes.dart';
-import 'package:konkan_bite_food/features/auth/presentation/location_edit_manually_screen.dart';
+import 'package:konkan_bite_food/features/address/presnetation/location_edit_manually_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
