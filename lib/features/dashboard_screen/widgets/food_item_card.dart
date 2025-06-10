@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/quanity_counter_button.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/widgets/food_category_item.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/widgets/food_category_item.dart';
 
 class FoodItemCard extends StatelessWidget {
   final String image;

@@ -12,6 +12,9 @@ import 'package:konkan_bite_food/feature1/authentication/domain/usecases/verify_
 import 'package:konkan_bite_food/feature1/authentication/presentation/auth_bloc/auth_bloc.dart';
 import 'package:konkan_bite_food/features/address/data/datasource/add_remote_data_source.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.bloc.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.event.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/datasource/datasource.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,18 +33,14 @@ void main() async {
 
   final authRemoteDataSource = AuthRemoteDataSourceImpl(httpService);
   final authRepository = AuthRepoImpl(authRemoteDataSource);
-  final AddressRepository addressRepository = AddressRepository(httpService);
-  // final addAddress = AddressRepoImpl(AddressRemoteDataSource);
-  // final addressRemoteDataSource = AddressRemoteDataSourceImpl(httpService);
-  // final addressRepository = AddressRepoImpl(addressRemoteDataSource);
+  final addressRepository = AddressRepository(httpService);
+  final dashboardApiService = DashboardApiService(httpService);
 
   runApp(MyApp(
     secureStorage: secureStorage,
     authRepository: authRepository,
     addressRepository: addressRepository,
-    // fetchAddresses: fetchAddress,
-    // updateAddress: updateAddress,
-    // deleteAddress: delateAddress
+    dashboardApiService: dashboardApiService,
   ));
 }
 
@@ -49,15 +48,14 @@ class MyApp extends StatelessWidget {
   final SecureStorageService secureStorage;
   final AuthenticationRepository authRepository;
   final AddressRepository addressRepository;
-  // final AddAddress fetchAddress;
-  // final AddAddress updateAddress;
-  // final AddAddress deleteAddress;
+  final DashboardApiService dashboardApiService;
 
   const MyApp({
     super.key,
     required this.secureStorage,
     required this.authRepository,
     required this.addressRepository,
+    required this.dashboardApiService,
   });
 
   @override
@@ -74,22 +72,10 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => AddressBloc(addressRepository),
         ),
-        // BlocProvider<AddressBloc>(
-        //   create: (context) => AddressBloc(
-        // secureStorage: secureStorage,
-        // repository: addressRepository,
-        // fetchAddress: fetchAddress,
-        // updateAddress: updateAddress,
-        // deleteAddress: deleteAddress,
-        // addAddress: AddAddressUsecase(addressRepository),
-        // fetchAddress: FetchAddressUsecase(addressRepository),
-        // updateAddress: UpdateAddress(addressRepository),
-        // deleteAddress: DeleteAddress(addressRepository),
-        // addressUsecase: AddAddressUsecase(addressRepository),
-        // addressUsecase: FetchAddressUsecase(addressRepository),
-        // )..add( FetchAddresses()),
-        // child: const LocationEditManuallyScreen(),
-        // ),
+        BlocProvider(
+          create: (_) =>
+              HomeBloc(dashboardApiService)..add(FetchDashboardData()),
+        ),
       ],
       child: const MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:konkan_bite_food/features/auth/presentation/screens/dashboard_screen/dashboard_home_screen.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/dashboard_home_screen.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeText.dart';
 import 'package:konkan_bite_food/widgets/circular_back_button.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';

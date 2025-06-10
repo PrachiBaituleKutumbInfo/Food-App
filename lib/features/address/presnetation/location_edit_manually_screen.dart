@@ -7,6 +7,8 @@ import 'package:konkan_bite_food/features/address/presnetation/bloc/add_bloc.dar
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_event.dart';
 import 'package:konkan_bite_food/features/address/presnetation/bloc/add_state.dart';
 import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.bloc.dart';
+import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.state.dart';
 import 'package:konkan_bite_food/widgets/Info_warning_widget.dart';
 import 'package:konkan_bite_food/widgets/custom_button.dart';
 
@@ -156,13 +158,17 @@ class _LocationEditManuallyScreenState
                         icon: Icons.error_outline,
                       ),
                       const SizedBox(height: 16),
-                      CustomActionButton.orangeFilled(
-                        text: "USE CURRENT LOCATION",
-                        isEnable: isEnable,
-                        onPressed: () {
-                          Navigator.pushNamed(
-                              context, Routes.dashboardhomeRoute);
-                        },
+                      BlocBuilder<HomeBloc, HomeState>(
+                        builder: (context, state) {
+                        return CustomActionButton.orangeFilled(
+                          text: "USE CURRENT LOCATION",
+                          isEnable: isEnable,
+                          onPressed: () {
+                            Navigator.pushNamed(
+                                context, Routes.dashboardhomeRoute);
+                          },
+                        );
+                        }
                       ),
                     ],
                   ),

@@ -13,7 +13,7 @@ import 'package:konkan_bite_food/widgets/custom_footer_divider.dart';
 import 'package:konkan_bite_food/widgets/custom_header_divider.dart';
 import 'package:konkan_bite_food/widgets/custom_header_title.dart';
 import 'package:konkan_bite_food/widgets/quanity_counter_button.dart';
-import '../dashboard_screen/dashboard_home_screen.dart';
+import '../../../../dashboard_screen/dashboard_home_screen.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
