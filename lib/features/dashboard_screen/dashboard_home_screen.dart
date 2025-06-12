@@ -4,14 +4,12 @@ import 'package:konkan_bite_food/features/auth/presentation/screens/cart_screen/
 import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.bloc.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.event.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/bloc/home.state.dart';
-import 'package:konkan_bite_food/features/dashboard_screen/datasource/datasource.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/model/model.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/widgets/deliver_to.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/widgets/food_item_card.dart';
 import 'package:konkan_bite_food/features/dashboard_screen/widgets/section_title.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/menu_screen/menu_screen.dart';
 import 'package:konkan_bite_food/features/auth/presentation/screens/order_history_screen/order_history_screen.dart';
-import 'package:konkan_bite_food/features/auth/theme/themeColor.dart';
 import 'package:konkan_bite_food/widgets/bottom_navigation.dart';
 
 class DashboardHomeScreen extends StatefulWidget {
@@ -222,94 +220,130 @@ class DashboardHomeScreenState extends State<DashboardHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(builder: (ctx, state) {
-      if (state is HomeLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      if (state is HomeError) return Center(child: Text(state.message));
-      if (state is HomeLoaded) {
-        return Scaffold(
-          backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                const DeliveryAddressSection(),
-                const SizedBox(height: 30),
-                const Align(
-                    child:
-                        Text("Hey Deven,", style: TextStyle(fontSize: 20))),
-                const Align(
-                    child: Text(" Good Afternoon!",
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (ctx, state) {
+        if (state is HomeLoading) {
+          return const Center(child: CircularProgressIndicator());
+        }
+
+        if (state is HomeLoaded) {
+          return Scaffold(
+            backgroundColor: Colors.white,
+            body: SingleChildScrollView(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 40),
+                  const DeliveryAddressSection(),
+                  const SizedBox(height: 30),
+
+                  // Greetings
+                  const Row(
+                      // alignment: Alignment.centerLeft,
+                      children:[
+                          Text("Hey Deven,", style: TextStyle(fontSize: 20)),
+                          SizedBox(width: 5),
+                          Text(
+                        "Good Afternoon!",
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 22))),
-                const SizedBox(height: 20),
-                Image.asset('assets/images/Image.png',
-                    width: double.infinity, height: 150, fit: BoxFit.contain),
-                const SizedBox(height: 10),
-                const SectionTitle(title: 'Popular'),
-                ...state.sections.map((section) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SectionTitle(title: "Section ${section.popmenuId}"),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          crossAxisSpacing: 20,
-                          mainAxisSpacing: 15,
-                          childAspectRatio: 0.80,
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      )]),
+                  // const Align(
+                  //     alignment: Alignment.centerLeft,
+                  //     child: Text(
+                  //       "Good Afternoon!",
+                  //       style: TextStyle(
+                  //           fontWeight: FontWeight.bold, fontSize: 20),
+                  //     )),
+                  const SizedBox(height: 20),
+
+                  // const SectionTitle(title: 'Popular'),
+
+                  // Sections
+                  ...state.sections.map((section) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // Poster Image from API
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(12),
+                          child: Image.network(
+                            section.posterImg,
+                            width: double.infinity,
+                            height: 150,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                Image.asset('assets/images/fallback-banner.png',
+                                    height: 150, fit: BoxFit.cover),
+                          ),
                         ),
-                        itemCount: section.items.length,
-                        itemBuilder: (_, i) {
-                          final item = section.items[i];
-                          final inCart = state.cart.firstWhere(
+                        const SizedBox(height: 10),
+                        SectionTitle(title: "Title ${section.popmenuId}"),
+
+                        GridView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 15,
+                            childAspectRatio: 0.80,
+                          ),
+                          itemCount: section.items.length,
+                          itemBuilder: (_, i) {
+                            final item = section.items[i];
+                            final inCart = state.cart.firstWhere(
                               (c) => c.id == item.id,
                               orElse: () => FoodItem(
-                                  id: 0,
-                                  name: '',
-                                  description: '',
-                                  image: '',
-                                  price: 0,
-                                  veg: false));
-                          return FoodItemCard(
-                            image: item.image,
-                            title: item.name,
-                            subtitle: item.description,
-                            price: "₹${item.price.toInt()}",
-                            category: item.veg ? "veg" : "non-veg",
-                            quantity:
-                                inCart.id == item.id ? inCart.quantity : 0,
-                            onAdd: () => ctx
-                                .read<HomeBloc>()
-                                .add(AddToCartEvent(item)),
-                            onRemove: () => ctx
-                                .read<HomeBloc>()
-                                .add(RemoveFromCartEvent(item)),
-                          );
-                        },
-                      ),
-                      const SizedBox(height: 20),
-                    ],
-                  );
-                }).toList(),
-              ],
+                                id: 0,
+                                name: '',
+                                description: '',
+                                image: '',
+                                price: 0,
+                                veg: false,
+                              ),
+                            );
+                            return FoodItemCard(
+                              image: item.image,
+                              title: item.name,
+                              subtitle: item.description,
+                              price: "₹${item.price.toInt()}",
+                              category: item.veg ? "veg" : "non-veg",
+                              quantity:
+                                  inCart.id == item.id ? inCart.quantity : 0,
+                              onAdd: () => ctx
+                                  .read<HomeBloc>()
+                                  .add(AddToCartEvent(item)),
+                              onRemove: () => ctx
+                                  .read<HomeBloc>()
+                                  .add(RemoveFromCartEvent(item)),
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    );
+                  }).toList(),
+                ],
+              ),
             ),
-          ),
-    
-          /// **Bottom Navigation Bar**
-          bottomNavigationBar: CustomBottomNavBar(
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-          ),
-        );
-      }
-    
-      return const SizedBox();
-    });
+
+            // Bottom Navigation
+            bottomNavigationBar: CustomBottomNavBar(
+              currentIndex: _selectedIndex,
+              onTap: _onItemTapped,
+            ),
+          );
+        }
+
+        if (state is HomeError) {
+          return Center(child: Text(state.message));
+        }
+
+        return const SizedBox(); // Fallback
+      },
+    );
   }
 }

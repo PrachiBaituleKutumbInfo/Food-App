@@ -63,9 +63,8 @@ abstract class AddRemoteDataSource {
 }
 
 class AddressRepository implements AddRemoteDataSource {
-  const AddressRepository(this._httpService);
-
   final HttpService _httpService;
+  const AddressRepository(this._httpService);
 
   @override
   Future<List<Address>> fetchAddresses() async {

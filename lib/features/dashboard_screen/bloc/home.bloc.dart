@@ -51,12 +51,12 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 }
 
-// internal events:
-class _AddToCartEvent {
-  final FoodItem item;
-  _AddToCartEvent(this.item);
-}
-class _RemoveFromCartEvent {
-  final FoodItem item;
-  _RemoveFromCartEvent(this.item);
-}
+// // internal events:
+// class _AddToCartEvent {
+//   final FoodItem item;
+//   _AddToCartEvent(this.item);
+// }
+// class _RemoveFromCartEvent {
+//   final FoodItem item;
+//   _RemoveFromCartEvent(this.item);
+// }
